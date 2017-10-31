@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage
+    x:Class="GoodiesMarket.App.Views.BuyerMasterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <MasterDetailPage.Master>
+        <ContentPage Title="Master">
+            <ContentPage.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".45*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid
+                        BackgroundColor="{StaticResource Key=PrimaryColor}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".5*" />
+                            <ColumnDefinition Width=".5*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Image Margin="10,5" Source="{Binding Path=ProfilePicture, Mode=OneWay}" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Style="{StaticResource Key=ProfileMasterText}"
+                            Text="{Binding Path=Username, Mode=OneWay}" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            Style="{StaticResource Key=ProfileMasterSubText}"
+                            Text="{Binding Path=Email, Mode=OneWay}" />
+                    </Grid>
+                    <ListView
+                        Grid.Row="1"
+                        ItemsSource="{Binding Path=Menu}"
+                        SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
+                        Style="{StaticResource Key=Menu}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image Source="{Binding Path=Icon}" Style="{StaticResource Key=MenuIcon}" />
+                                            <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Text}" />
+                                        </StackLayout>
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </ContentPage.Content>
+        </ContentPage>
+    </MasterDetailPage.Master>
+
+</MasterDetailPage>

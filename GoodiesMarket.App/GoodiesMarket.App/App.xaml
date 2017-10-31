@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication
+    x:Class="GoodiesMarket.App.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="clr-namespace:Prism.Ninject;assembly=Prism.Ninject.Forms">
+    <prism:PrismApplication.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="TitleFontSize">24</x:Double>
+            <x:Double x:Key="SubtitleFontSize">18</x:Double>
+            <Color x:Key="DarkPrimaryColor">#1976D2</Color>
+            <Color x:Key="LightPrimaryColor">#BBDEFB</Color>
+            <Color x:Key="PrimaryColor">#2196F3</Color>
+            <Color x:Key="AccentColor">#607D8B</Color>
+            <Color x:Key="DefaultTextColor">#FFFFFF</Color>
+            <Color x:Key="PrimaryTextColor">#212121</Color>
+            <Color x:Key="SecondaryTextColor">#757575</Color>
+            <Color x:Key="DividerColor">#BDBDBD</Color>
+
+            <Style x:Key="ProfileMasterText" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource Key=DefaultTextColor}" />
+                <Setter Property="FontSize" Value="{DynamicResource Key=TitleFontSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="10,0,0,0" />
+            </Style>
+            <Style
+                x:Key="ProfileMasterSubText"
+                BasedOn="{StaticResource Key=ProfileMasterText}"
+                TargetType="Label">
+                <Setter Property="FontAttributes" Value="None" />
+                <Setter Property="FontSize" Value="{DynamicResource Key=SubtitleFontSize}" />
+            </Style>
+            <Style
+                x:Key="MenuItemText"
+                BasedOn="{StaticResource Key=ProfileMasterSubText}"
+                TargetType="Label">
+                <Setter Property="FontAttributes" Value="None" />
+                <Setter Property="FontSize" Value="{DynamicResource Key=SubtitleFontSize}" />
+                <Setter Property="TextColor" Value="{DynamicResource Key=PrimaryTextColor}" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="MenuIcon" TargetType="Image">
+                <Setter Property="Aspect" Value="AspectFit" />
+                <Setter Property="Margin" Value="10,0,5,0" />
+                <Setter Property="HeightRequest" Value="25" />
+                <Setter Property="WidthRequest" Value="25" />
+            </Style>
+            <Style x:Key="Menu" TargetType="ListView">
+                <Setter Property="SeparatorColor" Value="{DynamicResource Key=DividerColor}" />
+            </Style>
+        </ResourceDictionary>
+    </prism:PrismApplication.Resources>
+</prism:PrismApplication>
