@@ -15,11 +15,15 @@ namespace GoodiesMarket.Security.API.Controllers
             this.repository = repository;
         }
 
-        public async Task<IHttpActionResult> Register(Login model)
+        public async Task<IHttpActionResult> Register(Register model)
         {
             if (!ModelState.IsValid) return BadRequest();
 
             IdentityResult result = await repository.CreateUser(model.Username, model.Password);
+
+            if (!result.Succeeded) return GetErrorResult(result);
+
+            result = await repository.AssignRole(model.Username, model.Password, model.RoleType.ToString());
 
             return GetErrorResult(result) ?? Ok();
         }

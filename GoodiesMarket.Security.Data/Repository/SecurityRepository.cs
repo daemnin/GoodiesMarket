@@ -69,6 +69,13 @@ namespace GoodiesMarket.Security.Data.Repository
             return await context.RefreshTokens.ToListAsync();
         }
 
+        public async Task<IdentityResult> AssignRole(string username, string password, string roleName)
+        {
+            IdentityUser user = await FindUser(username, password);
+
+            return await manager.AddToRoleAsync(user.Id, roleName);
+        }
+
         public async Task<ICollection<IdentityRole>> GetRoles(IdentityUser user)
         {
             var roles = new List<IdentityRole>();

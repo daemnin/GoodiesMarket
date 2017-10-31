@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="GoodiesMarket.App.Views.Login"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Command="{Binding Path=LoginCommand}" Text="Iniciar sesión" />
+            <Button Command="{Binding Path=RegistrationCommand}" Text="Regístrate" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

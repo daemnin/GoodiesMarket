@@ -2,7 +2,7 @@
 
 namespace GoodiesMarket.Security.API.Models
 {
-    public class Login
+    public class Register
     {
         [Required,
         Display(Name = "Username"),
@@ -14,5 +14,9 @@ namespace GoodiesMarket.Security.API.Models
         DataType(DataType.Password),
         Display(Name = "Password")]
         public string Password { get; set; }
+
+
+        [Required]
+        public RoleType RoleType { get; set; }
     }
 }

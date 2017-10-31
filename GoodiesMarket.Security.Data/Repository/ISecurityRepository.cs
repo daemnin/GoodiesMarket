@@ -18,6 +18,7 @@ namespace GoodiesMarket.Security.Data.Repository
         Task<bool> RemoveRefreshToken(RefreshToken token);
 
         Task<ICollection<RefreshToken>> GetAllRefreshTokens();
+        Task<IdentityResult> AssignRole(string username, string password, string roleName);
         Task<ICollection<IdentityRole>> GetRoles(IdentityUser user);
     }
 }

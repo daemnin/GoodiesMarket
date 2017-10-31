@@ -1,4 +1,5 @@
-﻿using GoodiesMarket.App.Views;
+﻿using GoodiesMarket.App.Models;
+using GoodiesMarket.App.Views;
 using Prism.Ninject;
 using Xamarin.Forms;
 
@@ -11,15 +12,19 @@ namespace GoodiesMarket.App
         protected override void OnInitialized()
         {
             InitializeComponent();
+            var userType = UserType.Seller;
 
-            var isSeller = false;
-            if (isSeller)
+            switch (userType)
             {
-                NavigationService.NavigateAsync("NavigationPage/SellerMasterPage/SellerProfile?title=Hello, I'm a seller");
-            }
-            else
-            {
-                NavigationService.NavigateAsync("NavigationPage/BuyerMasterPage/BuyerProfile?title=Hello, I'm a buyer");
+                case UserType.Unregistered:
+                    NavigationService.NavigateAsync("Login");
+                    break;
+                case UserType.Seller:
+                    NavigationService.NavigateAsync("NavigationPage/SellerMasterPage/SellerProfile?title=Hello, I'm a seller");
+                    break;
+                case UserType.Buyer:
+                    NavigationService.NavigateAsync("NavigationPage/BuyerMasterPage/BuyerProfile?title=Hello, I'm a buyer");
+                    break;
             }
         }
 
@@ -30,6 +35,8 @@ namespace GoodiesMarket.App
             Container.RegisterTypeForNavigation<SellerProfile>();
             Container.RegisterTypeForNavigation<BuyerMasterPage>();
             Container.RegisterTypeForNavigation<BuyerProfile>();
+            Container.RegisterTypeForNavigation<RegistrationWizard>();
+            Container.RegisterTypeForNavigation<Login>();
         }
     }
 }
