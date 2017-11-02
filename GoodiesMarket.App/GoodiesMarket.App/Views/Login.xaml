@@ -6,9 +6,37 @@
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
-        <StackLayout>
-            <Button Command="{Binding Path=LoginCommand}" Text="Iniciar sesión" />
-            <Button Command="{Binding Path=RegistrationCommand}" Text="Regístrate" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".34*" />
+                <RowDefinition Height=".33*" />
+                <RowDefinition Height=".33*" />
+            </Grid.RowDefinitions>
+            <StackLayout
+                Grid.Row="1"
+                Margin="10"
+                VerticalOptions="Center">
+                <Label HorizontalTextAlignment="Center" Text="Introduce tus datos" />
+                <Entry Placeholder="Correo" Text="{Binding Path=Model.Email}" />
+                <Entry
+                    IsPassword="true"
+                    Placeholder="Contraseña"
+                    Text="{Binding Path=Model.Password}" />
+                <Button Command="{Binding Path=LoginCommand}" Text="Iniciar sesión" />
+            </StackLayout>
+            <Button
+                Grid.Row="2"
+                Margin="10"
+                Command="{Binding Path=RegistrationCommand}"
+                Text="Regístrate"
+                VerticalOptions="End" />
+
+
+        </Grid>
+
+
     </ContentPage.Content>
+
+
+
 </ContentPage>

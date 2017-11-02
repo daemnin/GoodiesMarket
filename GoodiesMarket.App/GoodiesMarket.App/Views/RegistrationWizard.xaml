@@ -6,6 +6,29 @@
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
-        <Label Text="Wizard" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".30*" />
+                <RowDefinition Height=".20*" />
+                <RowDefinition Height=".50*" />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                HorizontalTextAlignment="Center"
+                Text="Hola"
+                VerticalOptions="Center" />
+            <Label
+                Grid.Row="1"
+                HorizontalTextAlignment="Center"
+                Text="¿A que te dedicas?"
+                VerticalOptions="Center" />
+            <StackLayout
+                Grid.Row="2"
+                Margin="10"
+                VerticalOptions="Start">
+                <Button Command="{Binding Path=BuyerCommand}" Text="Comprar" />
+                <Button Command="{Binding Path=SellerCommand}" Text="Vender" />
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -35,7 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MenuItem.cs" />
+    <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\SellerMasterPageModel.cs" />
     <Compile Include="Models\SellerProfileModel.cs" />
     <Compile Include="Models\UserType.cs" />
@@ -43,6 +45,7 @@
     <Compile Include="ViewModels\BuyerMasterPageViewModel.cs" />
     <Compile Include="ViewModels\BuyerProfileViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\RegistrationUserNameViewModel.cs" />
     <Compile Include="ViewModels\RegistrationWizardViewModel.cs" />
     <Compile Include="ViewModels\SellerMasterPageViewModel.cs" />
     <Compile Include="ViewModels\SellerProfileViewModel.cs" />
@@ -56,11 +59,17 @@
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RegistrationUserName.xaml.cs">
+      <DependentUpon>RegistrationUserName.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegistrationWizard.xaml.cs">
       <DependentUpon>RegistrationWizard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SellerProfile.xaml.cs">
       <DependentUpon>SellerProfile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserLogin.xaml.cs">
+      <DependentUpon>UserLogin.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +145,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Login.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\UserLogin.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\RegistrationUserName.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
