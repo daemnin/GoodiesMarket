@@ -11,9 +11,7 @@
                 <RowDefinition Height=".30*" />
                 <RowDefinition Height=".20*" />
                 <RowDefinition Height=".50*" />
-
             </Grid.RowDefinitions>
-
             <Label
                 Grid.Row="0"
                 HorizontalTextAlignment="Center"
@@ -30,15 +28,7 @@
                 VerticalOptions="Start">
                 <Button Command="{Binding Path=BuyerCommand}" Text="Comprar" />
                 <Button Command="{Binding Path=SellerCommand}" Text="Vender" />
-
             </StackLayout>
-
-
-
-
         </Grid>
     </ContentPage.Content>
-
-
-
 </ContentPage>
