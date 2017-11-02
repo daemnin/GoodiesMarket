@@ -7,8 +7,41 @@
     Title="Perfil"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <Label Text="{Binding Title}" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".35*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".4*" />
+                    <RowDefinition Height=".35*" />
+                    <RowDefinition Height=".25*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.RowSpan="3" Source="{Binding Path=Model.PictureUrl}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="{Binding Path=Model.Name}" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="{Binding Path=Model.Motto}" />
+                <Image
+                    Grid.RowSpan="2"
+                    Grid.Column="2"
+                    Source="{Binding Path=Model.StarUrl}" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Text="{Binding Path=Model.Score}" />
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -50,12 +50,12 @@ namespace GoodiesMarket.App.ViewModels
 
             Menu = new List<MenuItem>
             {
-                new MenuItem{ Icon = "ic_profile.png", Text = "Perfil", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_orders.png", Text = "Ordenes", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_search.png", Text = "Buscar", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_favorites.png", Text = "Ver favoritos", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_feedback.png", Text = "Ver opiniones", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_shutdown.png", Text = "Salir", NavigationUrl = "" }
+                new MenuItem{ Icon = "ic_profile.png", Title = "Perfil", NavigationUrl = "" },
+                new MenuItem{ Icon = "ic_orders.png", Title = "Ordenes", NavigationUrl = "" },
+                new MenuItem{ Icon = "ic_search.png", Title = "Buscar", NavigationUrl = "" },
+                new MenuItem{ Icon = "ic_favorites.png", Title = "Ver favoritos", NavigationUrl = "" },
+                new MenuItem{ Icon = "ic_feedback.png", Title = "Ver opiniones", NavigationUrl = "" },
+                new MenuItem{ Icon = "ic_shutdown.png", Title = "Salir", NavigationUrl = "" }
             };
 
             SelectedItem = Menu.FirstOrDefault();
@@ -63,7 +63,7 @@ namespace GoodiesMarket.App.ViewModels
 
         private void ItemSelected()
         {
-            System.Diagnostics.Debug.WriteLine(selectedItem.Text);
+            System.Diagnostics.Debug.WriteLine(selectedItem.Title);
         }
     }
 }

@@ -7,25 +7,11 @@ namespace GoodiesMarket.App.ViewModels
     public class SellerMasterPageViewModel : ViewModelBase
     {
         #region Properties
-        private string username;
-        public string Username
+        private SellerMasterPageModel model;
+        public SellerMasterPageModel Model
         {
-            get { return username; }
-            set { SetProperty(ref username, value); }
-        }
-
-        private string reach;
-        public string Reach
-        {
-            get { return reach; }
-            set { SetProperty(ref reach, value); }
-        }
-
-        private string profilePicture;
-        public string ProfilePicture
-        {
-            get { return profilePicture; }
-            set { SetProperty(ref profilePicture, value); }
+            get { return model; }
+            set { SetProperty(ref model, value); }
         }
 
         private MenuItem selectedItem;
@@ -44,17 +30,20 @@ namespace GoodiesMarket.App.ViewModels
 
         public SellerMasterPageViewModel()
         {
-            Username = "Guillermo Herrera";
-            Reach = "Alcance: 50 m.";
-            ProfilePicture = "ic_profile.png";
+            Model = new SellerMasterPageModel
+            {
+                Username = "Guillermo Herrera",
+                Reach = "Alcance: 50 m.",
+                ProfilePicture = "ic_profile.png"
+            };
 
             Menu = new List<MenuItem>
             {
-                new MenuItem{ Icon = "ic_profile.png", Text = "Perfil", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_orders.png", Text = "Ordenes", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_edit_reach.png", Text = "Alcance", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_feedback.png", Text = "Ver opiniones", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_shutdown.png", Text = "Salir", NavigationUrl = "" }
+                new MenuItem{ Icon = "ic_profile.png", Title = "Perfil", NavigationUrl = "" },
+                new MenuItem{ Icon = "ic_orders.png", Title = "Ordenes", NavigationUrl = "" },
+                new MenuItem{ Icon = "ic_edit_reach.png", Title = "Alcance", NavigationUrl = "" },
+                new MenuItem{ Icon = "ic_feedback.png", Title = "Ver opiniones", NavigationUrl = "" },
+                new MenuItem{ Icon = "ic_shutdown.png", Title = "Salir", NavigationUrl = "" }
             };
 
             SelectedItem = Menu.FirstOrDefault();
@@ -62,7 +51,7 @@ namespace GoodiesMarket.App.ViewModels
 
         private void ItemSelected()
         {
-            System.Diagnostics.Debug.WriteLine(selectedItem.Text);
+            System.Diagnostics.Debug.WriteLine(selectedItem.Title);
         }
     }
 }

@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-    Title="MainPage"
+    Title="{Binding Path=SelectedItem.Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <MasterDetailPage.Master>
         <ContentPage Title="Master">
@@ -27,17 +27,17 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Image Margin="10,5" Source="{Binding Path=ProfilePicture, Mode=OneWay}" />
+                        <Image Margin="10,5" Source="{Binding Path=Model.ProfilePicture}" />
                         <Label
                             Grid.Row="1"
                             Grid.ColumnSpan="2"
                             Style="{StaticResource Key=ProfileMasterText}"
-                            Text="{Binding Path=Username, Mode=OneWay}" />
+                            Text="{Binding Path=Model.Username}" />
                         <Label
                             Grid.Row="2"
                             Grid.ColumnSpan="2"
                             Style="{StaticResource Key=ProfileMasterSubText}"
-                            Text="{Binding Path=Reach, Mode=OneWay}" />
+                            Text="{Binding Path=Model.Reach}" />
                     </Grid>
                     <ListView
                         Grid.Row="1"
@@ -50,7 +50,7 @@
                                     <ViewCell.View>
                                         <StackLayout Orientation="Horizontal">
                                             <Image Source="{Binding Path=Icon}" Style="{StaticResource Key=MenuIcon}" />
-                                            <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Text}" />
+                                            <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Title}" />
                                         </StackLayout>
                                     </ViewCell.View>
                                 </ViewCell>
