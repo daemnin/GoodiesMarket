@@ -12,7 +12,7 @@ namespace GoodiesMarket.App
         protected override void OnInitialized()
         {
             InitializeComponent();
-            var userType = UserType.Seller;
+            var userType = UserType.Unregistered;
 
             switch (userType)
             {
@@ -37,6 +37,7 @@ namespace GoodiesMarket.App
             Container.RegisterTypeForNavigation<BuyerProfile>();
             Container.RegisterTypeForNavigation<RegistrationWizard>();
             Container.RegisterTypeForNavigation<Login>();
+            Container.RegisterTypeForNavigation<RegistrationUserName>();
         }
     }
 }

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoodiesMarket.App.Views.UserLogin">
+    <ContentPage.Content>
+   
+    </ContentPage.Content>
+
+    <StackLayout VerticalOptions ="Center" HorizontalOptions="CenterAndExpand">
+        <Label Text="Introduce tus datos" HorizontalTextAlignment="Center"/>
+        <Entry Placeholder="Usuario" />
+        <Entry IsPassword="true" Placeholder="Contraseña" />
+    </StackLayout>
+    
+</ContentPage>
