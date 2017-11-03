@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BuyerMasterPageViewModel.cs" />
     <Compile Include="ViewModels\BuyerProfileViewModel.cs" />
+    <Compile Include="ViewModels\Abstracts\FormViewModelBase.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegistrationEmailViewModel.cs" />
     <Compile Include="ViewModels\RegistrationPasswordViewModel.cs" />
@@ -52,7 +53,7 @@
     <Compile Include="ViewModels\RegistrationWizardViewModel.cs" />
     <Compile Include="ViewModels\SellerMasterPageViewModel.cs" />
     <Compile Include="ViewModels\SellerProfileViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\Abstracts\ViewModelBase.cs" />
     <Compile Include="Views\BuyerMasterPage.xaml.cs">
       <DependentUpon>BuyerMasterPage.xaml</DependentUpon>
     </Compile>

@@ -1,4 +1,5 @@
-﻿using Prism.Navigation;
+﻿using GoodiesMarket.App.ViewModels.Abstracts;
+using Prism.Navigation;
 
 namespace GoodiesMarket.App.ViewModels
 {

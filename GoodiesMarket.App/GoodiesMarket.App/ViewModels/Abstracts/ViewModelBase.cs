@@ -1,7 +1,7 @@
 ﻿using Prism.Mvvm;
 using Prism.Navigation;
 
-namespace GoodiesMarket.App.ViewModels
+namespace GoodiesMarket.App.ViewModels.Abstracts
 {
     public abstract class ViewModelBase : BindableBase, INavigationAware
     {

@@ -1,19 +1,23 @@
 ﻿using GoodiesMarket.App.Models;
+using GoodiesMarket.App.ViewModels.Abstracts;
 using Prism.Commands;
 using Prism.Navigation;
-using System.Windows.Input;
 
 namespace GoodiesMarket.App.ViewModels
 {
-    public class RegistrationPasswordViewModel : ViewModelBase
+    public class RegistrationPasswordViewModel : FormViewModelBase
     {
-        public ICommand NextCommand { get; private set; }
+        public DelegateCommand NextCommand { get; private set; }
         private INavigationService navigationService;
 
         private RegistrationModel model;
         public RegistrationModel Model
         {
-            get { return model; }
+            get
+            {
+                NextCommand.RaiseCanExecuteChanged();
+                return model;
+            }
             set { SetProperty(ref model, value); }
         }
 
@@ -21,7 +25,7 @@ namespace GoodiesMarket.App.ViewModels
         {
             this.navigationService = navigationService;
             Model = new RegistrationModel();
-            NextCommand = new DelegateCommand(Next);
+            NextCommand = new DelegateCommand(Next, IsValidModel);
         }
 
         private async void Next()
@@ -40,6 +44,13 @@ namespace GoodiesMarket.App.ViewModels
             // await navigationService.NavigateAsync("", navigationParameters);
         }
 
+        public override bool Validate()
+        {
+            if (string.IsNullOrEmpty(model?.Password)) return false;
+            if (string.IsNullOrEmpty(model.PasswordConfirmation)) return false;
+
+            return model.Password == model.PasswordConfirmation;
+        }
 
         public override void OnNavigatingTo(NavigationParameters parameters)
         {

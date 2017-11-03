@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    Title="{Binding Path=SelectedItem.Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <MasterDetailPage.Master>
         <ContentPage Title="Master">
@@ -49,7 +50,7 @@
                                     <ViewCell.View>
                                         <StackLayout Orientation="Horizontal">
                                             <Image Source="{Binding Path=Icon}" Style="{StaticResource Key=MenuIcon}" />
-                                            <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Text}" />
+                                            <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Title}" />
                                         </StackLayout>
                                     </ViewCell.View>
                                 </ViewCell>

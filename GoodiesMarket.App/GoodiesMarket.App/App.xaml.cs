@@ -14,7 +14,6 @@ namespace GoodiesMarket.App
         protected override void OnInitialized()
         {
             InitializeComponent();
-            var userType = UserType.Unregistered;
             var navigationParameters = new NavigationParameters();
             var m = new SellerProfileModel
             {
@@ -28,6 +27,7 @@ namespace GoodiesMarket.App
             string json = JsonConvert.SerializeObject(m);
             navigationParameters.Add("model", json);
 
+            var userType = UserType.Unregistered;
             switch (userType)
             {
                 case UserType.Unregistered:

@@ -1,4 +1,5 @@
 ﻿using GoodiesMarket.App.Models;
+using GoodiesMarket.App.ViewModels.Abstracts;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Windows.Input;

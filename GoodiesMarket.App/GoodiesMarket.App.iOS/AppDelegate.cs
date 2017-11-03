@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿
 using Foundation;
-using UIKit;
 using Ninject;
 using Prism.Ninject;
+using UIKit;
 
 namespace GoodiesMarket.App.iOS
 {

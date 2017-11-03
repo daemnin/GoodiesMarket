@@ -1,4 +1,5 @@
 ﻿using GoodiesMarket.App.Models;
+using GoodiesMarket.App.ViewModels.Abstracts;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Windows.Input;
@@ -14,29 +15,15 @@ namespace GoodiesMarket.App.ViewModels
         public RegistrationWizardViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
-            SellerCommand = new DelegateCommand(SellerSelected);
-            BuyerCommand = new DelegateCommand(BuyerSelected);
+            SellerCommand = new DelegateCommand(() => Select(isSeller: true));
+            BuyerCommand = new DelegateCommand(() => Select());
         }
 
-        private async void BuyerSelected()
+        private async void Select(bool isSeller = false)
         {
             var model = new RegistrationModel
             {
-                IsSeller = false
-            };
-            var navigationParameters = new NavigationParameters
-            {
-                { "model", model }
-            };
-            await navigationService.NavigateAsync("RegistrationUserName", navigationParameters);
-
-        }
-
-        private async void SellerSelected()
-        {
-            var model = new RegistrationModel
-            {
-                IsSeller = true
+                IsSeller = isSeller
             };
             var navigationParameters = new NavigationParameters
             {

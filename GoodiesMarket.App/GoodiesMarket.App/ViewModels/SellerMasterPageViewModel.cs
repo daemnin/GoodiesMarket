@@ -1,4 +1,5 @@
 ﻿using GoodiesMarket.App.Models;
+using GoodiesMarket.App.ViewModels.Abstracts;
 using System.Collections.Generic;
 using System.Linq;
 
