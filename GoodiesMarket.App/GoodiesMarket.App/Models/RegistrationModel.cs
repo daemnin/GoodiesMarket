@@ -25,11 +25,20 @@ namespace GoodiesMarket.App.Models
             set { SetProperty(ref password, value); }
         }
 
+        private string passwordConfirmation;
+        public string PasswordConfirmation
+        {
+            get { return passwordConfirmation; }
+            set { SetProperty(ref passwordConfirmation, value); }
+        }
+
         private bool isSeller;
         public bool IsSeller
         {
             get { return isSeller; }
             set { SetProperty(ref isSeller, value); }
         }
+
+
     }
 }

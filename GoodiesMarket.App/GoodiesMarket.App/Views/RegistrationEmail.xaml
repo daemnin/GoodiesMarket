@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="GoodiesMarket.App.Views.RegistrationUserName"
+    x:Class="GoodiesMarket.App.Views.RegistrationEmail"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
@@ -9,32 +9,26 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height=".30*" />
-                <RowDefinition Height=".20*" />
-                <RowDefinition Height=".20*" />
+                <RowDefinition Height=".40*" />
                 <RowDefinition Height=".30*" />
             </Grid.RowDefinitions>
             <Label
                 Grid.Row="0"
                 HorizontalTextAlignment="Center"
-                Text="Hay que ponernos personales"
-                VerticalOptions="Center" />
-            <Label
-                Grid.Row="1"
-                HorizontalTextAlignment="Center"
-                Text="¿Como te llamas?"
+                Text="¿Cual es tu correo?"
                 VerticalOptions="Center" />
             <Entry
-                Grid.Row="2"
+                Grid.Row="1"
                 Margin="10"
-                Placeholder="Nombre de usuario"
-                Text="{Binding Path=Model.UserName}"
-                VerticalOptions="Start" />
+                Placeholder="Correo Electronico"
+                Text="{Binding Path=Model.Email}"
+                VerticalOptions="Center" />
             <Button
-                Grid.Row="3"
+                Grid.Row="2"
                 Margin="10"
                 Command="{Binding Path=NextCommand}"
                 Text="Listo"
-                VerticalOptions="Center" />
+                VerticalOptions="Start" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

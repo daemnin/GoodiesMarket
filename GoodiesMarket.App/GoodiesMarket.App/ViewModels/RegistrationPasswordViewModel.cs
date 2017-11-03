@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace GoodiesMarket.App.ViewModels
 {
-    public class RegistrationUserNameViewModel : ViewModelBase
+    public class RegistrationPasswordViewModel : ViewModelBase
     {
         public ICommand NextCommand { get; private set; }
         private INavigationService navigationService;
@@ -17,21 +17,29 @@ namespace GoodiesMarket.App.ViewModels
             set { SetProperty(ref model, value); }
         }
 
-        public RegistrationUserNameViewModel(INavigationService navigationService)
+        public RegistrationPasswordViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
             Model = new RegistrationModel();
-            NextCommand = new DelegateCommand(NextView);
+            NextCommand = new DelegateCommand(Next);
         }
 
-        private async void NextView()
+        private async void Next()
         {
             var navigationParameters = new NavigationParameters
             {
                 { "model", model }
             };
-            await navigationService.NavigateAsync("RegistrationEmail", navigationParameters);
+
+            System.Diagnostics.Debug.WriteLine("--- Final ---");
+            System.Diagnostics.Debug.WriteLine(model.IsSeller);
+            System.Diagnostics.Debug.WriteLine(model.UserName);
+            System.Diagnostics.Debug.WriteLine(model.Email);
+            System.Diagnostics.Debug.WriteLine(model.Password);
+            System.Diagnostics.Debug.WriteLine(model.PasswordConfirmation);
+            // await navigationService.NavigateAsync("", navigationParameters);
         }
+
 
         public override void OnNavigatingTo(NavigationParameters parameters)
         {
@@ -39,6 +47,8 @@ namespace GoodiesMarket.App.ViewModels
             {
                 Model = (RegistrationModel)parameters["model"];
                 System.Diagnostics.Debug.WriteLine(model.IsSeller);
+                System.Diagnostics.Debug.WriteLine(model.UserName);
+                System.Diagnostics.Debug.WriteLine(model.Email);
             }
         }
     }

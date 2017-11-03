@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace GoodiesMarket.App.ViewModels
 {
-    public class RegistrationUserNameViewModel : ViewModelBase
+    public class RegistrationEmailViewModel : ViewModelBase
     {
         public ICommand NextCommand { get; private set; }
         private INavigationService navigationService;
@@ -17,7 +17,7 @@ namespace GoodiesMarket.App.ViewModels
             set { SetProperty(ref model, value); }
         }
 
-        public RegistrationUserNameViewModel(INavigationService navigationService)
+        public RegistrationEmailViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
             Model = new RegistrationModel();
@@ -30,7 +30,8 @@ namespace GoodiesMarket.App.ViewModels
             {
                 { "model", model }
             };
-            await navigationService.NavigateAsync("RegistrationEmail", navigationParameters);
+            await navigationService.NavigateAsync("RegistrationPassword", navigationParameters);
+
         }
 
         public override void OnNavigatingTo(NavigationParameters parameters)
@@ -39,6 +40,7 @@ namespace GoodiesMarket.App.ViewModels
             {
                 Model = (RegistrationModel)parameters["model"];
                 System.Diagnostics.Debug.WriteLine(model.IsSeller);
+                System.Diagnostics.Debug.WriteLine(model.UserName);
             }
         }
     }

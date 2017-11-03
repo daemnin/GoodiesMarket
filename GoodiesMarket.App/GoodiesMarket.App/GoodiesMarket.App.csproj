@@ -45,6 +45,8 @@
     <Compile Include="ViewModels\BuyerMasterPageViewModel.cs" />
     <Compile Include="ViewModels\BuyerProfileViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\RegistrationEmailViewModel.cs" />
+    <Compile Include="ViewModels\RegistrationPasswordViewModel.cs" />
     <Compile Include="ViewModels\RegistrationUserNameViewModel.cs" />
     <Compile Include="ViewModels\RegistrationWizardViewModel.cs" />
     <Compile Include="ViewModels\SellerMasterPageViewModel.cs" />
@@ -58,6 +60,12 @@
     </Compile>
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RegistrationEmail.xaml.cs">
+      <DependentUpon>RegistrationEmail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RegistrationPassword.xaml.cs">
+      <DependentUpon>RegistrationPassword.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RegistrationUserName.xaml.cs">
       <DependentUpon>RegistrationUserName.xaml</DependentUpon>
@@ -148,6 +156,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\RegistrationUserName.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\RegistrationEmail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\RegistrationPassword.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

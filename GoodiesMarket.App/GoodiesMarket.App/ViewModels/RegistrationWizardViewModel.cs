@@ -20,24 +20,28 @@ namespace GoodiesMarket.App.ViewModels
 
         private async void BuyerSelected()
         {
-            var navigationParameters = new NavigationParameters();
             var model = new RegistrationModel
             {
                 IsSeller = false
             };
-            navigationParameters.Add("model", model);
+            var navigationParameters = new NavigationParameters
+            {
+                { "model", model }
+            };
             await navigationService.NavigateAsync("RegistrationUserName", navigationParameters);
 
         }
 
         private async void SellerSelected()
         {
-            var navigationParameters = new NavigationParameters();
             var model = new RegistrationModel
             {
                 IsSeller = true
             };
-            navigationParameters.Add("model", model);
+            var navigationParameters = new NavigationParameters
+            {
+                { "model", model }
+            };
             await navigationService.NavigateAsync("RegistrationUserName", navigationParameters);
         }
     }
