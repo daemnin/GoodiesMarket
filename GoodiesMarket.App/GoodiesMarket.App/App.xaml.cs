@@ -14,7 +14,7 @@ namespace GoodiesMarket.App
         protected override void OnInitialized()
         {
             InitializeComponent();
-            var userType = UserType.Seller;
+            var userType = UserType.Unregistered;
             var navigationParameters = new NavigationParameters();
             var m = new SellerProfileModel
             {
@@ -51,6 +51,7 @@ namespace GoodiesMarket.App
             Container.RegisterTypeForNavigation<BuyerMasterPage>();
             Container.RegisterTypeForNavigation<BuyerProfile>();
             Container.RegisterTypeForNavigation<RegistrationWizard>();
+            Container.RegisterTypeForNavigation<RegistrationUserName>();
             Container.RegisterTypeForNavigation<Login>();
         }
     }
