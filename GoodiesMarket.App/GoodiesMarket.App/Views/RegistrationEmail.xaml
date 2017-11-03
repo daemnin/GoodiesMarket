@@ -27,8 +27,8 @@
                 Grid.Row="2"
                 Margin="10"
                 Command="{Binding Path=NextCommand}"
-                Text="Listo"
-                VerticalOptions="Start" />
+                Style="{StaticResource Key=DefaultButton}"
+                Text="Listo" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

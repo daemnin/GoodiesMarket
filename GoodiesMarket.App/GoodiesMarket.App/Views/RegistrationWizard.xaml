@@ -26,8 +26,14 @@
                 Grid.Row="2"
                 Margin="10"
                 VerticalOptions="Start">
-                <Button Command="{Binding Path=BuyerCommand}" Text="Comprar" />
-                <Button Command="{Binding Path=SellerCommand}" Text="Vender" />
+                <Button
+                    Command="{Binding Path=BuyerCommand}"
+                    Style="{StaticResource Key=DefaultButton}"
+                    Text="Comprar" />
+                <Button
+                    Command="{Binding Path=SellerCommand}"
+                    Style="{StaticResource Key=DefaultButton}"
+                    Text="Vender" />
             </StackLayout>
         </Grid>
     </ContentPage.Content>

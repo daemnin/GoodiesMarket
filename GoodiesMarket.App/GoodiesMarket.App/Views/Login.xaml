@@ -22,12 +22,16 @@
                     IsPassword="true"
                     Placeholder="Contraseña"
                     Text="{Binding Path=Model.Password}" />
-                <Button Command="{Binding Path=LoginCommand}" Text="Iniciar sesión" />
+                <Button
+                    Command="{Binding Path=LoginCommand}"
+                    Style="{StaticResource Key=DefaultButton}"
+                    Text="Iniciar sesión" />
             </StackLayout>
             <Button
                 Grid.Row="2"
                 Margin="10"
                 Command="{Binding Path=RegistrationCommand}"
+                Style="{StaticResource Key=DefaultButton}"
                 Text="Regístrate"
                 VerticalOptions="End" />
 

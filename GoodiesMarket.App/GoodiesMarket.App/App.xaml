@@ -3,9 +3,11 @@
     x:Class="GoodiesMarket.App.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:GoodiesMarket.App.Converters"
     xmlns:prism="clr-namespace:Prism.Ninject;assembly=Prism.Ninject.Forms">
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
+            <converters:BoolToCheckmarkConverter x:Key="BoolToCheckmark" />
             <x:Double x:Key="TitleFontSize">24</x:Double>
             <x:Double x:Key="SubtitleFontSize">18</x:Double>
             <Color x:Key="DarkPrimaryColor">#1976D2</Color>
@@ -29,6 +31,10 @@
                 TargetType="Label">
                 <Setter Property="FontAttributes" Value="None" />
                 <Setter Property="FontSize" Value="{DynamicResource Key=SubtitleFontSize}" />
+            </Style>
+            <Style x:Key="DefaultButton" TargetType="Button">
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="VerticalOptions" Value="Center" />
             </Style>
             <Style
                 x:Key="MenuItemText"

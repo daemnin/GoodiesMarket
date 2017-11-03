@@ -1,30 +1,43 @@
 ﻿using GoodiesMarket.App.Models;
 using Prism.Commands;
 using Prism.Navigation;
-using System.Windows.Input;
 
 namespace GoodiesMarket.App.ViewModels
 {
     public class RegistrationUserNameViewModel : ViewModelBase
     {
-        public ICommand NextCommand { get; private set; }
         private INavigationService navigationService;
+
+        public DelegateCommand NextCommand { get; private set; }
 
         private RegistrationModel model;
         public RegistrationModel Model
         {
-            get { return model; }
+            get { NextCommand.RaiseCanExecuteChanged(); return model; }
             set { SetProperty(ref model, value); }
+        }
+
+        private bool isValid;
+        public bool IsValid
+        {
+            get { return isValid; }
+            set { SetProperty(ref isValid, value); }
         }
 
         public RegistrationUserNameViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
             Model = new RegistrationModel();
-            NextCommand = new DelegateCommand(NextView);
+            NextCommand = new DelegateCommand(Next, IsValidModel);
         }
 
-        private async void NextView()
+        public bool IsValidModel()
+        {
+            IsValid = !string.IsNullOrEmpty(model.UserName);
+            return IsValid;
+        }
+
+        private async void Next()
         {
             var navigationParameters = new NavigationParameters
             {

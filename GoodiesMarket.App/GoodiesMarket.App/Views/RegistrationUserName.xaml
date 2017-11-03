@@ -33,8 +33,10 @@
                 Grid.Row="3"
                 Margin="10"
                 Command="{Binding Path=NextCommand}"
-                Text="Listo"
-                VerticalOptions="Center" />
+                ContentLayout="Right"
+                Image="{Binding Path=IsReady, Converter={StaticResource Key=BoolToCheckmark}}"
+                Style="{StaticResource Key=DefaultButton}"
+                Text="Listo" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
