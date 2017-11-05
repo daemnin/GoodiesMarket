@@ -23,7 +23,7 @@
                     Placeholder="Contraseña"
                     Text="{Binding Path=Model.Password}" />
                 <Button
-                    Command="{Binding Path=LoginCommand}"
+                    Command="{Binding Path=SignInCommand}"
                     Style="{StaticResource Key=DefaultButton}"
                     Text="Iniciar sesión" />
             </StackLayout>

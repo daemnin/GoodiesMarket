@@ -2,7 +2,7 @@
 {
     public enum RoleType : byte
     {
-        Seller = 0,
-        Buyer = 1
+        Buyer = 0,
+        Seller = 1
     }
 }
