@@ -3,13 +3,13 @@ using GoodiesMarket.App.ViewModels.Abstracts;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
-using Prism.Services;
 
 namespace GoodiesMarket.App.ViewModels
 {
     public class SellerProfileViewModel : ViewModelBase
     {
-        public DelegateCommand ModifyCommand { get; private set; }
+        public DelegateCommand<ProductModel> EditCommand { get; private set; }
+        public DelegateCommand<ProductModel> DeleteCommand { get; private set; }
 
         private SellerProfileModel model;
         public SellerProfileModel Model
@@ -32,20 +32,20 @@ namespace GoodiesMarket.App.ViewModels
             set { SetProperty(ref selectedItem, value); }
         }
 
-        private IPageDialogService dialogService;
-
-        public SellerProfileViewModel(IPageDialogService dialogService)
+        public SellerProfileViewModel()
         {
-
-            this.dialogService = dialogService;
-            ModifyCommand = new DelegateCommand(OpenMenu);
-
+            EditCommand = new DelegateCommand<ProductModel>(EditProduct);
+            DeleteCommand = new DelegateCommand<ProductModel>(DeleteProduct);
         }
 
-        private async void OpenMenu()
+        private void DeleteProduct(ProductModel product)
         {
-            var action = await dialogService.DisplayActionSheetAsync("ActionSheet: Send to?", "Cancel", null, "Modificar");
-            System.Diagnostics.Debug.WriteLine("Action: " + action); // writes the selected button label to the console
+            System.Diagnostics.Debug.WriteLine(product.Name);
+        }
+
+        private void EditProduct(ProductModel product)
+        {
+            System.Diagnostics.Debug.WriteLine(product.Name);
         }
 
         public override void OnNavigatingTo(NavigationParameters parameters)

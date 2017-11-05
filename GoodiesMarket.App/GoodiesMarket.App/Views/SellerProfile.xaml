@@ -3,7 +3,9 @@
     x:Class="GoodiesMarket.App.Views.SellerProfile"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ext="clr-namespace:GoodiesMarket.App.Utilities.Extensions"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    x:Name="Page"
     Title="Perfil"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
@@ -48,6 +50,7 @@
                     Text="{Binding Path=Model.Score}" />
             </Grid>
             <ListView
+                x:Name="lsProducts"
                 Grid.Row="1"
                 ItemsSource="{Binding Path=Model.Products}"
                 SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
@@ -60,9 +63,18 @@
                                     <Image Source="{Binding Path=PictureUrl}" Style="{StaticResource Key=MenuIcon}" />
                                     <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Name}" />
                                     <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Inventory}" />
-                                    <Button Command="{Binding Path=ModifyCommand}" Text="..." />
                                 </StackLayout>
                             </ViewCell.View>
+                            <ViewCell.ContextActions>
+                                <MenuItem
+                                    Command="{Binding Path=BindingContext.EditCommand, Source={x:Reference Page}}"
+                                    CommandParameter="{Binding}"
+                                    Text="Editar" />
+                                <MenuItem
+                                    Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference Page}}"
+                                    CommandParameter="{Binding}"
+                                    Text="Eliminar" />
+                            </ViewCell.ContextActions>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
