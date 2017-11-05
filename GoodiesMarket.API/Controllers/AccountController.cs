@@ -2,7 +2,7 @@
 
 namespace GoodiesMarket.API.Controllers
 {
-    public class AuthController : ApiController
+    public class AccountController : ApiController
     {
         public IHttpActionResult Get()
         {

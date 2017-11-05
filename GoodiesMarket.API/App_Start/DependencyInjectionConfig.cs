@@ -1,4 +1,9 @@
-﻿using Ninject;
+﻿using GoodiesMarket.Data;
+using GoodiesMarket.Data.Contracts;
+using GoodiesMarket.Model;
+using GoodiesMarket.Model.Contracts;
+using Ninject;
+using Ninject.Web.Common;
 using Ninject.Web.Common.OwinHost;
 using Owin;
 using System.Reflection;
@@ -22,7 +27,9 @@ namespace GoodiesMarket.API
 
         private static void RegisterServices(StandardKernel kernel)
         {
+            kernel.Bind<IContext>().To<GoodiesMarketContext>().InRequestScope();
 
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }
 }
