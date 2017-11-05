@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="GoodiesMarket.App.Views.AddProduct"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Content>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".20*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height=".30*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".35*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding Path=SelectPictureCommand}" Image="ic_camera.png" />
+                <Entry
+                    Grid.Column="1"
+                    Placeholder="Nombre"
+                    Text="{Binding Path=Model.Name}"
+                    VerticalOptions="Center" />
+            </Grid>
+            <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".0*" />
+                    <ColumnDefinition Width=".4*" />
+                    <ColumnDefinition Width=".4*" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="1"
+                    FontSize="Large"
+                    Text="Existencia"
+                    VerticalOptions="Center" />
+                <Entry
+                    Grid.Column="2"
+                    Keyboard="Numeric"
+                    Text="{Binding Path=Model.Inventory}"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    FontSize="Large"
+                    Text="Precio"
+                    VerticalOptions="Center" />
+                <Entry
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Keyboard="Numeric"
+                    Text="{Binding Path=Model.Price}"
+                    VerticalOptions="Center" />
+            </Grid>
+            <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".25*" />
+                    <RowDefinition Height=".75*" />
+                </Grid.RowDefinitions>
+                <Label
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    Text="Descripción" />
+                <Entry
+                    Grid.Row="1"
+                    Text="{Binding Path=Model.Description}"
+                    VerticalOptions="CenterAndExpand" />
+            </Grid>
+            <Button
+                Grid.Row="3"
+                Command="{Binding Path=CancelCommand}"
+                Text="Cancelar" />
+            <Button
+                Grid.Row="3"
+                Grid.Column="1"
+                Command="{Binding Path=SaveCommand}"
+                Text="Aceptar" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
