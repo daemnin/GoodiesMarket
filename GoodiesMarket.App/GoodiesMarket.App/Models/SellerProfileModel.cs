@@ -1,4 +1,6 @@
-﻿namespace GoodiesMarket.App.Models
+﻿using System.Collections.Generic;
+
+namespace GoodiesMarket.App.Models
 {
     public class SellerProfileModel
     {
@@ -7,5 +9,6 @@
         public string Motto { get; set; }
         public string StarUrl { get; set; }
         public float Score { get; set; }
+        public List<ProductModel> Products { get; set; }
     }
 }

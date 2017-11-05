@@ -31,5 +31,12 @@ namespace GoodiesMarket.App.Models
             get { return description; }
             set { SetProperty(ref description, value); }
         }
+
+        private string pictureUrl;
+        public string PictureUrl
+        {
+            get { return pictureUrl; }
+            set { SetProperty(ref pictureUrl, value); }
+        }
     }
 }

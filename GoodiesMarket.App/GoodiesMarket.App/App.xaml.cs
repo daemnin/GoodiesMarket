@@ -21,13 +21,34 @@ namespace GoodiesMarket.App
                 PictureUrl = "ic_profile.png",
                 Motto = "Si se hace!",
                 Score = 4.2f,
-                StarUrl = "ic_profile.png"
+                StarUrl = "ic_rating_star.png",
+                Products = new System.Collections.Generic.List<ProductModel> {
+
+                    new ProductModel
+                    {
+                        Name = "Sabritones",
+                        Inventory = 420,
+                        PictureUrl = "ic_profile.png"
+                    },
+                    new ProductModel
+                    {
+                        Name = "Taquitos",
+                        Inventory = 68,
+                        PictureUrl = "ic_profile.png"
+                    },
+                    new ProductModel
+                    {
+                        Name = "Gabbo pendejo",
+                        Inventory = 1,
+                        PictureUrl = "ic_profile.png"
+                    }
+                }
             };
 
             string json = JsonConvert.SerializeObject(m);
             navigationParameters.Add("model", json);
 
-            var userType = UserType.Unregistered;
+            var userType = UserType.Seller;
             switch (userType)
             {
                 case UserType.Unregistered:

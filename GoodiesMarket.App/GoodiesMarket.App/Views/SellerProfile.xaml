@@ -36,12 +36,37 @@
                 <Image
                     Grid.RowSpan="2"
                     Grid.Column="2"
-                    Source="{Binding Path=Model.StarUrl}" />
+                    HeightRequest="50"
+                    HorizontalOptions="Center"
+                    Source="{Binding Path=Model.StarUrl}"
+                    VerticalOptions="End"
+                    WidthRequest="50" />
                 <Label
                     Grid.Row="2"
                     Grid.Column="2"
+                    HorizontalOptions="Center"
                     Text="{Binding Path=Model.Score}" />
             </Grid>
+            <ListView
+                Grid.Row="1"
+                ItemsSource="{Binding Path=Model.Products}"
+                SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
+                Style="{StaticResource Key=Menu}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding Path=PictureUrl}" Style="{StaticResource Key=MenuIcon}" />
+                                    <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Name}" />
+                                    <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Inventory}" />
+                                    <Button Command="{Binding Path=ModifyCommand}" Text="..." />
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
