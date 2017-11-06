@@ -1,5 +1,6 @@
 ﻿using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
+using GoodiesMarket.Components.Proxies;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -30,18 +31,18 @@ namespace GoodiesMarket.App.ViewModels
 
         private async void Next()
         {
-            var navigationParameters = new NavigationParameters
+            try
             {
-                { "model", model }
-            };
+                var proxy = new AccountProxy();
 
-            System.Diagnostics.Debug.WriteLine("--- Final ---");
-            System.Diagnostics.Debug.WriteLine(model.IsSeller);
-            System.Diagnostics.Debug.WriteLine(model.UserName);
-            System.Diagnostics.Debug.WriteLine(model.Email);
-            System.Diagnostics.Debug.WriteLine(model.Password);
-            System.Diagnostics.Debug.WriteLine(model.PasswordConfirmation);
-            // await navigationService.NavigateAsync("", navigationParameters);
+                var result = await proxy.Register(model.UserName, model.Email, model.Password, model.IsSeller);
+
+                System.Diagnostics.Debug.WriteLine($"{result.Succeeded}\n{result.Response.ToString()}");
+            }
+            catch (System.Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
         }
 
         public override bool Validate()

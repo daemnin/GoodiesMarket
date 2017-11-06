@@ -1,5 +1,5 @@
 ﻿using GoodiesMarket.Components.Configs;
-using GoodiesMarket.Components.Http;
+using GoodiesMarket.Components.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -11,7 +11,7 @@ namespace GoodiesMarket.Components.Proxies
     {
         private readonly string Controller = "Account";
 
-        public async Task<BaseResponse> SignIn(string email, string password)
+        public async Task<Result> SignIn(string email, string password)
         {
             var requestUri = $"{Controller}/Login";
 
@@ -20,20 +20,20 @@ namespace GoodiesMarket.Components.Proxies
                 new KeyValuePair<string, string>("username", email),
                 new KeyValuePair<string, string>("password", password),
                 new KeyValuePair<string, string>("grant_type", "password"),
-                new KeyValuePair<string, string>("client_id", Constants.CLIENT_ID)
+                new KeyValuePair<string, string>("client_id", Constants.SERVICE_CLIENT_ID)
             };
 
             var body = await new FormUrlEncodedContent(request).ReadAsStringAsync();
 
             using (var httpClient = GetSecureClient())
             {
-                var response = await httpClient.Post(requestUri, body, "application/x-www-form-urlencoded");
+                var result = await httpClient.Post(requestUri, body, "application/x-www-form-urlencoded");
 
-                return response;
+                return result;
             }
         }
 
-        public async Task<BaseResponse> Register(string name, string email, string password, bool isSeller)
+        public async Task<Result> Register(string name, string email, string password, bool isSeller)
         {
             var requestUri = $"{Controller}/Register";
 
@@ -49,9 +49,9 @@ namespace GoodiesMarket.Components.Proxies
 
             using (var httpClient = GetClient())
             {
-                var response = await httpClient.Post(requestUri, body);
+                var result = await httpClient.Post(requestUri, body);
 
-                return response;
+                return result;
             }
         }
     }

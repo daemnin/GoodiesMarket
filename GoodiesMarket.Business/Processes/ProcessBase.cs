@@ -1,4 +1,6 @@
-﻿using GoodiesMarket.Data.Contracts;
+﻿using GoodiesMarket.Components.Models;
+using GoodiesMarket.Data.Contracts;
+using System;
 
 namespace GoodiesMarket.Business.Processes
 {
@@ -9,6 +11,17 @@ namespace GoodiesMarket.Business.Processes
         public ProcessBase(IUnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
+        }
+
+        protected void FillErrors(Exception exception, Result result)
+        {
+            while (exception != null)
+            {
+                result.Errors.Add(exception.Message);
+                exception = exception.InnerException;
+            }
+
+            result.Succeeded = false;
         }
     }
 }

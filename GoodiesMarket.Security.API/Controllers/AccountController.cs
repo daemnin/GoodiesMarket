@@ -1,6 +1,7 @@
 ﻿using GoodiesMarket.Security.API.Models;
 using GoodiesMarket.Security.Data.Repository;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -19,13 +20,15 @@ namespace GoodiesMarket.Security.API.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            IdentityResult result = await repository.CreateUser(model.Username, model.Password);
+            IdentityResult result = await repository.CreateUser(model.Email, model.Password);
 
             if (!result.Succeeded) return GetErrorResult(result);
 
-            result = await repository.AssignRole(model.Username, model.Password, model.RoleType.ToString());
+            result = await repository.AssignRole(model.Email, model.Password, model.RoleType.ToString());
 
-            return GetErrorResult(result) ?? Ok();
+            IdentityUser user = await repository.FindUser(model.Email, model.Password);
+
+            return GetErrorResult(result) ?? Ok(new { userId = user.Id });
         }
 
         #region Support Methods

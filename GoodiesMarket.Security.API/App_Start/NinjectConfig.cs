@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace GoodiesMarket.Security.API
 {
-    public class DependencyInjectionConfig
+    public class NinjectConfig
     {
         public static IKernel CreateAndRegister(IAppBuilder app)
         {

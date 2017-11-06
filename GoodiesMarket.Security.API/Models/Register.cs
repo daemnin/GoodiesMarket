@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GoodiesMarket.Components.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace GoodiesMarket.Security.API.Models
 {
     public class Register
     {
         [Required,
-        Display(Name = "Username"),
+        Display(Name = "Email"),
         DataType(DataType.EmailAddress)]
-        public string Username { get; set; }
+        public string Email { get; set; }
 
         [Required,
         StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6),

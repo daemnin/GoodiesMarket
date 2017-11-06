@@ -1,6 +1,7 @@
 ﻿using Microsoft.Owin;
 using Microsoft.Owin.Cors;
-using Microsoft.Owin.Security.OAuth;
+using Ninject.Web.Common.OwinHost;
+using Ninject.Web.WebApi.OwinHost;
 using Owin;
 using System.Web.Http;
 
@@ -14,19 +15,18 @@ namespace GoodiesMarket.API
         {
             var config = new HttpConfiguration();
 
-            ConfigureOAuth(app);
+            //Ninject
+            app.UseNinjectMiddleware(NinjectConfig.Register);
 
-            WebApiConfig.Register(config);
+            //OAuth
+            OAuthConfig.Register(app);
+
+            //CORS
             app.UseCors(CorsOptions.AllowAll);
-            app.UseWebApi(config);
 
-        }
-
-        private void ConfigureOAuth(IAppBuilder app)
-        {
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions
-            {
-            });
+            //Web API
+            WebApiConfig.Register(config);
+            app.UseNinjectWebApi(config);
         }
     }
 }

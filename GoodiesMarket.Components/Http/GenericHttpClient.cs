@@ -1,6 +1,9 @@
 ﻿using GoodiesMarket.Components.Contracts;
+using GoodiesMarket.Components.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,44 +27,44 @@ namespace GoodiesMarket.Components.Http
             }
         }
 
-        public async Task<BaseResponse> Delete(string requestUrl, IEnumerable<Tuple<string, string>> headers = null)
+        public async Task<Result> Delete(string requestUrl, IEnumerable<Tuple<string, string>> headers = null)
         {
             ConfigureHeaders(headers);
 
             var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
-            BaseResponse response = await CreateRequest(() => SendAsync(request));
+            Result response = await CreateRequest(() => SendAsync(request));
 
             return response;
         }
 
-        public async Task<BaseResponse> Put(string requestUrl, string body, IEnumerable<Tuple<string, string>> headers = null)
+        public async Task<Result> Put(string requestUrl, string body, IEnumerable<Tuple<string, string>> headers = null)
         {
             ConfigureHeaders(headers);
 
             var stringContent = new StringContent(body, Encoding.UTF8, jsonContentType);
 
-            BaseResponse response = await CreateRequest(() => PutAsync(requestUrl, stringContent));
+            Result response = await CreateRequest(() => PutAsync(requestUrl, stringContent));
 
             return response;
         }
 
-        public async Task<BaseResponse> Post(string requestUrl, string body, string contentType = jsonContentType, IEnumerable<Tuple<string, string>> headers = null)
+        public async Task<Result> Post(string requestUrl, string body, string contentType = null, IEnumerable<Tuple<string, string>> headers = null)
         {
             ConfigureHeaders(headers);
 
-            var stringContent = new StringContent(body, Encoding.UTF8, contentType);
+            var stringContent = new StringContent(body, Encoding.UTF8, contentType ?? jsonContentType);
 
-            BaseResponse response = await CreateRequest(() => PostAsync(requestUrl, stringContent));
+            Result response = await CreateRequest(() => PostAsync(requestUrl, stringContent));
 
             return response;
         }
 
-        public async Task<BaseResponse> Get(string requestUrl, IEnumerable<Tuple<string, string>> headers = null)
+        public async Task<Result> Get(string requestUrl, IEnumerable<Tuple<string, string>> headers = null)
         {
             ConfigureHeaders(headers);
 
-            BaseResponse response = await CreateRequest(() => GetAsync(requestUrl));
+            Result response = await CreateRequest(() => GetAsync(requestUrl));
 
             return response;
         }
@@ -74,25 +77,18 @@ namespace GoodiesMarket.Components.Http
             }
         }
 
-        private async Task<BaseResponse> CreateRequest(Func<Task<HttpResponseMessage>> httpCall)
+        private async Task<Result> CreateRequest(Func<Task<HttpResponseMessage>> httpCall)
         {
-            BaseResponse result = new BaseResponse();
+            HttpResponseMessage response = await httpCall();
 
-            try
+            string jsonResponse = await response.Content.ReadAsStringAsync();
+
+            var result = new Result
             {
-                HttpResponseMessage response = await httpCall();
-
-                response.EnsureSuccessStatusCode();
-                result.StatusCode = response.StatusCode;
-                result.Message = response.ReasonPhrase;
-
-                string jsonResponse = await response.Content.ReadAsStringAsync();
-                result.Response = jsonResponse;
-            }
-            catch (Exception ex)
-            {
-                result.Response = ex.Message;
-            }
+                Response = JToken.Parse(jsonResponse),
+                Status = response.StatusCode,
+                Succeeded = response.StatusCode == HttpStatusCode.OK
+            };
 
             return result;
         }

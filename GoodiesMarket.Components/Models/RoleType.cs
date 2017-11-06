@@ -1,4 +1,4 @@
-﻿namespace GoodiesMarket.Security.API.Models
+﻿namespace GoodiesMarket.Components.Models
 {
     public enum RoleType : byte
     {

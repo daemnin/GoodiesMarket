@@ -20,7 +20,7 @@ namespace GoodiesMarket.Model.Migrations
                 })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Orders", t => t.OrderId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.ReceiverId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.ReceiverId, cascadeDelete: false)
                 .ForeignKey("dbo.Users", t => t.SenderId, cascadeDelete: false)
                 .Index(t => t.OrderId)
                 .Index(t => t.SenderId)
@@ -38,9 +38,9 @@ namespace GoodiesMarket.Model.Migrations
                     StatusId = c.Int(nullable: false),
                 })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.SellerId, cascadeDelete: false)
+                .ForeignKey("dbo.Sellers", t => t.SellerId, cascadeDelete: true)
                 .ForeignKey("dbo.Status", t => t.StatusId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: false)
+                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.SellerId)
                 .Index(t => t.StatusId);
@@ -72,8 +72,20 @@ namespace GoodiesMarket.Model.Migrations
                     SellerId = c.Guid(nullable: false),
                 })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.SellerId, cascadeDelete: true)
+                .ForeignKey("dbo.Sellers", t => t.SellerId, cascadeDelete: false)
                 .Index(t => t.SellerId);
+
+            CreateTable(
+                "dbo.Sellers",
+                c => new
+                {
+                    Id = c.Guid(nullable: false),
+                    Motto = c.String(),
+                    Restriction = c.String(),
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Users", t => t.Id)
+                .Index(t => t.Id);
 
             CreateTable(
                 "dbo.Users",
@@ -86,9 +98,6 @@ namespace GoodiesMarket.Model.Migrations
                     Reach = c.Int(nullable: false),
                     Score = c.Single(nullable: false),
                     PictureUrl = c.String(),
-                    Motto = c.String(),
-                    Restriction = c.String(),
-                    Discriminator = c.String(nullable: false, maxLength: 128),
                 })
                 .PrimaryKey(t => t.Id);
 
@@ -110,7 +119,7 @@ namespace GoodiesMarket.Model.Migrations
                     SellerId = c.Guid(nullable: false),
                 })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.SellerId, cascadeDelete: false)
+                .ForeignKey("dbo.Sellers", t => t.SellerId, cascadeDelete: true)
                 .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
                 .Index(t => new { t.UserId, t.SellerId }, unique: true, name: "UQ_User_Seller");
 
@@ -119,17 +128,19 @@ namespace GoodiesMarket.Model.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.Favorites", "UserId", "dbo.Users");
-            DropForeignKey("dbo.Favorites", "SellerId", "dbo.Users");
+            DropForeignKey("dbo.Favorites", "SellerId", "dbo.Sellers");
             DropForeignKey("dbo.Comments", "SenderId", "dbo.Users");
             DropForeignKey("dbo.Comments", "ReceiverId", "dbo.Users");
             DropForeignKey("dbo.Comments", "OrderId", "dbo.Orders");
             DropForeignKey("dbo.Orders", "UserId", "dbo.Users");
             DropForeignKey("dbo.Orders", "StatusId", "dbo.Status");
-            DropForeignKey("dbo.Orders", "SellerId", "dbo.Users");
+            DropForeignKey("dbo.Orders", "SellerId", "dbo.Sellers");
             DropForeignKey("dbo.OrderProducts", "ProductId", "dbo.Products");
-            DropForeignKey("dbo.Products", "SellerId", "dbo.Users");
+            DropForeignKey("dbo.Sellers", "Id", "dbo.Users");
+            DropForeignKey("dbo.Products", "SellerId", "dbo.Sellers");
             DropForeignKey("dbo.OrderProducts", "OrderId", "dbo.Orders");
             DropIndex("dbo.Favorites", "UQ_User_Seller");
+            DropIndex("dbo.Sellers", new[] { "Id" });
             DropIndex("dbo.Products", new[] { "SellerId" });
             DropIndex("dbo.OrderProducts", new[] { "OrderId" });
             DropIndex("dbo.OrderProducts", new[] { "ProductId" });
@@ -142,6 +153,7 @@ namespace GoodiesMarket.Model.Migrations
             DropTable("dbo.Favorites");
             DropTable("dbo.Status");
             DropTable("dbo.Users");
+            DropTable("dbo.Sellers");
             DropTable("dbo.Products");
             DropTable("dbo.OrderProducts");
             DropTable("dbo.Orders");

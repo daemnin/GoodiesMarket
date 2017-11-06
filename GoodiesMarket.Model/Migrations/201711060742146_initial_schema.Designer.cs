@@ -13,7 +13,7 @@ namespace GoodiesMarket.Model.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201711051144412_initial_schema"; }
+            get { return "201711060742146_initial_schema"; }
         }
         
         string IMigrationMetadata.Source

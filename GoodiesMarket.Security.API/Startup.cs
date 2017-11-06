@@ -17,7 +17,7 @@ namespace GoodiesMarket.Security.API
         {
             var config = new HttpConfiguration();
 
-            IKernel kernel = DependencyInjectionConfig.CreateAndRegister(app);
+            IKernel kernel = NinjectConfig.CreateAndRegister(app);
 
             ConfiureOAuth(app, kernel);
             WebApiConfig.Register(config);

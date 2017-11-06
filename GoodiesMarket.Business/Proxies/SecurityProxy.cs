@@ -1,4 +1,4 @@
-﻿using GoodiesMarket.Components.Http;
+﻿using GoodiesMarket.Components.Models;
 using GoodiesMarket.Components.Proxies;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
@@ -9,7 +9,7 @@ namespace GoodiesMarket.Business.Proxies
     {
         private readonly string Controller = "Account";
 
-        public async Task<BaseResponse> Register(string email, string password, bool isSeller)
+        public async Task<Result> Register(string email, string password, RoleType roleType)
         {
             var requestUri = $"{Controller}/Register";
 
@@ -17,16 +17,16 @@ namespace GoodiesMarket.Business.Proxies
             {
                 email = email,
                 password = password,
-                roleType = isSeller ? 1 : 0
+                roleType = roleType
             };
 
             var body = JsonConvert.SerializeObject(request);
 
-            using (var httpClient = GetClient())
+            using (var httpClient = GetSecureClient())
             {
-                var response = await httpClient.Post(requestUri, body);
+                var result = await httpClient.Post(requestUri, body);
 
-                return response;
+                return result;
             }
         }
     }

@@ -57,6 +57,10 @@
       <Project>{310EDEE4-CF0E-499E-92A0-57864B81C3CC}</Project>
       <Name>GoodiesMarket.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GoodiesMarket.Model\GoodiesMarket.Model.csproj">
+      <Project>{0D00D925-6249-474C-A9DC-3D4FBC4C7B9B}</Project>
+      <Name>GoodiesMarket.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

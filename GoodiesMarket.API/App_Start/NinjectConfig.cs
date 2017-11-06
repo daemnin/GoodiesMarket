@@ -4,20 +4,13 @@ using GoodiesMarket.Model;
 using GoodiesMarket.Model.Contracts;
 using Ninject;
 using Ninject.Web.Common;
-using Ninject.Web.Common.OwinHost;
-using Owin;
 using System.Reflection;
 
 namespace GoodiesMarket.API
 {
-    public class DependencyInjectionConfig
+    internal class NinjectConfig
     {
-        public static void Register(IAppBuilder app)
-        {
-            app.UseNinjectMiddleware(CreateKernel);
-        }
-
-        private static IKernel CreateKernel()
+        public static IKernel Register()
         {
             var kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
@@ -28,7 +21,6 @@ namespace GoodiesMarket.API
         private static void RegisterServices(StandardKernel kernel)
         {
             kernel.Bind<IContext>().To<GoodiesMarketContext>().InRequestScope();
-
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }

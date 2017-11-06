@@ -5,10 +5,12 @@ using System.Web.Http;
 
 namespace GoodiesMarket.API
 {
-    public class WebApiConfig
+    public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
+            // Web API configuration and services
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -20,6 +22,7 @@ namespace GoodiesMarket.API
 
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //jsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
         }
     }
 }
