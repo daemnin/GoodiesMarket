@@ -13,8 +13,7 @@ namespace GoodiesMarket.App
         protected override void OnInitialized()
         {
             InitializeComponent();
-            //NavigationService.NavigateAsync("PlaceOrder");
-            var navigationParameters = new NavigationParameters();
+
             var m = new SellerProfileModel
             {
                 Name = "Don Cirilo",
@@ -23,8 +22,8 @@ namespace GoodiesMarket.App
                 Score = 4.2f,
                 StarUrl = "ic_rating_star.png",
 
-                Products = new System.Collections.Generic.List<ProductModel> {
-
+                Products = new System.Collections.Generic.List<ProductModel>
+                {
                     new ProductModel
                     {
                         Name = "Sabritones",
@@ -47,15 +46,18 @@ namespace GoodiesMarket.App
                 }
             };
 
+            var parameters = new NavigationParameters();
+            parameters.Add("model", m);
 
-            var model = new RegistrationModel
+            var userType = UserType.Seller;
+
+            switch (userType)
             {
                 case UserType.Unregistered:
                     NavigationService.NavigateAsync("Login");
                     break;
                 case UserType.Seller:
-                    NavigationService.NavigateAsync($"NavigationPage/PlaceOrder", navigationParameters);
-                    // NavigationService.NavigateAsync($"NavigationPage/SellerMasterPage/SellerProfile", navigationParameters);
+                    NavigationService.NavigateAsync($"NavigationPage/SellerMasterPage/SellerProfile", parameters);
                     break;
                 case UserType.Buyer:
                     NavigationService.NavigateAsync("NavigationPage/BuyerMasterPage/BuyerProfile?title=Hello, I'm a buyer");
