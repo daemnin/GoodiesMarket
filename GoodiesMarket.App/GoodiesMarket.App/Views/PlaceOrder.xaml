@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="GoodiesMarket.App.Views.PlaceOrder"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    x:Name="Page"
+    prism:ViewModelLocator.AutowireViewModel="True">
+
+    <ContentPage.Content>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".25*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height=".25*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <Label
+                    Font="Bold"
+                    FontSize="Large"
+                    HorizontalOptions="Start"
+                    Text="{Binding Path=Model.SellerName}" />
+                <Label
+                    Font="Bold"
+                    HorizontalOptions="Start"
+                    Text="Restricciones de compra" />
+                <Label HorizontalOptions="Start" Text="{Binding Path=Model.PurchaseRestriction}" />
+            </StackLayout>
+            <ListView
+                Grid.Row="1"
+                ItemsSource="{Binding Path=Model.Products}"
+                VerticalOptions="FillAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid HeightRequest="100">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width=".2*" />
+                                        <ColumnDefinition Width=".6*" />
+                                        <ColumnDefinition Width=".2*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image
+                                        Grid.RowSpan="3"
+                                        Margin="5"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Source="{Binding Path=PictureUrl}"
+                                        VerticalOptions="CenterAndExpand" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Grid.ColumnSpan="2"
+                                        Text="{Binding Path=Name}"
+                                        VerticalOptions="CenterAndExpand" />
+                                    <StackLayout
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal">
+                                        <Label
+                                            Margin="5"
+                                            FontSize="20"
+                                            Text="-"
+                                            TextColor="#607d8b"
+                                            VerticalOptions="CenterAndExpand">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.RemoveCommand, Source={x:Reference Page}}" CommandParameter="{Binding}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Entry
+                                            BackgroundColor="White"
+                                            FontSize="16"
+                                            HorizontalOptions="FillAndExpand"
+                                            IsEnabled="False"
+                                            Text="{Binding Path=Amount}"
+                                            VerticalOptions="CenterAndExpand" />
+                                        <Label
+                                            Margin="5"
+                                            FontSize="20"
+                                            Text="+"
+                                            TextColor="#607d8b"
+                                            VerticalOptions="CenterAndExpand">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.AddCommand, Source={x:Reference Page}}" CommandParameter="{Binding}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </StackLayout>
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{Binding Path=Price, Converter={StaticResource Key=PriceConverter}}" />
+
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label HorizontalOptions="StartAndExpand" Text="Agregar comentario" />
+                <Label
+                    Grid.Column="1"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Total: $" />
+                <Label
+                    Grid.Column="1"
+                    HorizontalOptions="EndAndExpand"
+                    Text="{Binding Path=Model.Total}" />
+                <Entry
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Placeholder="Opcional"
+                    Text="{Binding Path=Model.Note}" />
+            </Grid>
+            <Button
+                Grid.Row="3"
+                Command="{Binding Path=PlaceOrderCommand}"
+                FontSize="Large"
+                HorizontalOptions="CenterAndExpand"
+                Text="Ordenar"
+                VerticalOptions="CenterAndExpand" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

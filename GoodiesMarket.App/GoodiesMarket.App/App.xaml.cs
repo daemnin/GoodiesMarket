@@ -14,6 +14,7 @@ namespace GoodiesMarket.App
         protected override void OnInitialized()
         {
             InitializeComponent();
+            //NavigationService.NavigateAsync("PlaceOrder");
             var navigationParameters = new NavigationParameters();
             var m = new SellerProfileModel
             {
@@ -22,12 +23,14 @@ namespace GoodiesMarket.App
                 Motto = "Si se hace!",
                 Score = 4.2f,
                 StarUrl = "ic_rating_star.png",
+
                 Products = new System.Collections.Generic.List<ProductModel> {
 
                     new ProductModel
                     {
                         Name = "Sabritones",
                         Inventory = 420,
+
                         PictureUrl = "ic_profile.png"
                     },
                     new ProductModel
@@ -55,8 +58,8 @@ namespace GoodiesMarket.App
                     NavigationService.NavigateAsync("Login");
                     break;
                 case UserType.Seller:
-
-                    NavigationService.NavigateAsync($"NavigationPage/SellerMasterPage/SellerProfile", navigationParameters);
+                    NavigationService.NavigateAsync($"NavigationPage/PlaceOrder", navigationParameters);
+                    // NavigationService.NavigateAsync($"NavigationPage/SellerMasterPage/SellerProfile", navigationParameters);
                     break;
                 case UserType.Buyer:
                     NavigationService.NavigateAsync("NavigationPage/BuyerMasterPage/BuyerProfile?title=Hello, I'm a buyer");
@@ -77,6 +80,7 @@ namespace GoodiesMarket.App
             Container.RegisterTypeForNavigation<RegistrationEmail>();
             Container.RegisterTypeForNavigation<RegistrationPassword>();
             Container.RegisterTypeForNavigation<AddProduct>();
+            Container.RegisterTypeForNavigation<PlaceOrder>();
         }
     }
 }
