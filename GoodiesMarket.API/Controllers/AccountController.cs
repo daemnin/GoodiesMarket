@@ -4,7 +4,7 @@ namespace GoodiesMarket.API.Controllers
 {
     public class AccountController : ApiController
     {
-        public IHttpActionResult Get()
+        public IHttpActionResult Register()
         {
             return Ok(new { message = "woot" });
         }

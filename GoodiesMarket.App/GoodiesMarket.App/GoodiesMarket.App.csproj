@@ -35,12 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Components\Http\GenericHttpClient.cs" />
-    <Compile Include="Components\Http\GenericResponse.cs" />
-    <Compile Include="Components\Http\IHttpClient.cs" />
-    <Compile Include="Components\Proxy\AccountProxy.cs" />
-    <Compile Include="Components\Proxy\ProxyBase.cs" />
-    <Compile Include="Configs\Constants.cs" />
     <Compile Include="Converters\BoolToCheckmarkConverter.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MenuItem.cs" />
@@ -193,6 +187,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GoodiesMarket.Components\GoodiesMarket.Components.csproj">
+      <Project>{0811ed1f-1684-4c2d-9ea3-cb0d6e906080}</Project>
+      <Name>GoodiesMarket.Components</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.4.0.38779\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.4.0.38779\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />

@@ -43,10 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Processes\AccountProcess.cs" />
     <Compile Include="Processes\ProcessBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxies\SecurityProxy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GoodiesMarket.Components\GoodiesMarket.Components.csproj">
+      <Project>{0811ed1f-1684-4c2d-9ea3-cb0d6e906080}</Project>
+      <Name>GoodiesMarket.Components</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GoodiesMarket.Data\GoodiesMarket.Data.csproj">
       <Project>{310EDEE4-CF0E-499E-92A0-57864B81C3CC}</Project>
       <Name>GoodiesMarket.Data</Name>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using GoodiesMarket.Security.Model.Migrations;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
 namespace GoodiesMarket.Security.Model
@@ -11,7 +12,7 @@ namespace GoodiesMarket.Security.Model
         public GoodiesMarketAuthContext()
             : base("GoodiesMarketAuthContext")
         {
-
+            Database.SetInitializer(new Initializer()); 
         }
     }
 }

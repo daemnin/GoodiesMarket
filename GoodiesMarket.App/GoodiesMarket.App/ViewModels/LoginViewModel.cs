@@ -1,6 +1,6 @@
-﻿using GoodiesMarket.App.Components.Proxies;
-using GoodiesMarket.App.Models;
+﻿using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
+using GoodiesMarket.Components.Proxies;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Windows.Input;
@@ -29,7 +29,7 @@ namespace GoodiesMarket.App.ViewModels
         {
             var proxy = new AccountProxy();
 
-            var response = await proxy.SignIn(model);
+            var response = await proxy.SignIn(model.Email, model.Password);
             System.Diagnostics.Debug.WriteLine(response.StatusCode);
             System.Diagnostics.Debug.WriteLine(response.Message);
             System.Diagnostics.Debug.WriteLine(response.Response);
