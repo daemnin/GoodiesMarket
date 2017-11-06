@@ -36,8 +36,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Converters\BoolToCheckmarkConverter.cs" />
+    <Compile Include="Converters\PriceConverter.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MenuItem.cs" />
+    <Compile Include="Models\OrderProduct.cs" />
+    <Compile Include="Models\PlaceOrderModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\SellerMasterPageModel.cs" />
@@ -49,6 +52,7 @@
     <Compile Include="ViewModels\BuyerProfileViewModel.cs" />
     <Compile Include="ViewModels\Abstracts\FormViewModelBase.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\PlaceOrderViewModel.cs" />
     <Compile Include="ViewModels\RegistrationEmailViewModel.cs" />
     <Compile Include="ViewModels\RegistrationPasswordViewModel.cs" />
     <Compile Include="ViewModels\RegistrationUserNameViewModel.cs" />
@@ -67,6 +71,9 @@
     </Compile>
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlaceOrder.xaml.cs">
+      <DependentUpon>PlaceOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RegistrationEmail.xaml.cs">
       <DependentUpon>RegistrationEmail.xaml</DependentUpon>
@@ -193,6 +200,12 @@
       <Project>{0811ed1f-1684-4c2d-9ea3-cb0d6e906080}</Project>
       <Name>GoodiesMarket.Components</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\PlaceOrder.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.4.0.38779\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.4.0.38779\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />

@@ -13,66 +13,54 @@ namespace GoodiesMarket.App
         protected override void OnInitialized()
         {
             InitializeComponent();
-            var parameters = new NavigationParameters();
-            //var m = new SellerProfileModel
-            //{
-            //    Name = "Don Cirilo",
-            //    PictureUrl = "ic_profile.png",
-            //    Motto = "Si se hace!",
-            //    Score = 4.2f,
-            //    StarUrl = "ic_rating_star.png",
-            //    Products = new System.Collections.Generic.List<ProductModel> {
+            //NavigationService.NavigateAsync("PlaceOrder");
+            var navigationParameters = new NavigationParameters();
+            var m = new SellerProfileModel
+            {
+                Name = "Don Cirilo",
+                PictureUrl = "ic_profile.png",
+                Motto = "Si se hace!",
+                Score = 4.2f,
+                StarUrl = "ic_rating_star.png",
 
-            //        new ProductModel
-            //        {
-            //            Name = "Sabritones",
-            //            Inventory = 420,
-            //            PictureUrl = "ic_profile.png"
-            //        },
-            //        new ProductModel
-            //        {
-            //            Name = "Taquitos",
-            //            Inventory = 68,
-            //            PictureUrl = "ic_profile.png"
-            //        },
-            //        new ProductModel
-            //        {
-            //            Name = "Gabbo pendejo",
-            //            Inventory = 1,
-            //            PictureUrl = "ic_profile.png"
-            //        }
-            //    }
-            //};
+                Products = new System.Collections.Generic.List<ProductModel> {
 
-            //string json = JsonConvert.SerializeObject(m);
-            //parameters.Add("model", json);
+                    new ProductModel
+                    {
+                        Name = "Sabritones",
+                        Inventory = 420,
 
-            //var userType = UserType.Seller;
-            //switch (userType)
-            //{
-            //    case UserType.Unregistered:
-            //        NavigationService.NavigateAsync("Login");
-            //        break;
-            //    case UserType.Seller:
+                        PictureUrl = "ic_profile.png"
+                    },
+                    new ProductModel
+                    {
+                        Name = "Taquitos",
+                        Inventory = 68,
+                        PictureUrl = "ic_profile.png"
+                    },
+                    new ProductModel
+                    {
+                        Name = "Gabbo pendejo",
+                        Inventory = 1,
+                        PictureUrl = "ic_profile.png"
+                    }
+                }
+            };
 
-            //        NavigationService.NavigateAsync($"NavigationPage/SellerMasterPage/SellerProfile", parameters);
-            //        break;
-            //    case UserType.Buyer:
-            //        NavigationService.NavigateAsync("NavigationPage/BuyerMasterPage/BuyerProfile?title=Hello, I'm a buyer");
-            //        break;
-            //}
 
             var model = new RegistrationModel
             {
-                Email = "erick.sanchez@outlook.com",
-                IsSeller = false,
-                UserName = "Erick Sanchez",
-                Password = "password123",
-                PasswordConfirmation = "password123"
-            };
-
-            parameters.Add("model", model);
-            NavigationService.NavigateAsync("RegistrationPassword", parameters);
+                case UserType.Unregistered:
+                    NavigationService.NavigateAsync("Login");
+                    break;
+                case UserType.Seller:
+                    NavigationService.NavigateAsync($"NavigationPage/PlaceOrder", navigationParameters);
+                    // NavigationService.NavigateAsync($"NavigationPage/SellerMasterPage/SellerProfile", navigationParameters);
+                    break;
+                case UserType.Buyer:
+                    NavigationService.NavigateAsync("NavigationPage/BuyerMasterPage/BuyerProfile?title=Hello, I'm a buyer");
+                    break;
+            }
         }
 
         protected override void RegisterTypes()
@@ -88,6 +76,7 @@ namespace GoodiesMarket.App
             Container.RegisterTypeForNavigation<RegistrationEmail>();
             Container.RegisterTypeForNavigation<RegistrationPassword>();
             Container.RegisterTypeForNavigation<AddProduct>();
+            Container.RegisterTypeForNavigation<PlaceOrder>();
         }
     }
 }
