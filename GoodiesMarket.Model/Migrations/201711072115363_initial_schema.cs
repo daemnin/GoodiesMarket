@@ -1,7 +1,8 @@
 namespace GoodiesMarket.Model.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
-
+    
     public partial class initial_schema : DbMigration
     {
         public override void Up()
@@ -9,15 +10,15 @@ namespace GoodiesMarket.Model.Migrations
             CreateTable(
                 "dbo.Comments",
                 c => new
-                {
-                    Id = c.Long(nullable: false, identity: true),
-                    Message = c.String(nullable: false),
-                    Score = c.Int(nullable: false),
-                    Timestamp = c.DateTime(nullable: false),
-                    OrderId = c.Long(nullable: false),
-                    SenderId = c.Guid(nullable: false),
-                    ReceiverId = c.Guid(nullable: false),
-                })
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Message = c.String(nullable: false),
+                        Score = c.Int(nullable: false),
+                        Timestamp = c.DateTime(nullable: false),
+                        OrderId = c.Long(nullable: false),
+                        SenderId = c.Guid(nullable: false),
+                        ReceiverId = c.Guid(nullable: false),
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Orders", t => t.OrderId, cascadeDelete: true)
                 .ForeignKey("dbo.Users", t => t.ReceiverId, cascadeDelete: false)
@@ -25,106 +26,107 @@ namespace GoodiesMarket.Model.Migrations
                 .Index(t => t.OrderId)
                 .Index(t => t.SenderId)
                 .Index(t => t.ReceiverId);
-
+            
             CreateTable(
                 "dbo.Orders",
                 c => new
-                {
-                    Id = c.Long(nullable: false, identity: true),
-                    Note = c.String(),
-                    Total = c.Single(nullable: false),
-                    UserId = c.Guid(nullable: false),
-                    SellerId = c.Guid(nullable: false),
-                    StatusId = c.Int(nullable: false),
-                })
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Note = c.String(),
+                        Total = c.Single(nullable: false),
+                        UserId = c.Guid(nullable: false),
+                        SellerId = c.Guid(nullable: false),
+                        StatusId = c.Int(nullable: false),
+                    })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Sellers", t => t.SellerId, cascadeDelete: true)
+                .ForeignKey("dbo.Sellers", t => t.SellerId, cascadeDelete: false)
                 .ForeignKey("dbo.Status", t => t.StatusId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: false)
                 .Index(t => t.UserId)
                 .Index(t => t.SellerId)
                 .Index(t => t.StatusId);
-
+            
             CreateTable(
                 "dbo.OrderProducts",
                 c => new
-                {
-                    Id = c.Long(nullable: false, identity: true),
-                    Quantity = c.Int(nullable: false),
-                    ProductId = c.Long(nullable: false),
-                    OrderId = c.Long(nullable: false),
-                })
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Quantity = c.Int(nullable: false),
+                        ProductId = c.Long(nullable: false),
+                        OrderId = c.Long(nullable: false),
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Orders", t => t.OrderId, cascadeDelete: true)
                 .ForeignKey("dbo.Products", t => t.ProductId, cascadeDelete: true)
                 .Index(t => t.ProductId)
                 .Index(t => t.OrderId);
-
+            
             CreateTable(
                 "dbo.Products",
                 c => new
-                {
-                    Id = c.Long(nullable: false, identity: true),
-                    Description = c.String(),
-                    Price = c.Single(nullable: false),
-                    Stock = c.Int(),
-                    ImageUrl = c.String(),
-                    SellerId = c.Guid(nullable: false),
-                })
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Description = c.String(),
+                        Price = c.Single(nullable: false),
+                        Stock = c.Int(),
+                        ImageUrl = c.String(),
+                        SellerId = c.Guid(nullable: false),
+                    })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Sellers", t => t.SellerId, cascadeDelete: false)
+                .ForeignKey("dbo.Sellers", t => t.SellerId, cascadeDelete: true)
                 .Index(t => t.SellerId);
-
+            
             CreateTable(
                 "dbo.Sellers",
                 c => new
-                {
-                    Id = c.Guid(nullable: false),
-                    Motto = c.String(),
-                    Restriction = c.String(),
-                })
+                    {
+                        Id = c.Guid(nullable: false),
+                        Motto = c.String(),
+                        Restriction = c.String(),
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.Id)
                 .Index(t => t.Id);
-
+            
             CreateTable(
                 "dbo.Users",
                 c => new
-                {
-                    Id = c.Guid(nullable: false),
-                    Name = c.String(nullable: false),
-                    Latitude = c.Double(),
-                    Longitude = c.Double(),
-                    Reach = c.Int(nullable: false),
-                    Score = c.Single(nullable: false),
-                    PictureUrl = c.String(),
-                })
+                    {
+                        Id = c.Guid(nullable: false),
+                        Name = c.String(nullable: false),
+                        Email = c.String(nullable: false),
+                        Latitude = c.Double(),
+                        Longitude = c.Double(),
+                        Reach = c.Int(nullable: false),
+                        Score = c.Single(nullable: false),
+                        PictureUrl = c.String(),
+                    })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.Status",
                 c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    Description = c.String(),
-                })
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Description = c.String(),
+                    })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.Favorites",
                 c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    UserId = c.Guid(nullable: false),
-                    SellerId = c.Guid(nullable: false),
-                })
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.Guid(nullable: false),
+                        SellerId = c.Guid(nullable: false),
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Sellers", t => t.SellerId, cascadeDelete: true)
                 .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
                 .Index(t => new { t.UserId, t.SellerId }, unique: true, name: "UQ_User_Seller");
-
+            
         }
-
+        
         public override void Down()
         {
             DropForeignKey("dbo.Favorites", "UserId", "dbo.Users");

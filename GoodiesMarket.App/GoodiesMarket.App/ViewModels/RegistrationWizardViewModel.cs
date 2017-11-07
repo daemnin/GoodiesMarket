@@ -29,7 +29,7 @@ namespace GoodiesMarket.App.ViewModels
             {
                 { "model", model }
             };
-            await navigationService.NavigateAsync("RegistrationUserName", navigationParameters);
+            await navigationService.NavigateAsync("RegistrationName", navigationParameters);
         }
     }
 }

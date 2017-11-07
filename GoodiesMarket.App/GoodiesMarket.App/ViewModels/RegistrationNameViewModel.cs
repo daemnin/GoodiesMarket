@@ -5,7 +5,7 @@ using Prism.Navigation;
 
 namespace GoodiesMarket.App.ViewModels
 {
-    public class RegistrationUserNameViewModel : FormViewModelBase
+    public class RegistrationNameViewModel : FormViewModelBase
     {
         private INavigationService navigationService;
 
@@ -22,7 +22,7 @@ namespace GoodiesMarket.App.ViewModels
             set { SetProperty(ref model, value); }
         }
 
-        public RegistrationUserNameViewModel(INavigationService navigationService)
+        public RegistrationNameViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
             NextCommand = new DelegateCommand(Next, IsValidModel);
@@ -39,7 +39,7 @@ namespace GoodiesMarket.App.ViewModels
 
         public override bool Validate()
         {
-            return !string.IsNullOrEmpty(model?.UserName);
+            return !string.IsNullOrEmpty(model?.Name);
         }
 
         public override void OnNavigatingTo(NavigationParameters parameters)

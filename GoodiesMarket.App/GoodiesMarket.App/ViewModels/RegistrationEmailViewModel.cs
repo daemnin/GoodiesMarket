@@ -49,7 +49,7 @@ namespace GoodiesMarket.App.ViewModels
             {
                 Model = (RegistrationModel)parameters["model"];
                 System.Diagnostics.Debug.WriteLine(model.IsSeller);
-                System.Diagnostics.Debug.WriteLine(model.UserName);
+                System.Diagnostics.Debug.WriteLine(model.Name);
             }
         }
     }

@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Converters\BoolToCheckmarkConverter.cs" />
     <Compile Include="Converters\PriceConverter.cs" />
+    <Compile Include="Models\BuyerProfileModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\OrderProduct.cs" />
@@ -55,7 +56,7 @@
     <Compile Include="ViewModels\PlaceOrderViewModel.cs" />
     <Compile Include="ViewModels\RegistrationEmailViewModel.cs" />
     <Compile Include="ViewModels\RegistrationPasswordViewModel.cs" />
-    <Compile Include="ViewModels\RegistrationUserNameViewModel.cs" />
+    <Compile Include="ViewModels\RegistrationNameViewModel.cs" />
     <Compile Include="ViewModels\RegistrationWizardViewModel.cs" />
     <Compile Include="ViewModels\SellerMasterPageViewModel.cs" />
     <Compile Include="ViewModels\SellerProfileViewModel.cs" />
@@ -81,8 +82,8 @@
     <Compile Include="Views\RegistrationPassword.xaml.cs">
       <DependentUpon>RegistrationPassword.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RegistrationUserName.xaml.cs">
-      <DependentUpon>RegistrationUserName.xaml</DependentUpon>
+    <Compile Include="Views\RegistrationName.xaml.cs">
+      <DependentUpon>RegistrationName.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RegistrationWizard.xaml.cs">
       <DependentUpon>RegistrationWizard.xaml</DependentUpon>
@@ -140,7 +141,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\RegistrationUserName.xaml">
+    <EmbeddedResource Include="Views\RegistrationName.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -1,7 +1,7 @@
 ﻿using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
+using Prism.Commands;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GoodiesMarket.App.ViewModels
 {
@@ -14,26 +14,17 @@ namespace GoodiesMarket.App.ViewModels
             get { return model; }
             set { SetProperty(ref model, value); }
         }
-
-        private MenuItem selectedItem;
-        public MenuItem SelectedItem
-        {
-            get { return selectedItem; }
-            set
-            {
-                SetProperty(ref selectedItem, value);
-                ItemSelected();
-            }
-        }
         #endregion
 
         public List<MenuItem> Menu { get; set; }
+
+        public DelegateCommand<MenuItem> SelectCommand { get; private set; }
 
         public SellerMasterPageViewModel()
         {
             Model = new SellerMasterPageModel
             {
-                Username = "Guillermo Herrera",
+                Name = "Guillermo Herrera",
                 Reach = "Alcance: 50 m.",
                 ProfilePicture = "ic_profile.png"
             };
@@ -47,12 +38,12 @@ namespace GoodiesMarket.App.ViewModels
                 new MenuItem{ Icon = "ic_shutdown.png", Title = "Salir", NavigationUrl = "" }
             };
 
-            SelectedItem = Menu.FirstOrDefault();
+            SelectCommand = new DelegateCommand<MenuItem>(Navigate);
         }
 
-        private void ItemSelected()
+        private void Navigate(MenuItem item)
         {
-            System.Diagnostics.Debug.WriteLine(selectedItem.Title);
+            System.Diagnostics.Debug.WriteLine(item.Title);
         }
     }
 }

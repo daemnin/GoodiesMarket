@@ -2,9 +2,9 @@
 
 namespace GoodiesMarket.App.Views
 {
-    public partial class RegistrationUserName : ContentPage
+    public partial class RegistrationName : ContentPage
     {
-        public RegistrationUserName()
+        public RegistrationName()
         {
             InitializeComponent();
         }

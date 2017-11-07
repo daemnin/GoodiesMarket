@@ -175,7 +175,7 @@
   <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\GoodiesMarket.Components\GoodiesMarket.Components.csproj">
-      <Project>{0811ED1F-1684-4C2D-9EA3-CB0D6E906080}</Project>
+      <Project>{0811ed1f-1684-4c2d-9ea3-cb0d6e906080}</Project>
       <Name>GoodiesMarket.Components</Name>
     </ProjectReference>
     <ProjectReference Include="..\GoodiesMarket.Security.Data\GoodiesMarket.Security.Data.csproj">

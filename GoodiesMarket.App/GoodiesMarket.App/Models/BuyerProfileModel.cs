@@ -2,7 +2,7 @@
 
 namespace GoodiesMarket.App.Models
 {
-    public class SellerMasterPageModel : BindableBase
+    public class BuyerProfileModel : BindableBase
     {
         private string name;
         public string Name
@@ -11,11 +11,11 @@ namespace GoodiesMarket.App.Models
             set { SetProperty(ref name, value); }
         }
 
-        private string reach;
-        public string Reach
+        private string email;
+        public string Email
         {
-            get { return reach; }
-            set { SetProperty(ref reach, value); }
+            get { return email; }
+            set { SetProperty(ref email, value); }
         }
 
         private string profilePicture;

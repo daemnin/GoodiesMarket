@@ -1,6 +1,5 @@
 ﻿using GoodiesMarket.App.Models;
 using GoodiesMarket.App.Views;
-using Prism.Navigation;
 using Prism.Ninject;
 using Xamarin.Forms;
 
@@ -14,50 +13,52 @@ namespace GoodiesMarket.App
         {
             InitializeComponent();
 
-            var m = new SellerProfileModel
-            {
-                Name = "Don Cirilo",
-                PictureUrl = "ic_profile.png",
-                Motto = "Si se hace!",
-                Score = 4.2f,
-                StarUrl = "ic_rating_star.png",
+            //var model = new SellerProfileModel
+            //{
+            //    Name = "Don Cirilo",
+            //    PictureUrl = "ic_profile.png",
+            //    Motto = "Si se hace!",
+            //    Score = 4.2f,
+            //    StarUrl = "ic_rating_star.png",
 
-                Products = new System.Collections.Generic.List<ProductModel>
-                {
-                    new ProductModel
-                    {
-                        Name = "Sabritones",
-                        Inventory = 420,
+            //    Products = new System.Collections.Generic.List<ProductModel>
+            //    {
+            //        new ProductModel
+            //        {
+            //            Name = "Sabritones",
+            //            Inventory = 420,
 
-                        PictureUrl = "ic_profile.png"
-                    },
-                    new ProductModel
-                    {
-                        Name = "Taquitos",
-                        Inventory = 68,
-                        PictureUrl = "ic_profile.png"
-                    },
-                    new ProductModel
-                    {
-                        Name = "Gabbo pendejo",
-                        Inventory = 1,
-                        PictureUrl = "ic_profile.png"
-                    }
-                }
-            };
+            //            PictureUrl = "ic_profile.png"
+            //        },
+            //        new ProductModel
+            //        {
+            //            Name = "Taquitos",
+            //            Inventory = 68,
+            //            PictureUrl = "ic_profile.png"
+            //        },
+            //        new ProductModel
+            //        {
+            //            Name = "Gabbo pendejo",
+            //            Inventory = 1,
+            //            PictureUrl = "ic_profile.png"
+            //        }
+            //    }
+            //};
 
-            var parameters = new NavigationParameters();
-            parameters.Add("model", m);
+            //var parameters = new NavigationParameters
+            //{
+            //    { "model", model }
+            //};
 
-            var userType = UserType.Seller;
+            var userType = UserType.Unidentified;
 
             switch (userType)
             {
-                case UserType.Unregistered:
+                case UserType.Unidentified:
                     NavigationService.NavigateAsync("Login");
                     break;
                 case UserType.Seller:
-                    NavigationService.NavigateAsync($"NavigationPage/SellerMasterPage/SellerProfile", parameters);
+                    NavigationService.NavigateAsync($"NavigationPage/SellerMasterPage/SellerProfile");
                     break;
                 case UserType.Buyer:
                     NavigationService.NavigateAsync("NavigationPage/BuyerMasterPage/BuyerProfile?title=Hello, I'm a buyer");
@@ -73,7 +74,7 @@ namespace GoodiesMarket.App
             Container.RegisterTypeForNavigation<BuyerMasterPage>();
             Container.RegisterTypeForNavigation<BuyerProfile>();
             Container.RegisterTypeForNavigation<RegistrationWizard>();
-            Container.RegisterTypeForNavigation<RegistrationUserName>();
+            Container.RegisterTypeForNavigation<RegistrationName>();
             Container.RegisterTypeForNavigation<Login>();
             Container.RegisterTypeForNavigation<RegistrationEmail>();
             Container.RegisterTypeForNavigation<RegistrationPassword>();

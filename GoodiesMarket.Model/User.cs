@@ -11,6 +11,9 @@ namespace GoodiesMarket.Model
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public string Email { get; set; }
+
         public double? Latitude { get; set; }
 
         public double? Longitude { get; set; }

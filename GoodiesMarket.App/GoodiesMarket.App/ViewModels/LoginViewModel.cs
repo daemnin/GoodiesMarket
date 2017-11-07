@@ -30,6 +30,8 @@ namespace GoodiesMarket.App.ViewModels
             var proxy = new AccountProxy();
 
             var response = await proxy.SignIn(model.Email, model.Password);
+
+
         }
     }
 }

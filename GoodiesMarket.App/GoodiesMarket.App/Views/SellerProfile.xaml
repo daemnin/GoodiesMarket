@@ -50,10 +50,8 @@
                     Text="{Binding Path=Model.Score}" />
             </Grid>
             <ListView
-                x:Name="lsProducts"
                 Grid.Row="1"
                 ItemsSource="{Binding Path=Model.Products}"
-                SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
                 Style="{StaticResource Key=Menu}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

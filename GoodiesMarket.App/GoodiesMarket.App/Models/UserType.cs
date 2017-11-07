@@ -2,7 +2,7 @@
 {
     public enum UserType
     {
-        Unregistered = 0,
+        Unidentified = 0,
         Seller,
         Buyer
     }

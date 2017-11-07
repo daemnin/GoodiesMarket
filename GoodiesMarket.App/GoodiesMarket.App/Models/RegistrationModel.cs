@@ -4,11 +4,11 @@ namespace GoodiesMarket.App.Models
 {
     public class RegistrationModel : BindableBase
     {
-        private string userName;
-        public string UserName
+        private string name;
+        public string Name
         {
-            get { return userName; }
-            set { SetProperty(ref userName, value); }
+            get { return name; }
+            set { SetProperty(ref name, value); }
         }
 
         private string email;

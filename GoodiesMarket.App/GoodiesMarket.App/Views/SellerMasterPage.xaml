@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    x:Name="MasterPage"
     Title="{Binding Path=SelectedItem.Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <MasterDetailPage.Master>
@@ -32,7 +33,7 @@
                             Grid.Row="1"
                             Grid.ColumnSpan="2"
                             Style="{StaticResource Key=ProfileMasterText}"
-                            Text="{Binding Path=Model.Username}" />
+                            Text="{Binding Path=Model.Name}" />
                         <Label
                             Grid.Row="2"
                             Grid.ColumnSpan="2"
@@ -42,7 +43,6 @@
                     <ListView
                         Grid.Row="1"
                         ItemsSource="{Binding Path=Menu}"
-                        SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
                         Style="{StaticResource Key=Menu}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -51,6 +51,9 @@
                                         <StackLayout Orientation="Horizontal">
                                             <Image Source="{Binding Path=Icon}" Style="{StaticResource Key=MenuIcon}" />
                                             <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Title}" />
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectCommand, Source={x:Reference MasterPage}}" CommandParameter="{Binding}" />
+                                            </StackLayout.GestureRecognizers>
                                         </StackLayout>
                                     </ViewCell.View>
                                 </ViewCell>

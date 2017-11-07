@@ -1,6 +1,5 @@
 ﻿using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
-using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -16,20 +15,6 @@ namespace GoodiesMarket.App.ViewModels
         {
             get { return model; }
             set { SetProperty(ref model, value); }
-        }
-
-        private string name;
-        public string Name
-        {
-            get { return name; }
-            set { SetProperty(ref name, value); }
-        }
-
-        private ProductModel selectedItem;
-        public ProductModel SelectedItem
-        {
-            get { return selectedItem; }
-            set { SetProperty(ref selectedItem, value); }
         }
 
         public SellerProfileViewModel()
@@ -52,9 +37,7 @@ namespace GoodiesMarket.App.ViewModels
         {
             if (parameters.ContainsKey("model"))
             {
-                var json = (string)parameters["model"];
-                Model = JsonConvert.DeserializeObject<SellerProfileModel>(json);
-                Name = model.Name;
+                Model = (SellerProfileModel)parameters["model"];
             }
         }
     }

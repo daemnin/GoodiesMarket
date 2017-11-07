@@ -1,43 +1,20 @@
 ﻿using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
+using Prism.Commands;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GoodiesMarket.App.ViewModels
 {
     public class BuyerMasterPageViewModel : ViewModelBase
     {
+        public DelegateCommand<MenuItem> SelectCommand { get; private set; }
+
         #region Properties
-        private string username;
-        public string Username
+        private BuyerProfileModel model;
+        public BuyerProfileModel Model
         {
-            get { return username; }
-            set { SetProperty(ref username, value); }
-        }
-
-        private string email;
-        public string Email
-        {
-            get { return email; }
-            set { SetProperty(ref email, value); }
-        }
-
-        private string profilePicture;
-        public string ProfilePicture
-        {
-            get { return profilePicture; }
-            set { SetProperty(ref profilePicture, value); }
-        }
-
-        private MenuItem selectedItem;
-        public MenuItem SelectedItem
-        {
-            get { return selectedItem; }
-            set
-            {
-                SetProperty(ref selectedItem, value);
-                ItemSelected();
-            }
+            get { return model; }
+            set { SetProperty(ref model, value); }
         }
         #endregion
 
@@ -45,9 +22,9 @@ namespace GoodiesMarket.App.ViewModels
 
         public BuyerMasterPageViewModel()
         {
-            Username = "Guillermo Herrera";
-            Email = "guillermo.herrera@gmail.com";
-            ProfilePicture = "ic_profile.png";
+            Model.Name = "Guillermo Herrera";
+            Model.Email = "guillermo.herrera@gmail.com";
+            Model.ProfilePicture = "ic_profile.png";
 
             Menu = new List<MenuItem>
             {
@@ -59,12 +36,12 @@ namespace GoodiesMarket.App.ViewModels
                 new MenuItem{ Icon = "ic_shutdown.png", Title = "Salir", NavigationUrl = "" }
             };
 
-            SelectedItem = Menu.FirstOrDefault();
+            SelectCommand = new DelegateCommand<MenuItem>(Navigate);
         }
 
-        private void ItemSelected()
+        private void Navigate(MenuItem item)
         {
-            System.Diagnostics.Debug.WriteLine(selectedItem.Title);
+            System.Diagnostics.Debug.WriteLine(item.Title);
         }
     }
 }

@@ -31,18 +31,9 @@ namespace GoodiesMarket.App.ViewModels
 
         private async void Next()
         {
-            try
-            {
-                var proxy = new AccountProxy();
+            var proxy = new AccountProxy();
 
-                var result = await proxy.Register(model.UserName, model.Email, model.Password, model.IsSeller);
-
-                System.Diagnostics.Debug.WriteLine($"{result.Succeeded}\n{result.Response.ToString()}");
-            }
-            catch (System.Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-            }
+            var result = await proxy.Register(model.Name, model.Email, model.Password, model.IsSeller);
         }
 
         public override bool Validate()
@@ -59,7 +50,7 @@ namespace GoodiesMarket.App.ViewModels
             {
                 Model = (RegistrationModel)parameters["model"];
                 System.Diagnostics.Debug.WriteLine(model.IsSeller);
-                System.Diagnostics.Debug.WriteLine(model.UserName);
+                System.Diagnostics.Debug.WriteLine(model.Name);
                 System.Diagnostics.Debug.WriteLine(model.Email);
             }
         }
