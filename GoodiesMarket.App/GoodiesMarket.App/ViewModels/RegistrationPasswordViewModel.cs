@@ -34,6 +34,11 @@ namespace GoodiesMarket.App.ViewModels
             var proxy = new AccountProxy();
 
             var result = await proxy.Register(model.Name, model.Email, model.Password, model.IsSeller);
+
+            if (result.Succeeded)
+            {
+                await navigationService.NavigateAsync("Login");
+            }
         }
 
         public override bool Validate()
@@ -49,9 +54,6 @@ namespace GoodiesMarket.App.ViewModels
             if (parameters.ContainsKey("model"))
             {
                 Model = (RegistrationModel)parameters["model"];
-                System.Diagnostics.Debug.WriteLine(model.IsSeller);
-                System.Diagnostics.Debug.WriteLine(model.Name);
-                System.Diagnostics.Debug.WriteLine(model.Email);
             }
         }
     }

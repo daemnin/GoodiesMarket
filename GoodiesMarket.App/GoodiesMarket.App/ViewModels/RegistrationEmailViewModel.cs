@@ -48,8 +48,6 @@ namespace GoodiesMarket.App.ViewModels
             if (parameters.ContainsKey("model"))
             {
                 Model = (RegistrationModel)parameters["model"];
-                System.Diagnostics.Debug.WriteLine(model.IsSeller);
-                System.Diagnostics.Debug.WriteLine(model.Name);
             }
         }
     }

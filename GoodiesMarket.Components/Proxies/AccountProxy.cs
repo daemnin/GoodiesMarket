@@ -54,5 +54,17 @@ namespace GoodiesMarket.Components.Proxies
                 return result;
             }
         }
+
+        public async Task<Result> GetProfile()
+        {
+            var requestUri = $"{Controller}/Profile";
+
+            using (var httpClient = GetClient())
+            {
+                var result = await httpClient.Get(requestUri);
+
+                return result;
+            }
+        }
     }
 }

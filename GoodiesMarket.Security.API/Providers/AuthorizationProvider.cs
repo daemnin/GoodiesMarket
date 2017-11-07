@@ -101,6 +101,7 @@ namespace GoodiesMarket.Security.API.Providers
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
 
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
 
             foreach (var role in roles)
             {
