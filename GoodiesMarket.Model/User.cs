@@ -21,8 +21,6 @@ namespace GoodiesMarket.Model
 
         public double? Longitude { get; set; }
 
-        public int Range { get; set; }
-
         public float Score { get; set; }
 
         public string PictureUrl { get; set; }

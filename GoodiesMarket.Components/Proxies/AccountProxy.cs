@@ -1,4 +1,5 @@
 ﻿using GoodiesMarket.Components.Configs;
+using GoodiesMarket.Components.Helpers;
 using GoodiesMarket.Components.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace GoodiesMarket.Components.Proxies
         {
             var requestUri = $"{Controller}";
 
-            using (var httpClient = GetClient(isAuthorized: true))
+            using (var httpClient = GetClient(CredentialsHelper.Instance))
             {
                 var result = await httpClient.Get(requestUri);
 

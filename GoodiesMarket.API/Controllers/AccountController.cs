@@ -38,7 +38,7 @@ namespace GoodiesMarket.API.Controllers
 
             var process = new AccountProcess(unitOfWork);
 
-            Result result = process.Update(User.Identity.GetId(), profile.Latitude, profile.Longitude, profile.Range);
+            Result result = process.Update(User.Identity.GetId(), User.Identity.GetRoles().First(), profile.Latitude, profile.Longitude, profile.Range);
 
             return GetErrorResult(result) ?? Ok(result);
         }

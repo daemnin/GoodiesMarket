@@ -55,6 +55,10 @@
     <Compile Include="Migrations\201711080801237_initial_schema.Designer.cs">
       <DependentUpon>201711080801237_initial_schema.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711082218592_Range_moved_to_seller.cs" />
+    <Compile Include="Migrations\201711082218592_Range_moved_to_seller.Designer.cs">
+      <DependentUpon>201711082218592_Range_moved_to_seller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderProduct.cs" />
@@ -71,6 +75,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711080801237_initial_schema.resx">
       <DependentUpon>201711080801237_initial_schema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711082218592_Range_moved_to_seller.resx">
+      <DependentUpon>201711082218592_Range_moved_to_seller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

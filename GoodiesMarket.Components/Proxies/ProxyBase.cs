@@ -7,14 +7,14 @@ namespace GoodiesMarket.Components.Proxies
 {
     public abstract class ProxyBase
     {
-        protected IHttpClient GetClient(bool isAuthorized = false, params Tuple<string, string>[] headers)
+        protected IHttpClient GetClient(ICredentials credentials = null, params Tuple<string, string>[] headers)
         {
-            return new GenericHttpClient(Constants.API_BASEADDRESS, isAuthorized, headers);
+            return new GenericHttpClient(Constants.API_BASEADDRESS, credentials, headers);
         }
 
-        protected IHttpClient GetSecureClient(bool isAuthoirzed = false, params Tuple<string, string>[] headers)
+        protected IHttpClient GetSecureClient(ICredentials credentials = null, params Tuple<string, string>[] headers)
         {
-            return new GenericHttpClient(Constants.SECURITY_API_BASEADDRESS, isAuthoirzed, headers);
+            return new GenericHttpClient(Constants.SECURITY_API_BASEADDRESS, credentials, headers);
         }
     }
 }

@@ -7,6 +7,7 @@ namespace GoodiesMarket.Data.Contracts
     {
         IRepository<User> UserRepository { get; }
         IRepository<Seller> SellerRepository { get; }
+        IRepository<Product> ProductRepository { get; }
 
         int Save();
     }

@@ -70,7 +70,7 @@ namespace GoodiesMarket.Business.Processes
             return result;
         }
 
-        public Result Update(Guid userId, double? latitude, double? longitude, int? range)
+        public Result Update(Guid userId, RoleType role, double? latitude, double? longitude, int? range)
         {
             var result = new Result();
 
@@ -83,9 +83,13 @@ namespace GoodiesMarket.Business.Processes
                     user.Latitude = latitude;
                     user.Longitude = longitude;
                 }
-                if (range.HasValue)
+                if (role == RoleType.Seller && range.HasValue)
                 {
-                    user.Range = range.Value;
+                    var seller = UnitOfWork.SellerRepository.Read(userId);
+
+                    seller.Range = range.Value;
+
+                    UnitOfWork.SellerRepository.Update(seller);
                 }
 
                 UnitOfWork.UserRepository.Update(user);
@@ -109,7 +113,6 @@ namespace GoodiesMarket.Business.Processes
                         u.Name,
                         u.PictureUrl,
                         u.Email,
-                        u.Range,
                         u.Score,
                         u.Latitude,
                         u.Longitude
@@ -126,10 +129,10 @@ namespace GoodiesMarket.Business.Processes
                         s.User.Name,
                         s.User.PictureUrl,
                         s.User.Email,
-                        s.User.Range,
                         s.User.Score,
                         s.User.Latitude,
                         s.User.Longitude,
+                        s.Range,
                         s.Motto,
                         s.Restriction,
                         s.Products

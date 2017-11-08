@@ -1,6 +1,5 @@
 ﻿using GoodiesMarket.Components.Configs;
 using GoodiesMarket.Components.Contracts;
-using GoodiesMarket.Components.Helpers;
 using GoodiesMarket.Components.Models;
 using Newtonsoft.Json.Linq;
 using System;
@@ -14,12 +13,12 @@ namespace GoodiesMarket.Components.Http
 {
     public class GenericHttpClient : HttpClient, IHttpClient
     {
-        private bool isAuthorized;
+        private Contracts.ICredentials credentials;
 
-        public GenericHttpClient(string baseAddress, bool isAuthorized, params Tuple<string, string>[] headers)
+        public GenericHttpClient(string baseAddress, Contracts.ICredentials credentials, params Tuple<string, string>[] headers)
         {
             BaseAddress = new Uri(baseAddress);
-            this.isAuthorized = isAuthorized;
+            this.credentials = credentials;
 
             if (headers != null)
             {
@@ -66,11 +65,11 @@ namespace GoodiesMarket.Components.Http
 
         private async Task ConfigureHeaders(IEnumerable<Tuple<string, string>> headers = null)
         {
-            if (isAuthorized && CredentialsHelper.HasSession)
+            if (credentials?.HasSession == true)
             {
-                var expiration = CredentialsHelper.ExpirationDate?.AddMinutes(-5);
+                var expiration = credentials.ExpirationDate?.AddMinutes(-5);
 
-                var validCredentials = DateTime.Now < CredentialsHelper.ExpirationDate?.AddMinutes(-5);
+                var validCredentials = DateTime.Now < credentials.ExpirationDate?.AddMinutes(-5);
 
                 if (!validCredentials)
                 {
@@ -79,7 +78,7 @@ namespace GoodiesMarket.Components.Http
 
                 if (validCredentials)
                 {
-                    DefaultRequestHeaders.Authorization = CredentialsHelper.AuthorizationHeader;
+                    DefaultRequestHeaders.Authorization = credentials.AuthorizationHeader;
                 }
             }
 
@@ -114,7 +113,7 @@ namespace GoodiesMarket.Components.Http
 
             var request = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("refresh_token", CredentialsHelper.RefreshToken),
+                new KeyValuePair<string, string>("refresh_token", credentials.RefreshToken),
                 new KeyValuePair<string, string>("grant_type", "refresh_token"),
                 new KeyValuePair<string, string>("client_id", Constants.APP_CLIENT_ID)
             };
@@ -128,12 +127,12 @@ namespace GoodiesMarket.Components.Http
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 string jsonResponse = await response.Content.ReadAsStringAsync();
-                CredentialsHelper.RegisterSignIn(JToken.Parse(jsonResponse));
+                credentials.RegisterSignIn(JToken.Parse(jsonResponse));
                 validCredentials = true;
             }
             else
             {
-                CredentialsHelper.LogOut();
+                credentials.LogOut();
             }
 
             return validCredentials;

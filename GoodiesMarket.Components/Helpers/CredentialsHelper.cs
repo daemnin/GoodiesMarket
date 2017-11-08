@@ -1,19 +1,28 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using GoodiesMarket.Components.Contracts;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http.Headers;
 
 namespace GoodiesMarket.Components.Helpers
 {
-    public static class CredentialsHelper
+    public class CredentialsHelper : ICredentials
     {
-        private static JToken credentials;
-
-        public static void RegisterSignIn(JToken credentials)
+        private static CredentialsHelper instance;
+        public static CredentialsHelper Instance
         {
-            CredentialsHelper.credentials = credentials;
+            get { return instance ?? (instance = new CredentialsHelper()); }
         }
 
-        public static AuthenticationHeaderValue AuthorizationHeader
+        private CredentialsHelper() { }
+
+        private JToken credentials;
+
+        public void RegisterSignIn(JToken credentials)
+        {
+            this.credentials = credentials;
+        }
+
+        public AuthenticationHeaderValue AuthorizationHeader
         {
             get
             {
@@ -21,7 +30,7 @@ namespace GoodiesMarket.Components.Helpers
             }
         }
 
-        public static string RefreshToken
+        public string RefreshToken
         {
             get
             {
@@ -29,7 +38,7 @@ namespace GoodiesMarket.Components.Helpers
             }
         }
 
-        public static string AccessToken
+        public string AccessToken
         {
             get
             {
@@ -37,7 +46,7 @@ namespace GoodiesMarket.Components.Helpers
             }
         }
 
-        public static string TokenType
+        public string TokenType
         {
             get
             {
@@ -45,7 +54,7 @@ namespace GoodiesMarket.Components.Helpers
             }
         }
 
-        public static string ClientId
+        public string ClientId
         {
             get
             {
@@ -53,7 +62,7 @@ namespace GoodiesMarket.Components.Helpers
             }
         }
 
-        public static DateTime? ExpirationDate
+        public DateTime? ExpirationDate
         {
             get
             {
@@ -61,7 +70,7 @@ namespace GoodiesMarket.Components.Helpers
             }
         }
 
-        public static DateTime? IssuedDate
+        public DateTime? IssuedDate
         {
             get
             {
@@ -69,7 +78,7 @@ namespace GoodiesMarket.Components.Helpers
             }
         }
 
-        public static bool HasSession
+        public bool HasSession
         {
             get
             {
@@ -77,7 +86,7 @@ namespace GoodiesMarket.Components.Helpers
             }
         }
 
-        internal static void LogOut()
+        public void LogOut()
         {
             credentials = null;
         }

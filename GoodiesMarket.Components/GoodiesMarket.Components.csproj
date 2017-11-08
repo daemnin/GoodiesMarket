@@ -37,9 +37,12 @@
   <ItemGroup>
     <Compile Include="Configs\Constants.cs" />
     <Compile Include="Configs\ContentType.cs" />
+    <Compile Include="Contracts\ICredentials.cs" />
     <Compile Include="Contracts\IHttpClient.cs" />
     <Compile Include="Extensions\JTokenExtensions.cs" />
+    <Compile Include="Extensions\MathExtensions.cs" />
     <Compile Include="Helpers\CredentialsHelper.cs" />
+    <Compile Include="Helpers\DistanceHelper.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\RoleType.cs" />
     <Compile Include="Http\GenericHttpClient.cs" />
