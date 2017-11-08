@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace GoodiesMarket.Components.Helpers
 {
@@ -13,11 +13,11 @@ namespace GoodiesMarket.Components.Helpers
             CredentialsHelper.credentials = credentials;
         }
 
-        public static KeyValuePair<string, string> AuthHeader
+        public static AuthenticationHeaderValue AuthorizationHeader
         {
             get
             {
-                return new KeyValuePair<string, string>("Authorization", $"Bearer {credentials["access_token"]}");
+                return credentials != null ? new AuthenticationHeaderValue(TokenType, AccessToken) : null;
             }
         }
 
@@ -25,7 +25,7 @@ namespace GoodiesMarket.Components.Helpers
         {
             get
             {
-                return $"{credentials["refresh_token"]}";
+                return credentials != null ? $"{credentials["refresh_token"]}" : null;
             }
         }
 
@@ -33,7 +33,15 @@ namespace GoodiesMarket.Components.Helpers
         {
             get
             {
-                return $"{credentials["access_token"]}";
+                return credentials != null ? $"{credentials["access_token"]}" : null;
+            }
+        }
+
+        public static string TokenType
+        {
+            get
+            {
+                return credentials != null ? $"{credentials["token_type"]}" : null;
             }
         }
 
@@ -41,24 +49,37 @@ namespace GoodiesMarket.Components.Helpers
         {
             get
             {
-                return $"{credentials["client_id"]}";
+                return credentials != null ? $"{credentials["client_id"]}" : null;
             }
         }
 
-        public static DateTime ExpirationDate
+        public static DateTime? ExpirationDate
         {
             get
             {
-                return credentials.Value<DateTime>(".expires");
+                return credentials?.Value<DateTime?>(".expires");
             }
         }
 
-        public static DateTime IssuedDate
+        public static DateTime? IssuedDate
         {
             get
             {
-                return credentials.Value<DateTime>(".issued");
+                return credentials?.Value<DateTime>(".issued");
             }
+        }
+
+        public static bool HasSession
+        {
+            get
+            {
+                return credentials != null;
+            }
+        }
+
+        internal static void LogOut()
+        {
+            credentials = null;
         }
     }
 }
