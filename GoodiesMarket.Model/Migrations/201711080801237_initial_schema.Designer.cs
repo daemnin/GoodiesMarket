@@ -2,10 +2,9 @@
 namespace GoodiesMarket.Model.Migrations
 {
     using System.CodeDom.Compiler;
-    using System.Data.Entity.Migrations;
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
-    
+
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
     public sealed partial class initial_schema : IMigrationMetadata
     {
@@ -13,7 +12,7 @@ namespace GoodiesMarket.Model.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201711072134241_initial_schema"; }
+            get { return "201711080801237_initial_schema"; }
         }
         
         string IMigrationMetadata.Source

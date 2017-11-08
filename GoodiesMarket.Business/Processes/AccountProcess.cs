@@ -1,8 +1,11 @@
 ﻿using GoodiesMarket.Business.Proxies;
+using GoodiesMarket.Components.Extensions;
 using GoodiesMarket.Components.Models;
 using GoodiesMarket.Data.Contracts;
 using GoodiesMarket.Model;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GoodiesMarket.Business.Processes
@@ -17,6 +20,10 @@ namespace GoodiesMarket.Business.Processes
 
             try
             {
+                var exists = UnitOfWork.UserRepository.Any(u => u.Email.Equals(email.ToLower()));
+
+                if (exists) throw new Exception("Email already registered");
+
                 var securityProxy = new SecurityProxy();
 
                 var registerResult = await securityProxy.Register(email, password, roleType);
@@ -25,7 +32,7 @@ namespace GoodiesMarket.Business.Processes
 
                 var userId = registerResult.Response.Value<string>("userId");
 
-                result.Succeeded = CreateUser(userId, name);
+                result.Succeeded = CreateUser(userId, name, email, roleType);
             }
             catch (Exception ex)
             {
@@ -35,17 +42,126 @@ namespace GoodiesMarket.Business.Processes
             return result;
         }
 
-        private bool CreateUser(string userId, string name)
+        public Result Get(Guid userId, RoleType role)
+        {
+            var result = new Result();
+
+            try
+            {
+                switch (role)
+                {
+                    case RoleType.Buyer:
+                        result.Response = GetBuyerProfile(userId);
+                        break;
+                    case RoleType.Seller:
+                        result.Response = GetSellerProfile(userId);
+                        break;
+                    default:
+                        throw new InvalidOperationException("Invalid role");
+                }
+
+                result.Succeeded = true;
+            }
+            catch (Exception ex)
+            {
+                FillErrors(ex, result);
+            }
+
+            return result;
+        }
+
+        public Result Update(Guid userId, double? latitude, double? longitude, int? range)
+        {
+            var result = new Result();
+
+            try
+            {
+                var user = UnitOfWork.UserRepository.Read(userId);
+
+                if (latitude.HasValue && longitude.HasValue)
+                {
+                    user.Latitude = latitude;
+                    user.Longitude = longitude;
+                }
+                if (range.HasValue)
+                {
+                    user.Range = range.Value;
+                }
+
+                UnitOfWork.UserRepository.Update(user);
+
+                result.Succeeded = UnitOfWork.Save() > 0;
+            }
+            catch (Exception ex)
+            {
+                FillErrors(ex, result);
+            }
+
+            return result;
+        }
+
+        #region Support Methods
+        private JToken GetBuyerProfile(Guid id)
+        {
+            return UnitOfWork.UserRepository.FindBy(u => u.Id.Equals(id))
+                    .Select(u => new
+                    {
+                        u.Name,
+                        u.PictureUrl,
+                        u.Email,
+                        u.Range,
+                        u.Score,
+                        u.Latitude,
+                        u.Longitude
+                    })
+                    .FirstOrDefault()
+                    .ToToken();
+        }
+
+        private JToken GetSellerProfile(Guid id)
+        {
+            return UnitOfWork.SellerRepository.FindBy(s => s.Id.Equals(id), s => s.User, s => s.Products)
+                    .Select(s => new
+                    {
+                        s.User.Name,
+                        s.User.PictureUrl,
+                        s.User.Email,
+                        s.User.Range,
+                        s.User.Score,
+                        s.User.Latitude,
+                        s.User.Longitude,
+                        s.Motto,
+                        s.Restriction,
+                        s.Products
+                    })
+                    .FirstOrDefault()
+                    .ToToken();
+        }
+
+        private bool CreateUser(string userId, string name, string email, RoleType roleType)
         {
             var user = new User
             {
                 Id = Guid.Parse(userId),
-                Name = name
+                Name = name,
+                Email = email.ToLower()
             };
 
             UnitOfWork.UserRepository.Create(user);
 
+            if (roleType == RoleType.Seller)
+            {
+                var seller = new Seller
+                {
+                    Id = Guid.Parse(userId)
+                };
+
+                UnitOfWork.SellerRepository.Create(seller);
+            }
+
             return UnitOfWork.Save() > 0;
         }
+        #endregion
+
     }
 }

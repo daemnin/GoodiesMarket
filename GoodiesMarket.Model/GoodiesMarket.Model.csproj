@@ -51,9 +51,9 @@
     <Compile Include="Contracts\IContext.cs" />
     <Compile Include="Favorite.cs" />
     <Compile Include="GoodiesMarketContext.cs" />
-    <Compile Include="Migrations\201711072134241_initial_schema.cs" />
-    <Compile Include="Migrations\201711072134241_initial_schema.Designer.cs">
-      <DependentUpon>201711072134241_initial_schema.cs</DependentUpon>
+    <Compile Include="Migrations\201711080801237_initial_schema.cs" />
+    <Compile Include="Migrations\201711080801237_initial_schema.Designer.cs">
+      <DependentUpon>201711080801237_initial_schema.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
@@ -69,8 +69,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711072134241_initial_schema.resx">
-      <DependentUpon>201711072134241_initial_schema.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711080801237_initial_schema.resx">
+      <DependentUpon>201711080801237_initial_schema.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

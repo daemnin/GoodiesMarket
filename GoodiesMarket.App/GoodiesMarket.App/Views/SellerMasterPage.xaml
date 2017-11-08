@@ -38,7 +38,7 @@
                             Grid.Row="2"
                             Grid.ColumnSpan="2"
                             Style="{StaticResource Key=ProfileMasterSubText}"
-                            Text="{Binding Path=Model.Reach}" />
+                            Text="{Binding Path=Model.Range}" />
                     </Grid>
                     <ListView
                         Grid.Row="1"
