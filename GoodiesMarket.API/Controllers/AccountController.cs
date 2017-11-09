@@ -4,12 +4,13 @@ using GoodiesMarket.Business.Processes;
 using GoodiesMarket.Components.Models;
 using GoodiesMarket.Data.Contracts;
 using Microsoft.AspNet.Identity;
-using Newtonsoft.Json.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace GoodiesMarket.API.Controllers
 {
+    [Authorize(Roles = "Seller, Buyer")]
     public class AccountController : ApiController
     {
         private IUnitOfWork unitOfWork;
@@ -19,19 +20,37 @@ namespace GoodiesMarket.API.Controllers
             this.unitOfWork = unitOfWork;
         }
 
-        [Authorize(Roles = "Seller, Buyer")]
-        public async Task<IHttpActionResult> Get()
+        public IHttpActionResult Get()
         {
-            return Ok(new { id = User.Identity.GetUserId(), roles = User.Identity.GetRoles() });
-        }
-
-        public async Task<IHttpActionResult> Register([FromBody]JToken token)
-        {
-            var model = token.ToObject<Register>();
+            RoleType role = User.Identity.GetRoles().First();
 
             var process = new AccountProcess(unitOfWork);
 
-            Result result = await process.Register(model.Name, model.Email, model.Password, model.RoleType);
+            Result result = process.Get(User.Identity.GetId(), role);
+
+            return GetErrorResult(result) ?? Ok(result);
+        }
+
+        [HttpPut]
+        public IHttpActionResult Update(Profile profile)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var process = new AccountProcess(unitOfWork);
+
+            Result result = process.Update(User.Identity.GetId(), User.Identity.GetRoles().First(), profile.Latitude, profile.Longitude, profile.Range);
+
+            return GetErrorResult(result) ?? Ok(result);
+        }
+
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> Register(Register register)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var process = new AccountProcess(unitOfWork);
+
+            Result result = await process.Register(register.Name, register.Email, register.Password, register.RoleType.Value);
 
             return GetErrorResult(result) ?? Ok(result);
         }

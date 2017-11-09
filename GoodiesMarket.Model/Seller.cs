@@ -11,7 +11,10 @@ namespace GoodiesMarket.Model
         public Guid Id { get; set; }
 
         public string Motto { get; set; }
+
         public string Restriction { get; set; }
+
+        public int? Range { get; set; }
 
         public User User { get; set; }
 

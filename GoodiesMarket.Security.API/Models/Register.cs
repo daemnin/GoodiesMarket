@@ -5,19 +5,15 @@ namespace GoodiesMarket.Security.API.Models
 {
     public class Register
     {
-        [Required,
-        Display(Name = "Email"),
-        DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "El email es requerido."),
+        EmailAddress(ErrorMessage = "Correo inválido.")]
         public string Email { get; set; }
 
-        [Required,
-        StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6),
-        DataType(DataType.Password),
-        Display(Name = "Password")]
+        [Required(ErrorMessage = "La contraseña es requerida."),
+        StringLength(60, MinimumLength = 6, ErrorMessage = "La contraseña debe de ser de almenos 6 carácteres.")]
         public string Password { get; set; }
 
-
-        [Required]
+        [Required(ErrorMessage = "El rol es un campo requerido.")]
         public RoleType RoleType { get; set; }
     }
 }

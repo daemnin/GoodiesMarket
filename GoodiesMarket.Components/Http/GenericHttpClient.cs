@@ -1,4 +1,5 @@
-﻿using GoodiesMarket.Components.Contracts;
+﻿using GoodiesMarket.Components.Configs;
+using GoodiesMarket.Components.Contracts;
 using GoodiesMarket.Components.Models;
 using Newtonsoft.Json.Linq;
 using System;
@@ -12,25 +13,19 @@ namespace GoodiesMarket.Components.Http
 {
     public class GenericHttpClient : HttpClient, IHttpClient
     {
-        private const string jsonContentType = "application/json";
+        private Contracts.ICredentials credentials;
 
-        public GenericHttpClient(string baseAddress, params Tuple<string, string>[] headers)
+        public GenericHttpClient(string baseAddress) : this(baseAddress, null) { }
+
+        public GenericHttpClient(string baseAddress, Contracts.ICredentials credentials)
+            : base()
         {
             BaseAddress = new Uri(baseAddress);
-
-            if (headers != null)
-            {
-                foreach (var header in headers)
-                {
-                    DefaultRequestHeaders.Add(header.Item1, header.Item2);
-                }
-            }
+            this.credentials = credentials;
         }
 
-        public async Task<Result> Delete(string requestUrl, IEnumerable<Tuple<string, string>> headers = null)
+        public async Task<Result> Delete(string requestUrl)
         {
-            ConfigureHeaders(headers);
-
             var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
             Result response = await CreateRequest(() => SendAsync(request));
@@ -38,47 +33,87 @@ namespace GoodiesMarket.Components.Http
             return response;
         }
 
-        public async Task<Result> Put(string requestUrl, string body, IEnumerable<Tuple<string, string>> headers = null)
+        public async Task<Result> Put(string requestUrl, string body)
         {
-            ConfigureHeaders(headers);
-
-            var stringContent = new StringContent(body, Encoding.UTF8, jsonContentType);
+            var stringContent = new StringContent(body, Encoding.UTF8, ContentType.JSON);
 
             Result response = await CreateRequest(() => PutAsync(requestUrl, stringContent));
 
             return response;
         }
 
-        public async Task<Result> Post(string requestUrl, string body, string contentType = null, IEnumerable<Tuple<string, string>> headers = null)
+        public async Task<Result> Post(string requestUrl, string body, string contentType = null)
         {
-            ConfigureHeaders(headers);
-
-            var stringContent = new StringContent(body, Encoding.UTF8, contentType ?? jsonContentType);
+            var stringContent = new StringContent(body, Encoding.UTF8, contentType ?? ContentType.JSON);
 
             Result response = await CreateRequest(() => PostAsync(requestUrl, stringContent));
 
             return response;
         }
 
-        public async Task<Result> Get(string requestUrl, IEnumerable<Tuple<string, string>> headers = null)
+        public async Task<Result> Get(string requestUrl)
         {
-            ConfigureHeaders(headers);
-
             Result response = await CreateRequest(() => GetAsync(requestUrl));
 
             return response;
         }
 
-        private void ConfigureHeaders(IEnumerable<Tuple<string, string>> headers = null)
+        private async Task CheckCredentials()
         {
-            foreach (var header in headers ?? new List<Tuple<string, string>>())
+            var expiration = credentials.ExpirationDate?.AddMinutes(-5);
+
+            var validCredentials = DateTime.Now < credentials.ExpirationDate?.AddMinutes(-5);
+
+            if (!validCredentials)
             {
-                DefaultRequestHeaders.Add(header.Item1, header.Item2);
+                validCredentials = await RefreshCredentials();
             }
+
+            if (validCredentials)
+            {
+                DefaultRequestHeaders.Authorization = credentials.AuthorizationHeader;
+            }
+        }
+
+        private async Task<bool> RefreshCredentials()
+        {
+            bool validCredentials = false;
+            var requestUrl = Constants.REFRESH_TOKEN_CALL;
+
+            var request = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("refresh_token", credentials.RefreshToken),
+                new KeyValuePair<string, string>("grant_type", "refresh_token"),
+                new KeyValuePair<string, string>("client_id", Constants.APP_CLIENT_ID)
+            };
+
+            var body = await new FormUrlEncodedContent(request).ReadAsStringAsync();
+
+            var requestBody = new StringContent(body, Encoding.UTF8, ContentType.WWW_FORM);
+
+            var response = await PostAsync(requestUrl, requestBody);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                credentials.SignIn(JToken.Parse(jsonResponse));
+                validCredentials = true;
+            }
+            else
+            {
+                credentials.LogOut();
+            }
+
+            return validCredentials;
         }
 
         private async Task<Result> CreateRequest(Func<Task<HttpResponseMessage>> httpCall)
         {
+            if (credentials?.HasSession == true)
+            {
+                await CheckCredentials();
+            }
+
             HttpResponseMessage response = await httpCall();
 
             string jsonResponse = await response.Content.ReadAsStringAsync();

@@ -7,13 +7,13 @@ namespace GoodiesMarket.Model.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class initial_schema : IMigrationMetadata
+    public sealed partial class Range_moved_to_seller : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initial_schema));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Range_moved_to_seller));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711072134241_initial_schema"; }
+            get { return "201711082218592_Range_moved_to_seller"; }
         }
         
         string IMigrationMetadata.Source

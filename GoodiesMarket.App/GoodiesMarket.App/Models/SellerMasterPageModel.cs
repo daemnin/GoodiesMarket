@@ -11,11 +11,11 @@ namespace GoodiesMarket.App.Models
             set { SetProperty(ref name, value); }
         }
 
-        private string reach;
-        public string Reach
+        private string range;
+        public string Range
         {
-            get { return reach; }
-            set { SetProperty(ref reach, value); }
+            get { return range; }
+            set { SetProperty(ref range, value); }
         }
 
         private string profilePicture;

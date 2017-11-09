@@ -42,7 +42,7 @@ namespace GoodiesMarket.App.ViewModels
 
             if (signInResponse.Succeeded)
             {
-                CredentialsHelper.RegisterSignIn(signInResponse.Response);
+                Credentials.Instance.SignIn(signInResponse.Response);
                 var profileResponse = await proxy.GetProfile();
 
                 System.Diagnostics.Debug.WriteLine(profileResponse.Response);

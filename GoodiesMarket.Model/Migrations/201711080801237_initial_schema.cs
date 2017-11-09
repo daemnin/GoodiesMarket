@@ -20,7 +20,7 @@ namespace GoodiesMarket.Model.Migrations
                 })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Orders", t => t.OrderId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.ReceiverId, cascadeDelete: false)
+                .ForeignKey("dbo.Users", t => t.ReceiverId, cascadeDelete: true)
                 .ForeignKey("dbo.Users", t => t.SenderId, cascadeDelete: false)
                 .Index(t => t.OrderId)
                 .Index(t => t.SenderId)
@@ -38,7 +38,7 @@ namespace GoodiesMarket.Model.Migrations
                     StatusId = c.Int(nullable: false),
                 })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Sellers", t => t.SellerId, cascadeDelete: false)
+                .ForeignKey("dbo.Sellers", t => t.SellerId, cascadeDelete: true)
                 .ForeignKey("dbo.Status", t => t.StatusId, cascadeDelete: true)
                 .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: false)
                 .Index(t => t.UserId)
@@ -72,7 +72,7 @@ namespace GoodiesMarket.Model.Migrations
                     SellerId = c.Guid(nullable: false),
                 })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Sellers", t => t.SellerId, cascadeDelete: true)
+                .ForeignKey("dbo.Sellers", t => t.SellerId, cascadeDelete: false)
                 .Index(t => t.SellerId);
 
             CreateTable(
@@ -93,13 +93,15 @@ namespace GoodiesMarket.Model.Migrations
                 {
                     Id = c.Guid(nullable: false),
                     Name = c.String(nullable: false),
+                    Email = c.String(nullable: false, maxLength: 255),
                     Latitude = c.Double(),
                     Longitude = c.Double(),
-                    Reach = c.Int(nullable: false),
+                    Range = c.Int(nullable: false),
                     Score = c.Single(nullable: false),
                     PictureUrl = c.String(),
                 })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Email, unique: true);
 
             CreateTable(
                 "dbo.Status",
@@ -140,6 +142,7 @@ namespace GoodiesMarket.Model.Migrations
             DropForeignKey("dbo.Products", "SellerId", "dbo.Sellers");
             DropForeignKey("dbo.OrderProducts", "OrderId", "dbo.Orders");
             DropIndex("dbo.Favorites", "UQ_User_Seller");
+            DropIndex("dbo.Users", new[] { "Email" });
             DropIndex("dbo.Sellers", new[] { "Id" });
             DropIndex("dbo.Products", new[] { "SellerId" });
             DropIndex("dbo.OrderProducts", new[] { "OrderId" });

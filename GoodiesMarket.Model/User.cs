@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GoodiesMarket.Model
 {
@@ -11,11 +12,14 @@ namespace GoodiesMarket.Model
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        [Index("IX_Email", IsUnique = true)]
+        [StringLength(255)]
+        public string Email { get; set; }
+
         public double? Latitude { get; set; }
 
         public double? Longitude { get; set; }
-
-        public int Reach { get; set; }
 
         public float Score { get; set; }
 

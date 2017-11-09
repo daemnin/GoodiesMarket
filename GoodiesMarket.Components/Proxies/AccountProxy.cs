@@ -1,4 +1,5 @@
 ﻿using GoodiesMarket.Components.Configs;
+using GoodiesMarket.Components.Helpers;
 using GoodiesMarket.Components.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -20,14 +21,14 @@ namespace GoodiesMarket.Components.Proxies
                 new KeyValuePair<string, string>("username", email),
                 new KeyValuePair<string, string>("password", password),
                 new KeyValuePair<string, string>("grant_type", "password"),
-                new KeyValuePair<string, string>("client_id", Constants.SERVICE_CLIENT_ID)
+                new KeyValuePair<string, string>("client_id", Constants.APP_CLIENT_ID)
             };
 
             var body = await new FormUrlEncodedContent(request).ReadAsStringAsync();
 
             using (var httpClient = GetSecureClient())
             {
-                var result = await httpClient.Post(requestUri, body, "application/x-www-form-urlencoded");
+                var result = await httpClient.Post(requestUri, body, ContentType.WWW_FORM);
 
                 return result;
             }
@@ -57,9 +58,9 @@ namespace GoodiesMarket.Components.Proxies
 
         public async Task<Result> GetProfile()
         {
-            var requestUri = $"{Controller}/Profile";
+            var requestUri = $"{Controller}";
 
-            using (var httpClient = GetClient())
+            using (var httpClient = GetClient(Credentials.Instance))
             {
                 var result = await httpClient.Get(requestUri);
 

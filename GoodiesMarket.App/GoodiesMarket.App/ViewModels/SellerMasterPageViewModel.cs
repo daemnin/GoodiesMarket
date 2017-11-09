@@ -25,7 +25,7 @@ namespace GoodiesMarket.App.ViewModels
             Model = new SellerMasterPageModel
             {
                 Name = "Guillermo Herrera",
-                Reach = "Alcance: 50 m.",
+                Range = "Alcance: 50 m.",
                 ProfilePicture = "ic_profile.png"
             };
 

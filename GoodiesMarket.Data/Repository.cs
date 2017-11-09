@@ -27,7 +27,7 @@ namespace GoodiesMarket.Data
             return response;
         }
 
-        public virtual TEntity Read(int id)
+        public virtual TEntity Read<TKey>(TKey id)
         {
             var response = Entities.Find(id);
             return response;
@@ -72,6 +72,11 @@ namespace GoodiesMarket.Data
         public virtual IList<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes)
         {
             return Entities.IncludeMultiple(includes).Where(predicate).ToList();
+        }
+
+        public virtual bool Any(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Entities.Any(predicate);
         }
     }
 }
