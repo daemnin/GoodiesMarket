@@ -2,6 +2,7 @@
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GoodiesMarket.App.ViewModels
 {
@@ -26,7 +27,7 @@ namespace GoodiesMarket.App.ViewModels
             {
                 SellerName = "Don Cirilo",
                 PurchaseRestriction = "No le vendo a muerde almohadas",
-
+                Total = 0,
                 Products = new List<OrderProduct>
                 {
                     new OrderProduct
@@ -44,7 +45,24 @@ namespace GoodiesMarket.App.ViewModels
                         PictureUrl = "ic_camera.png",
                         Price = 5.50f,
                         Stock = 10
+                    },
+                    new OrderProduct
+                    {
+                        Name = "Tonayan 1lt",
+                        Amount = 0,
+                        PictureUrl = "ic_camera.png",
+                        Price = 5.50f,
+                        Stock = 10
+                    },
+                    new OrderProduct
+                    {
+                        Name = "Tonayan 1lt",
+                        Amount = 0,
+                        PictureUrl = "ic_camera.png",
+                        Price = 5.50f,
+                        Stock = 10
                     }
+
                 }
             };
 
@@ -61,7 +79,12 @@ namespace GoodiesMarket.App.ViewModels
             {
                 product.Amount++;
             }
+            UpdateTotal();
+        }
 
+        private void UpdateTotal()
+        {
+            Model.Total = Model.Products.Sum(p => p.Amount * p.Price);
         }
 
         private void RemoveProduct(OrderProduct product)
@@ -70,6 +93,7 @@ namespace GoodiesMarket.App.ViewModels
             {
                 product.Amount--;
             }
+            UpdateTotal();
         }
     }
 }
