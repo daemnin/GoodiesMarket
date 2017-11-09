@@ -96,7 +96,7 @@ namespace GoodiesMarket.Components.Http
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 string jsonResponse = await response.Content.ReadAsStringAsync();
-                credentials.RegisterSignIn(JToken.Parse(jsonResponse));
+                credentials.SignIn(JToken.Parse(jsonResponse));
                 validCredentials = true;
             }
             else

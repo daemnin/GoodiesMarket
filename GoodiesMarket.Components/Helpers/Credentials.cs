@@ -5,19 +5,19 @@ using System.Net.Http.Headers;
 
 namespace GoodiesMarket.Components.Helpers
 {
-    public class CredentialsHelper : ICredentials
+    public class Credentials : ICredentials
     {
-        private static CredentialsHelper instance;
-        public static CredentialsHelper Instance
+        private static Credentials instance;
+        public static Credentials Instance
         {
-            get { return instance ?? (instance = new CredentialsHelper()); }
+            get { return instance ?? (instance = new Credentials()); }
         }
 
-        private CredentialsHelper() { }
+        private Credentials() { }
 
         private JToken credentials;
 
-        public void RegisterSignIn(JToken credentials)
+        public void SignIn(JToken credentials)
         {
             this.credentials = credentials;
         }

@@ -60,7 +60,7 @@ namespace GoodiesMarket.Components.Proxies
         {
             var requestUri = $"{Controller}";
 
-            using (var httpClient = GetClient(CredentialsHelper.Instance))
+            using (var httpClient = GetClient(Credentials.Instance))
             {
                 var result = await httpClient.Get(requestUri);
 
