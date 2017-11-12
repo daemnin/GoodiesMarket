@@ -150,8 +150,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderProduct.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Register.cs" />

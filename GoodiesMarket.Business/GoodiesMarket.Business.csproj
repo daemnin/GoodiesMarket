@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Processes\AccountProcess.cs" />
+    <Compile Include="Processes\OrderProcess.cs" />
     <Compile Include="Processes\ProcessBase.cs" />
     <Compile Include="Processes\ProductProcess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
