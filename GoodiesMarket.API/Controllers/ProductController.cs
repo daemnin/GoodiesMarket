@@ -16,6 +16,7 @@ namespace GoodiesMarket.API.Controllers
             this.unitOfWork = unitOfWork;
         }
 
+
         [HttpGet]
         [Authorize(Roles = "Buyer")]
         public IHttpActionResult Search([FromUri] Search search)
@@ -25,6 +26,19 @@ namespace GoodiesMarket.API.Controllers
             var process = new ProductProcess(unitOfWork);
 
             Result result = process.Search(User.Identity.GetId(), search.Query);
+
+            return GetErrorResult(result) ?? Ok(result);
+        }
+
+        [Authorize(Roles = "Seller")]
+        public IHttpActionResult Create(Product product)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var process = new ProductProcess(unitOfWork);
+
+            Result result = process.Create(User.Identity.GetId(), product.Name,
+                                           product.Description, product.Price, product.Stock);
 
             return GetErrorResult(result) ?? Ok(result);
         }

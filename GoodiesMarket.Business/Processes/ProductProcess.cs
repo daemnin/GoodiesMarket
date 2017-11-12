@@ -31,15 +31,6 @@ namespace GoodiesMarket.Business.Processes
 
                 result.Response = nearBySellers.ToToken();
 
-                //var products = UnitOfWork.ProductRepository
-                //                .FindBy(p => p.Description.Contains(name) &&
-                //                             p.Seller.User.Latitude != null &&
-                //                             p.Seller.User.Longitude != null &&
-                //                             p.Seller.Range != null,
-                //                             p => p.Seller, p => p.Seller.User);
-                //var nearByProducts = products.AsParallel().Where(p => InRange(user, p.Seller));
-                //result.Response = nearByProducts.ToToken();
-
                 result.Succeeded = true;
             }
             catch (Exception ex)
@@ -48,6 +39,38 @@ namespace GoodiesMarket.Business.Processes
             }
 
             return result;
+        }
+
+        public Result Create(Guid sellerId, string name, string description, float price, int? stock)
+        {
+            var result = new Result();
+            try
+            {
+                result.Succeeded = CreateProduct(sellerId, name, description, price, stock);
+            }
+            catch (Exception ex)
+            {
+                FillErrors(ex, result);
+            }
+            return result;
+
+        }
+
+        private bool CreateProduct(Guid sellerId, string name, string description, float price, int? stock)
+        {
+
+            var product = new Product
+            {
+                SellerId = sellerId,
+                Name = name,
+                Description = description,
+                Price = price,
+                Stock = stock
+            };
+
+            UnitOfWork.ProductRepository.Create(product);
+
+            return UnitOfWork.Save() > 0;
         }
 
         private bool InRange(User user, Seller seller)

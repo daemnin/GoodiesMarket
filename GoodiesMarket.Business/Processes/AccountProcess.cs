@@ -135,7 +135,15 @@ namespace GoodiesMarket.Business.Processes
                         s.Range,
                         s.Motto,
                         s.Restriction,
-                        s.Products
+                        Products = s.Products.Select(p => new
+                        {
+                            p.Id,
+                            p.Name,
+                            p.Description,
+                            p.Price,
+                            p.Stock,
+                            p.ImageUrl
+                        })
                     })
                     .FirstOrDefault()
                     .ToToken();
