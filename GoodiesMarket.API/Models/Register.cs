@@ -18,6 +18,6 @@ namespace GoodiesMarket.API.Models
         public string Password { get; set; }
 
         [Required(ErrorMessage = "El rol es un campo requerido.")]
-        public RoleType? RoleType { get; set; }
+        public RoleType RoleType { get; set; }
     }
 }

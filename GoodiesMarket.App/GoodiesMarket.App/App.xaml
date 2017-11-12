@@ -9,8 +9,10 @@
         <ResourceDictionary>
             <converters:BoolToCheckmarkConverter x:Key="BoolToCheckmark" />
             <converters:PriceConverter x:Key="PriceConverter" />
+            <converters:RangeTextConverter x:Key="RangeTextConverter" />
             <x:Double x:Key="TitleFontSize">24</x:Double>
             <x:Double x:Key="SubtitleFontSize">18</x:Double>
+            <x:Double x:Key="MottoFontSize">12</x:Double>
             <Color x:Key="DarkPrimaryColor">#1976D2</Color>
             <Color x:Key="LightPrimaryColor">#BBDEFB</Color>
             <Color x:Key="PrimaryColor">#2196F3</Color>
@@ -32,6 +34,17 @@
                 TargetType="Label">
                 <Setter Property="FontAttributes" Value="None" />
                 <Setter Property="FontSize" Value="{DynamicResource Key=SubtitleFontSize}" />
+            </Style>
+            <Style x:Key="DefaultText" TargetType="Label">
+                <Setter Property="FontSize" Value="{DynamicResource Key=SubtitleFontSize}" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+            <Style
+                x:Key="MottoText"
+                BasedOn="{StaticResource Key=DefaultText}"
+                TargetType="Label">
+                <Setter Property="FontSize" Value="{DynamicResource Key=MottoFontSize}" />
+                <Setter Property="FontAttributes" Value="Italic" />
             </Style>
             <Style x:Key="DefaultButton" TargetType="Button">
                 <Setter Property="HeightRequest" Value="50" />

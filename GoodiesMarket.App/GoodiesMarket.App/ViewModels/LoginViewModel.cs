@@ -1,6 +1,7 @@
 ﻿using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
 using GoodiesMarket.Components.Helpers;
+using GoodiesMarket.Components.Models;
 using GoodiesMarket.Components.Proxies;
 using Newtonsoft.Json.Linq;
 using Prism.Commands;
@@ -29,7 +30,7 @@ namespace GoodiesMarket.App.ViewModels
             SignInCommand = new DelegateCommand(SignIn);
             RegistrationCommand = new DelegateCommand(Register);
 
-            Model.Email = "guillermo@abc.com";
+            Model.Email = "daniel@abc.com";
             Model.Password = "password123";
         }
 
@@ -48,11 +49,27 @@ namespace GoodiesMarket.App.ViewModels
             {
                 Credentials.Instance.SignIn(signInResponse.Response);
 
+                var roleResponse = await proxy.GetRole();
+
+                var role = (RoleType)roleResponse.Response.Value<int>("role");
+
                 var profileResponse = await proxy.GetProfile();
+                var navParams = new NavigationParameters();
 
-                var response = profileResponse.Response.Value<JToken>("response").ToObject<BuyerProfileModel>();
-
-                System.Diagnostics.Debug.WriteLine(response);
+                switch (role)
+                {
+                    case RoleType.Buyer:
+                        var buyerModel = profileResponse.Response.Value<JToken>("response").ToObject<BuyerProfileModel>();
+                        navParams.Add("model", buyerModel);
+                        await navigationService.NavigateAsync("NavigationPage/BuyerMasterPage/BuyerProfile", navParams);
+                        break;
+                    case RoleType.Seller:
+                        var sellerModel = profileResponse.Response.Value<JToken>("response").ToObject<SellerProfileModel>();
+                        sellerModel.StarUrl = "ic_rating_star";
+                        navParams.Add("model", sellerModel);
+                        await navigationService.NavigateAsync("NavigationPage/SellerMasterPage/SellerProfile", navParams);
+                        break;
+                }
             }
         }
     }

@@ -33,6 +33,13 @@ namespace GoodiesMarket.App.Models
             set { SetProperty(ref score, value); }
         }
 
+        private int? range;
+        public int? Range
+        {
+            get { return range; }
+            set { SetProperty(ref range, value); }
+        }
+
         private string starUrl;
         public string StarUrl
         {

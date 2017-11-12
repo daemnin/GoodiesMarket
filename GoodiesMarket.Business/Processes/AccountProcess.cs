@@ -70,7 +70,7 @@ namespace GoodiesMarket.Business.Processes
             return result;
         }
 
-        public Result Update(Guid userId, RoleType role, double? latitude, double? longitude, int? range)
+        public Result Update(Guid userId, RoleType role, double? latitude, double? longitude, int? range, string motto)
         {
             var result = new Result();
 
@@ -88,6 +88,8 @@ namespace GoodiesMarket.Business.Processes
                     var seller = UnitOfWork.SellerRepository.Read(userId);
 
                     seller.Range = range.Value;
+
+                    seller.Motto = motto ?? seller.Motto;
 
                     UnitOfWork.SellerRepository.Update(seller);
                 }
@@ -155,7 +157,8 @@ namespace GoodiesMarket.Business.Processes
             {
                 Id = Guid.Parse(userId),
                 Name = name,
-                Email = email.ToLower()
+                Email = email.ToLower(),
+                PictureUrl = "ic_profile"
             };
 
             UnitOfWork.UserRepository.Create(user);

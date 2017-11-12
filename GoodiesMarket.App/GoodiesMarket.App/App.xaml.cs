@@ -13,7 +13,7 @@ namespace GoodiesMarket.App
         {
             InitializeComponent();
 
-            var userType = UserType.Unidentified;
+            var userType = UserType.Seller;
 
             switch (userType)
             {

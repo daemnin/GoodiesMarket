@@ -10,6 +10,19 @@ namespace GoodiesMarket.API.Extensions
 {
     public static class IdentityExtensions
     {
+        public static RoleType GetRole(this IIdentity identity)
+        {
+            var roleName = GetRoleName(identity);
+
+            return (RoleType)Enum.Parse(typeof(RoleType), roleName);
+        }
+
+        public static string GetRoleName(this IIdentity identity)
+        {
+            var claimsIdentity = (ClaimsIdentity)identity;
+            return claimsIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+        }
+
         public static IEnumerable<RoleType> GetRoles(this IIdentity identity)
         {
             var claimsIdentity = (ClaimsIdentity)identity;

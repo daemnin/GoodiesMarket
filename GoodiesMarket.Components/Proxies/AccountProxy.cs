@@ -56,6 +56,18 @@ namespace GoodiesMarket.Components.Proxies
             }
         }
 
+        public async Task<Result> GetRole()
+        {
+            var requestUri = $"{Controller}/role";
+
+            using (var httpClient = GetClient(Credentials.Instance))
+            {
+                var result = await httpClient.Get(requestUri);
+
+                return result;
+            }
+        }
+
         public async Task<Result> GetProfile()
         {
             var requestUri = $"{Controller}";

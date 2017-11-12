@@ -5,10 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     x:Name="MasterPage"
-    Title="{Binding Path=SelectedItem.Title}"
+    Title="{Binding Path=Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <MasterDetailPage.Master>
-        <ContentPage Title="Master">
+        <ContentPage Title="Master" Icon="">
             <ContentPage.Content>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -28,7 +28,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Image Margin="10,5" Source="{Binding Path=Model.ProfilePicture}" />
+                        <Image Margin="10,5" Source="{Binding Path=Model.PictureUrl}" />
                         <Label
                             Grid.Row="1"
                             Grid.ColumnSpan="2"
@@ -38,28 +38,27 @@
                             Grid.Row="2"
                             Grid.ColumnSpan="2"
                             Style="{StaticResource Key=ProfileMasterSubText}"
-                            Text="{Binding Path=Model.Range}" />
+                            Text="{Binding Path=Model.Range, Converter={StaticResource Key=RangeTextConverter}}" />
                     </Grid>
-                    <ListView
-                        Grid.Row="1"
-                        ItemsSource="{Binding Path=Menu}"
-                        Style="{StaticResource Key=Menu}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <ViewCell.View>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Image Source="{Binding Path=Icon}" Style="{StaticResource Key=MenuIcon}" />
-                                            <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Title}" />
-                                            <StackLayout.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectCommand, Source={x:Reference MasterPage}}" CommandParameter="{Binding}" />
-                                            </StackLayout.GestureRecognizers>
-                                        </StackLayout>
-                                    </ViewCell.View>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <ScrollView Grid.Row="1">
+                        <ListView ItemsSource="{Binding Path=Menu}" Style="{StaticResource Key=Menu}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ViewCell.View>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Image Source="{Binding Path=Icon}" Style="{StaticResource Key=MenuIcon}" />
+                                                <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Title}" />
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectCommand, Source={x:Reference MasterPage}}" CommandParameter="{Binding}" />
+                                                </StackLayout.GestureRecognizers>
+                                            </StackLayout>
+                                        </ViewCell.View>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollView>
                 </Grid>
             </ContentPage.Content>
         </ContentPage>

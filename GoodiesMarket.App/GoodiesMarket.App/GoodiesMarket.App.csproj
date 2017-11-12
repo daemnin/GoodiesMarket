@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Converters\BoolToCheckmarkConverter.cs" />
     <Compile Include="Converters\PriceConverter.cs" />
+    <Compile Include="Converters\RangeTextConverter.cs" />
     <Compile Include="Models\BuyerProfileModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MenuItem.cs" />
@@ -44,7 +45,6 @@
     <Compile Include="Models\PlaceOrderModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
-    <Compile Include="Models\SellerMasterPageModel.cs" />
     <Compile Include="Models\SellerProfileModel.cs" />
     <Compile Include="Models\UserType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

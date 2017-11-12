@@ -1,20 +1,29 @@
 ﻿using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
 using Prism.Commands;
+using Prism.Navigation;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GoodiesMarket.App.ViewModels
 {
     public class SellerMasterPageViewModel : ViewModelBase
     {
         #region Properties
-        private SellerMasterPageModel model;
-        public SellerMasterPageModel Model
+        private SellerProfileModel model;
+        public SellerProfileModel Model
         {
             get { return model; }
             set { SetProperty(ref model, value); }
         }
         #endregion
+
+        private string title;
+        public string Title
+        {
+            get { return title; }
+            set { SetProperty(ref title, value); }
+        }
 
         public List<MenuItem> Menu { get; set; }
 
@@ -22,13 +31,6 @@ namespace GoodiesMarket.App.ViewModels
 
         public SellerMasterPageViewModel()
         {
-            Model = new SellerMasterPageModel
-            {
-                Name = "Guillermo Herrera",
-                Range = "Alcance: 50 m.",
-                ProfilePicture = "ic_profile.png"
-            };
-
             Menu = new List<MenuItem>
             {
                 new MenuItem{ Icon = "ic_profile.png", Title = "Perfil", NavigationUrl = "" },
@@ -39,11 +41,20 @@ namespace GoodiesMarket.App.ViewModels
             };
 
             SelectCommand = new DelegateCommand<MenuItem>(Navigate);
+            Title = Menu.FirstOrDefault().Title;
         }
 
         private void Navigate(MenuItem item)
         {
-            System.Diagnostics.Debug.WriteLine(item.Title);
+            Title = item.Title;
+        }
+
+        public override void OnNavigatingTo(NavigationParameters parameters)
+        {
+            if (parameters.ContainsKey("model"))
+            {
+                Model = (SellerProfileModel)parameters["model"];
+            }
         }
     }
 }

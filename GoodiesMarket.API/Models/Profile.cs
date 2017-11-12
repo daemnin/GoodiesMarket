@@ -12,5 +12,8 @@ namespace GoodiesMarket.API.Models
 
         [Range(30, int.MaxValue, ErrorMessage = "La distancia mínima es de 30 metros.")]
         public int? Range { get; set; }
+
+        [StringLength(255, ErrorMessage = "El lema es muy largo.")]
+        public string Motto { get; set; }
     }
 }

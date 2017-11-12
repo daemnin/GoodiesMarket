@@ -3,8 +3,7 @@ using GoodiesMarket.API.Models;
 using GoodiesMarket.Business.Processes;
 using GoodiesMarket.Components.Models;
 using GoodiesMarket.Data.Contracts;
-using Microsoft.AspNet.Identity;
-using System.Linq;
+using System;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -22,20 +21,19 @@ namespace GoodiesMarket.API.Controllers
 
         public IHttpActionResult Get()
         {
-            RoleType role = User.Identity.GetRoles().First();
-
             var process = new AccountProcess(unitOfWork);
 
-            Result result = process.Get(User.Identity.GetId(), role);
+            Result result = process.Get(User.Identity.GetId(), User.Identity.GetRole());
 
             return GetErrorResult(result) ?? Ok(result);
         }
 
         [HttpGet]
-        [Route("api/account/roles")]
-        public IHttpActionResult Roles()
+        [Route("api/account/role")]
+        public IHttpActionResult Role()
         {
-            return Ok(new { Succeeded = true, Roles = User.Identity.GetRolesName() });
+            
+            return Ok(new { Role = User.Identity.GetRole() });
         }
 
         [HttpPut]
@@ -45,7 +43,7 @@ namespace GoodiesMarket.API.Controllers
 
             var process = new AccountProcess(unitOfWork);
 
-            Result result = process.Update(User.Identity.GetId(), User.Identity.GetRoles().First(), profile.Latitude, profile.Longitude, profile.Range);
+            Result result = process.Update(User.Identity.GetId(), User.Identity.GetRole(), profile.Latitude, profile.Longitude, profile.Range, profile.Motto);
 
             return GetErrorResult(result) ?? Ok(result);
         }
@@ -57,7 +55,7 @@ namespace GoodiesMarket.API.Controllers
 
             var process = new AccountProcess(unitOfWork);
 
-            Result result = await process.Register(register.Name, register.Email, register.Password, register.RoleType.Value);
+            Result result = await process.Register(register.Name, register.Email, register.Password, register.RoleType);
 
             return GetErrorResult(result) ?? Ok(result);
         }
