@@ -2,6 +2,7 @@
 using GoodiesMarket.App.ViewModels.Abstracts;
 using GoodiesMarket.Components.Helpers;
 using GoodiesMarket.Components.Proxies;
+using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Windows.Input;
@@ -27,6 +28,9 @@ namespace GoodiesMarket.App.ViewModels
             Model = new LoginModel();
             SignInCommand = new DelegateCommand(SignIn);
             RegistrationCommand = new DelegateCommand(Register);
+
+            Model.Email = "guillermo@abc.com";
+            Model.Password = "password123";
         }
 
         private async void Register()
@@ -43,9 +47,12 @@ namespace GoodiesMarket.App.ViewModels
             if (signInResponse.Succeeded)
             {
                 Credentials.Instance.SignIn(signInResponse.Response);
+
                 var profileResponse = await proxy.GetProfile();
 
-                System.Diagnostics.Debug.WriteLine(profileResponse.Response);
+                var response = profileResponse.Response.Value<JToken>("response").ToObject<BuyerProfileModel>();
+
+                System.Diagnostics.Debug.WriteLine(response);
             }
         }
     }

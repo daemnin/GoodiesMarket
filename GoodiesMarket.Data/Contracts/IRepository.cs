@@ -8,7 +8,7 @@ namespace GoodiesMarket.Data.Contracts
     public interface IRepository<TEntity>
     {
         TEntity Create(TEntity entity);
-        TEntity Delete(int id);
+        TEntity Delete<TKey>(TKey id);
         IList<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes);
         IList<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] includes);
         TEntity Read<TKey>(TKey id);

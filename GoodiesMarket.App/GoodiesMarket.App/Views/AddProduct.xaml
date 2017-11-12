@@ -47,7 +47,7 @@
                 <Entry
                     Grid.Column="2"
                     Keyboard="Numeric"
-                    Text="{Binding Path=Model.Inventory}"
+                    Text="{Binding Path=Model.Stock}"
                     VerticalOptions="Center" />
                 <Label
                     Grid.Row="1"

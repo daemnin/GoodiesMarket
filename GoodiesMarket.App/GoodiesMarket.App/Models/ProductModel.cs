@@ -11,11 +11,11 @@ namespace GoodiesMarket.App.Models
             set { SetProperty(ref name, value); }
         }
 
-        private int inventory;
-        public int Inventory
+        private int stock;
+        public int Stock
         {
-            get { return inventory; }
-            set { SetProperty(ref inventory, value); }
+            get { return stock; }
+            set { SetProperty(ref stock, value); }
         }
 
         private float price;
@@ -32,11 +32,11 @@ namespace GoodiesMarket.App.Models
             set { SetProperty(ref description, value); }
         }
 
-        private string pictureUrl;
-        public string PictureUrl
+        private string imageUrl;
+        public string ImageUrl
         {
-            get { return pictureUrl; }
-            set { SetProperty(ref pictureUrl, value); }
+            get { return imageUrl; }
+            set { SetProperty(ref imageUrl, value); }
         }
     }
 }

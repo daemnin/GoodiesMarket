@@ -24,7 +24,7 @@ namespace GoodiesMarket.App.ViewModels
         {
             Model.Name = "Guillermo Herrera";
             Model.Email = "guillermo.herrera@gmail.com";
-            Model.ProfilePicture = "ic_profile.png";
+            Model.PictureUrl = "ic_profile.png";
 
             Menu = new List<MenuItem>
             {

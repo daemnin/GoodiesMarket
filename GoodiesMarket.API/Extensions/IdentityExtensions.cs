@@ -17,6 +17,12 @@ namespace GoodiesMarket.API.Extensions
                 .Select(c => (RoleType)Enum.Parse(typeof(RoleType), c.Value, true));
         }
 
+        public static IEnumerable<string> GetRolesName(this IIdentity identity)
+        {
+            var claimsIdentity = (ClaimsIdentity)identity;
+            return claimsIdentity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+        }
+
         public static Guid GetId(this IIdentity identity)
         {
             return Guid.Parse(identity.GetUserId());

@@ -18,11 +18,11 @@ namespace GoodiesMarket.App.Models
             set { SetProperty(ref email, value); }
         }
 
-        private string profilePicture;
-        public string ProfilePicture
+        private string pictureUrl;
+        public string PictureUrl
         {
-            get { return profilePicture; }
-            set { SetProperty(ref profilePicture, value); }
+            get { return pictureUrl; }
+            set { SetProperty(ref pictureUrl, value); }
         }
     }
 }

@@ -62,7 +62,7 @@ namespace GoodiesMarket.Data
             return response;
         }
 
-        public virtual TEntity Delete(int id)
+        public virtual TEntity Delete<TKey>(TKey id)
         {
             var entity = Entities.Find(id);
             Entities.Remove(entity);

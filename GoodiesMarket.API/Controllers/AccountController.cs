@@ -31,6 +31,13 @@ namespace GoodiesMarket.API.Controllers
             return GetErrorResult(result) ?? Ok(result);
         }
 
+        [HttpGet]
+        [Route("api/account/roles")]
+        public IHttpActionResult Roles()
+        {
+            return Ok(new { Succeeded = true, Roles = User.Identity.GetRolesName() });
+        }
+
         [HttpPut]
         public IHttpActionResult Update(Profile profile)
         {
