@@ -16,6 +16,33 @@ namespace GoodiesMarket.API.Controllers
             this.unitOfWork = unitOfWork;
         }
 
+        [HttpPut]
+        [Authorize(Roles = "Seller")]
+        public IHttpActionResult Update(long id, Product product)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var process = new ProductProcess(unitOfWork);
+
+            Result result = process.Update(id, product.Name,
+                                           product.Description, product.Price, product.Stock);
+
+            return GetErrorResult(result) ?? Ok(result);
+
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = "Seller")]
+        public IHttpActionResult Delete(long id, Product product)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var process = new ProductProcess(unitOfWork);
+
+            Result result = process.Delete(id);
+
+            return GetErrorResult(result) ?? Ok(result);
+        }
 
         [HttpGet]
         [Authorize(Roles = "Buyer")]

@@ -41,6 +41,48 @@ namespace GoodiesMarket.Business.Processes
             return result;
         }
 
+        public Result Delete(long productId)
+        {
+            var result = new Result();
+            try
+            {
+                UnitOfWork.ProductRepository.Delete(productId);
+
+                result.Succeeded = UnitOfWork.Save() > 0;
+            }
+            catch (Exception ex)
+            {
+
+                FillErrors(ex, result);
+            }
+
+
+            return result;
+        }
+
+        public Result Update(long productId, string name, string description, float price, int? stock)
+        {
+            var result = new Result();
+            try
+            {
+                var product = UnitOfWork.ProductRepository.Read(productId);
+
+                product.Name = name;
+                product.Description = description;
+                product.Price = price;
+                product.Stock = stock;
+
+                UnitOfWork.ProductRepository.Update(product);
+
+                result.Succeeded = UnitOfWork.Save() > 0;
+            }
+            catch (Exception ex)
+            {
+                FillErrors(ex, result);
+            }
+            return result;
+        }
+
         public Result Create(Guid sellerId, string name, string description, float price, int? stock)
         {
             var result = new Result();
