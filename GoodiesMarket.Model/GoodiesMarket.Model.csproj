@@ -64,6 +64,7 @@
       <DependentUpon>201711110639232_added name to product.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Initializer.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderProduct.cs" />
     <Compile Include="Status.cs" />

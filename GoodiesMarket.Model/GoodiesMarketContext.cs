@@ -1,4 +1,5 @@
 ﻿using GoodiesMarket.Model.Contracts;
+using GoodiesMarket.Model.Migrations;
 using System.Data.Entity;
 
 namespace GoodiesMarket.Model
@@ -16,6 +17,7 @@ namespace GoodiesMarket.Model
         public GoodiesMarketContext()
             : base("GoodiesMarketContext")
         {
+            Database.SetInitializer(new Initializer());
         }
     }
 }

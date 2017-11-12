@@ -33,6 +33,19 @@ namespace GoodiesMarket.Data
             get { return productRepository ?? (productRepository = new Repository<Product>(context)); }
         }
 
+        private IRepository<Order> orderRepository;
+        public IRepository<Order> OrderRepository
+        {
+            get { return orderRepository ?? (orderRepository = new Repository<Order>(context)); }
+        }
+
+        private IRepository<OrderProduct> orderProductRepository;
+        public IRepository<OrderProduct> OrderProductRepository
+        {
+            get { return orderProductRepository ?? (orderProductRepository = new Repository<OrderProduct>(context)); }
+        }
+
+
         public void Dispose()
         {
             if (!disposed)
