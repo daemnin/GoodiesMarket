@@ -20,7 +20,10 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Label Style="{StaticResource Key=DefaultText}" Text="Rango (metros)" />
-            <Entry Grid.Column="1" Text="{Binding Path=Model.Range}" />
+            <Entry
+                Grid.Column="1"
+                Keyboard="Numeric"
+                Text="{Binding Path=Model.Range, Converter={StaticResource Key=NullableIntConverter}}" />
             <Label
                 Grid.Row="1"
                 Grid.ColumnSpan="2"
