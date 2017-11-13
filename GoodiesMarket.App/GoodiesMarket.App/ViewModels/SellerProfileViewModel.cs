@@ -1,6 +1,7 @@
 ﻿using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
 using GoodiesMarket.Components.Proxies;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Navigation;
@@ -16,6 +17,7 @@ namespace GoodiesMarket.App.ViewModels
         public DelegateCommand<ProductModel> EditCommand { get; private set; }
         public DelegateCommand<ProductModel> DeleteCommand { get; private set; }
         public DelegateCommand AddCommand { get; private set; }
+        public DelegateCommand EditProfileCommand { get; private set; }
 
         private SellerProfileModel model;
         public SellerProfileModel Model
@@ -31,6 +33,17 @@ namespace GoodiesMarket.App.ViewModels
             AddCommand = new DelegateCommand(AddProduct);
             EditCommand = new DelegateCommand<ProductModel>(EditProduct);
             DeleteCommand = new DelegateCommand<ProductModel>(DeleteProduct);
+            EditProfileCommand = new DelegateCommand(EditProfile);
+
+        }
+
+        private async void EditProfile()
+        {
+            var navParams = new NavigationParameters
+            {
+                { "model", JsonConvert.SerializeObject(model) }
+            };
+            await navigationService.NavigateAsync("EditProfile", navParams, useModalNavigation: true);
         }
 
         private async void AddProduct()
@@ -69,6 +82,23 @@ namespace GoodiesMarket.App.ViewModels
             await navigationService.NavigateAsync("AddProduct", navParams, useModalNavigation: true);
         }
 
+        private async void GetProfile()
+        {
+            var proxy = new AccountProxy();
+            var response = await proxy.GetProfile();
+
+            if (response.Succeeded)
+            {
+                Model = response.Response.Value<JToken>("response").ToObject<SellerProfileModel>();
+                Model.StarUrl = "ic_rating_star";
+            }
+            else
+            {
+                await pageDialogService.DisplayAlertAsync("Hubo un error", "Se generó un problema, inicie sesión nuevamente.", "Ok");
+                await navigationService.NavigateAsync("/Login?SignOut");
+            }
+        }
+
         public override void OnNavigatingTo(NavigationParameters parameters)
         {
             if (parameters.ContainsKey("model") && model == null)
@@ -84,21 +114,10 @@ namespace GoodiesMarket.App.ViewModels
             {
                 Model.Products.Add((ProductModel)parameters["new_product"]);
             }
-        }
 
-        private async void GetProfile()
-        {
-            var proxy = new AccountProxy();
-            var response = await proxy.GetProfile();
-
-            if (response.Succeeded)
+            if (parameters.ContainsKey("new_model"))
             {
-                Model = response.Response.Value<JToken>("response").ToObject<SellerProfileModel>();
-            }
-            else
-            {
-                await pageDialogService.DisplayAlertAsync("Hubo un error", "Se generó un problema, inicie sesión nuevamente.", "Ok");
-                await navigationService.NavigateAsync("/Login?SignOut");
+                Model = (SellerProfileModel)parameters["new_model"];
             }
         }
     }

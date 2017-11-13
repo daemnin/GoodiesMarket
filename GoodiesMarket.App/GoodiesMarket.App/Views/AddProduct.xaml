@@ -22,7 +22,12 @@
                     <ColumnDefinition Width=".35*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Command="{Binding Path=SelectPictureCommand}" Image="ic_camera.png" />
+                <Image Source="ic_camera.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Path=SelectPictureCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <!--<Button Command="{Binding Path=SelectPictureCommand}" Image="ic_camera.png" />-->
                 <Entry
                     Grid.Column="1"
                     Placeholder="Nombre"

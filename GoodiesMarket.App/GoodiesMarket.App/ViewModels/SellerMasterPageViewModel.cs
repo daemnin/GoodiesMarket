@@ -62,10 +62,6 @@ namespace GoodiesMarket.App.ViewModels
 
         public override void OnNavigatingTo(NavigationParameters parameters)
         {
-            if (parameters.ContainsKey("something"))
-            {
-
-            }
             if (parameters.ContainsKey("model"))
             {
                 Model = (SellerProfileModel)parameters["model"];

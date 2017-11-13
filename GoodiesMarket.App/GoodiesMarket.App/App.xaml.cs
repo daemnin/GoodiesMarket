@@ -43,6 +43,7 @@ namespace GoodiesMarket.App
             Container.RegisterTypeForNavigation<RegistrationPassword>();
             Container.RegisterTypeForNavigation<AddProduct>();
             Container.RegisterTypeForNavigation<PlaceOrder>();
+            Container.RegisterTypeForNavigation<EditProfile>();
         }
     }
 }

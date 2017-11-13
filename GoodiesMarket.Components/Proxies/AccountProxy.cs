@@ -56,6 +56,26 @@ namespace GoodiesMarket.Components.Proxies
             }
         }
 
+        public async Task<Result> UpdateProfile(string motto, int? range)
+        {
+            var requestUri = $"{Controller}";
+
+            var request = new
+            {
+                motto,
+                range
+            };
+
+            var body = JsonConvert.SerializeObject(request);
+
+            using (var client = GetClient(Credentials.Instance))
+            {
+                var result = await client.Put(requestUri, body);
+
+                return result;
+            }
+        }
+
         public async Task<Result> GetRole()
         {
             var requestUri = $"{Controller}/role";

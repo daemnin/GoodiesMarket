@@ -45,12 +45,15 @@ namespace GoodiesMarket.App.ViewModels
 
             if (cancel)
             {
-                var backup = JsonConvert.DeserializeObject<ProductModel>(modelBackup);
-                Model.Description = backup.Description;
-                Model.Name = backup.Name;
-                Model.Price = backup.Price;
-                Model.Stock = backup.Stock;
-                Model.ImageUrl = backup.ImageUrl;
+                if (!string.IsNullOrEmpty(modelBackup))
+                {
+                    var backup = JsonConvert.DeserializeObject<ProductModel>(modelBackup);
+                    Model.Description = backup.Description;
+                    Model.Name = backup.Name;
+                    Model.Price = backup.Price;
+                    Model.Stock = backup.Stock;
+                    Model.ImageUrl = backup.ImageUrl;
+                }
 
                 await navigationService.GoBackAsync();
             }
@@ -106,8 +109,9 @@ namespace GoodiesMarket.App.ViewModels
             }
         }
 
-        private void SelectPicture()
+        private async void SelectPicture()
         {
+            await pageDialogService.DisplayAlertAsync("Deshabilitado", "Esta opción aun no está habilitada.", "Ok");
         }
 
         public override void OnNavigatingTo(NavigationParameters parameters)

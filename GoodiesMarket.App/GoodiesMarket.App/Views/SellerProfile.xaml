@@ -10,6 +10,10 @@
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding Path=AddCommand}" Text="Agrear producto" />
+        <ToolbarItem
+            Command="{Binding Path=EditProfileCommand}"
+            Order="Secondary"
+            Text="Editar Perfil" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>

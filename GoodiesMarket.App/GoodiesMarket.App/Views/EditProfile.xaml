@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="GoodiesMarket.App.Views.EditProfile"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    Title="Editar Perfil"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Content>
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height=".25*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Style="{StaticResource Key=DefaultText}" Text="Rango (metros)" />
+            <Entry Grid.Column="1" Text="{Binding Path=Model.Range}" />
+            <Label
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Style="{StaticResource Key=DefaultText}"
+                Text="Lema" />
+            <Editor
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Text="{Binding Path=Model.Motto}" />
+            <Button
+                Grid.Row="4"
+                Command="{Binding Path=CancelCommand}"
+                Text="Cancelar" />
+            <Button
+                Grid.Row="4"
+                Grid.Column="1"
+                Command="{Binding Path=SaveCommand}"
+                Text="Guardar" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

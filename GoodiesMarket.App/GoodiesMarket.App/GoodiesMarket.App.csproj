@@ -52,6 +52,7 @@
     <Compile Include="ViewModels\BuyerMasterPageViewModel.cs" />
     <Compile Include="ViewModels\BuyerProfileViewModel.cs" />
     <Compile Include="ViewModels\Abstracts\FormViewModelBase.cs" />
+    <Compile Include="ViewModels\EditProfileViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PlaceOrderViewModel.cs" />
     <Compile Include="ViewModels\RegistrationEmailViewModel.cs" />
@@ -69,6 +70,9 @@
     </Compile>
     <Compile Include="Views\BuyerProfile.xaml.cs">
       <DependentUpon>BuyerProfile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditProfile.xaml.cs">
+      <DependentUpon>EditProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -204,6 +208,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\PlaceOrder.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EditProfile.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
