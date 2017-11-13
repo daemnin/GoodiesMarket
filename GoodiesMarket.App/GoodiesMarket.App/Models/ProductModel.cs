@@ -4,6 +4,8 @@ namespace GoodiesMarket.App.Models
 {
     public class ProductModel : BindableBase
     {
+        public long Id { get; set; }
+
         private string name;
         public string Name
         {
@@ -11,8 +13,8 @@ namespace GoodiesMarket.App.Models
             set { SetProperty(ref name, value); }
         }
 
-        private int stock;
-        public int Stock
+        private int? stock;
+        public int? Stock
         {
             get { return stock; }
             set { SetProperty(ref stock, value); }

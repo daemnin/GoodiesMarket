@@ -47,7 +47,7 @@
                 <Entry
                     Grid.Column="2"
                     Keyboard="Numeric"
-                    Text="{Binding Path=Model.Stock}"
+                    Text="{Binding Path=Model.Stock, Converter={StaticResource Key=NullableIntConverter}}"
                     VerticalOptions="Center" />
                 <Label
                     Grid.Row="1"
@@ -71,10 +71,7 @@
                     FontSize="Large"
                     HorizontalOptions="Center"
                     Text="Descripción" />
-                <Entry
-                    Grid.Row="1"
-                    Text="{Binding Path=Model.Description}"
-                    VerticalOptions="CenterAndExpand" />
+                <Editor Grid.Row="1" Text="{Binding Path=Model.Description}" />
             </Grid>
             <Button
                 Grid.Row="3"
@@ -84,7 +81,7 @@
                 Grid.Row="3"
                 Grid.Column="1"
                 Command="{Binding Path=SaveCommand}"
-                Text="Aceptar" />
+                Text="Guardar" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

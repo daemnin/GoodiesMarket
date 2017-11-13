@@ -88,7 +88,14 @@ namespace GoodiesMarket.Business.Processes
             var result = new Result();
             try
             {
-                result.Succeeded = CreateProduct(sellerId, name, description, price, stock);
+                var product = CreateProduct(sellerId, name, description, price, stock);
+
+                result.Succeeded = product.Id > 0;
+
+                if (result.Succeeded)
+                {
+                    result.Response = (new { product.Id }).ToToken();
+                }
             }
             catch (Exception ex)
             {
@@ -98,9 +105,9 @@ namespace GoodiesMarket.Business.Processes
 
         }
 
-        private bool CreateProduct(Guid sellerId, string name, string description, float price, int? stock)
+        private Product CreateProduct(Guid sellerId, string name, string description, float price, int? stock)
         {
-
+            stock = stock == 0 ? null : stock;
             var product = new Product
             {
                 SellerId = sellerId,
@@ -110,9 +117,13 @@ namespace GoodiesMarket.Business.Processes
                 Stock = stock
             };
 
-            UnitOfWork.ProductRepository.Create(product);
 
-            return UnitOfWork.Save() > 0;
+
+            product = UnitOfWork.ProductRepository.Create(product);
+
+            UnitOfWork.Save();
+
+            return product;
         }
 
         private bool InRange(User user, Seller seller)

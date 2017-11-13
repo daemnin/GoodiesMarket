@@ -33,10 +33,8 @@ namespace GoodiesMarket.API.Controllers
 
         [HttpDelete]
         [Authorize(Roles = "Seller")]
-        public IHttpActionResult Delete(long id, Product product)
+        public IHttpActionResult Delete(long id)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
             var process = new ProductProcess(unitOfWork);
 
             Result result = process.Delete(id);

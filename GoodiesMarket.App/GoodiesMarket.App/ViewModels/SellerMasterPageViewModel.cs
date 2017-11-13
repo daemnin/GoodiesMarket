@@ -2,6 +2,7 @@
 using GoodiesMarket.App.ViewModels.Abstracts;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Services;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,28 +26,39 @@ namespace GoodiesMarket.App.ViewModels
             set { SetProperty(ref title, value); }
         }
 
+        private IPageDialogService pageDialogService;
+        private INavigationService navigationService;
+
         public List<MenuItem> Menu { get; set; }
 
         public DelegateCommand<MenuItem> SelectCommand { get; private set; }
 
-        public SellerMasterPageViewModel()
+        public SellerMasterPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
+            this.pageDialogService = pageDialogService;
+            this.navigationService = navigationService;
             Menu = new List<MenuItem>
             {
-                new MenuItem{ Icon = "ic_profile.png", Title = "Perfil", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_orders.png", Title = "Ordenes", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_edit_reach.png", Title = "Alcance", NavigationUrl = "" },
+                new MenuItem{ Icon = "ic_profile.png", Title = "Perfil", NavigationUrl = "SellerProfile" },
+                new MenuItem{ Icon = "ic_orders.png", Title = "Ordenes", NavigationUrl = "BuyerProfile" },
                 new MenuItem{ Icon = "ic_feedback.png", Title = "Ver opiniones", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_shutdown.png", Title = "Salir", NavigationUrl = "" }
+                new MenuItem{ Icon = "ic_shutdown.png", Title = "Salir", NavigationUrl = "/Login?SignOut=true" }
             };
 
             SelectCommand = new DelegateCommand<MenuItem>(Navigate);
             Title = Menu.FirstOrDefault().Title;
         }
 
-        private void Navigate(MenuItem item)
+        private async void Navigate(MenuItem item)
         {
+            if (item.Title.Equals("Salir"))
+            {
+                var confirm = await pageDialogService.DisplayAlertAsync("Confirmación", "Está apunto de cerrar sesión.", "Entendido", "Cancelar");
+                if (!confirm) return;
+            }
             Title = item.Title;
+            await navigationService.NavigateAsync(item.NavigationUrl);
+
         }
 
         public override void OnNavigatingTo(NavigationParameters parameters)

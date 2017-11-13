@@ -1,5 +1,5 @@
 ﻿using Prism.Mvvm;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace GoodiesMarket.App.Models
 {
@@ -47,8 +47,8 @@ namespace GoodiesMarket.App.Models
             set { SetProperty(ref starUrl, value); }
         }
 
-        private List<ProductModel> products;
-        public List<ProductModel> Products
+        private ObservableCollection<ProductModel> products;
+        public ObservableCollection<ProductModel> Products
         {
             get { return products; }
             set { SetProperty(ref products, value); }

@@ -86,7 +86,7 @@ namespace GoodiesMarket.Components.Helpers
             }
         }
 
-        public void LogOut()
+        public void SignOut()
         {
             credentials = null;
         }

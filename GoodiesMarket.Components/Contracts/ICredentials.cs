@@ -17,6 +17,6 @@ namespace GoodiesMarket.Components.Contracts
         DateTime? IssuedDate { get; }
 
         void SignIn(JToken credentials);
-        void LogOut();
+        void SignOut();
     }
 }

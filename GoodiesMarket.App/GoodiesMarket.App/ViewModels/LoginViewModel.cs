@@ -61,15 +61,23 @@ namespace GoodiesMarket.App.ViewModels
                     case RoleType.Buyer:
                         var buyerModel = profileResponse.Response.Value<JToken>("response").ToObject<BuyerProfileModel>();
                         navParams.Add("model", buyerModel);
-                        await navigationService.NavigateAsync("NavigationPage/BuyerMasterPage/BuyerProfile", navParams);
+                        await navigationService.NavigateAsync("Navigation/BuyerMode/BuyerProfile", navParams);
                         break;
                     case RoleType.Seller:
                         var sellerModel = profileResponse.Response.Value<JToken>("response").ToObject<SellerProfileModel>();
                         sellerModel.StarUrl = "ic_rating_star";
                         navParams.Add("model", sellerModel);
-                        await navigationService.NavigateAsync("NavigationPage/SellerMasterPage/SellerProfile", navParams);
+                        await navigationService.NavigateAsync("Navigation/SellerMode/SellerProfile", navParams);
                         break;
                 }
+            }
+        }
+
+        public override void OnNavigatingTo(NavigationParameters parameters)
+        {
+            if (parameters.ContainsKey("SignOut"))
+            {
+                Credentials.Instance.SignOut();
             }
         }
     }

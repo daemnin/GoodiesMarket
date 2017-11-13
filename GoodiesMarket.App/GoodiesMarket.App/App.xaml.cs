@@ -1,5 +1,5 @@
-﻿using GoodiesMarket.App.Models;
-using GoodiesMarket.App.Views;
+﻿using GoodiesMarket.App.Views;
+using GoodiesMarket.Components.Models;
 using Prism.Ninject;
 using Xamarin.Forms;
 
@@ -13,28 +13,28 @@ namespace GoodiesMarket.App
         {
             InitializeComponent();
 
-            var userType = UserType.Seller;
+            var userType = RoleType.Unidentified;
 
             switch (userType)
             {
-                case UserType.Unidentified:
+                case RoleType.Unidentified:
                     NavigationService.NavigateAsync("Login");
                     break;
-                case UserType.Seller:
-                    NavigationService.NavigateAsync($"NavigationPage/SellerMasterPage/SellerProfile");
+                case RoleType.Seller:
+                    NavigationService.NavigateAsync($"Navigation/SellerMode/SellerProfile");
                     break;
-                case UserType.Buyer:
-                    NavigationService.NavigateAsync("NavigationPage/BuyerMasterPage/BuyerProfile?title=Hello, I'm a buyer");
+                case RoleType.Buyer:
+                    NavigationService.NavigateAsync("Navigation/BuyerMode/BuyerProfile?title=Hello, I'm a buyer");
                     break;
             }
         }
 
         protected override void RegisterTypes()
         {
-            Container.RegisterTypeForNavigation<NavigationPage>();
-            Container.RegisterTypeForNavigation<SellerMasterPage>();
+            Container.RegisterTypeForNavigation<NavigationPage>("Navigation");
+            Container.RegisterTypeForNavigation<SellerMasterPage>("SellerMode");
             Container.RegisterTypeForNavigation<SellerProfile>();
-            Container.RegisterTypeForNavigation<BuyerMasterPage>();
+            Container.RegisterTypeForNavigation<BuyerMasterPage>("BuyerMode");
             Container.RegisterTypeForNavigation<BuyerProfile>();
             Container.RegisterTypeForNavigation<RegistrationWizard>();
             Container.RegisterTypeForNavigation<RegistrationName>();

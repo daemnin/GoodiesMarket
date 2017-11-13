@@ -8,7 +8,7 @@
     Title="{Binding Path=Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <MasterDetailPage.Master>
-        <ContentPage Title="Master" Icon="">
+        <ContentPage Title="Master">
             <ContentPage.Content>
                 <Grid>
                     <Grid.RowDefinitions>

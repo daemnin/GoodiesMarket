@@ -8,6 +8,9 @@
     x:Name="Page"
     Title="Perfil"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=AddCommand}" Text="Agrear producto" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

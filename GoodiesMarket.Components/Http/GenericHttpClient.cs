@@ -101,7 +101,7 @@ namespace GoodiesMarket.Components.Http
             }
             else
             {
-                credentials.LogOut();
+                credentials.SignOut();
             }
 
             return validCredentials;
