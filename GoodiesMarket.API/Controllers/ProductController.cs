@@ -3,6 +3,7 @@ using GoodiesMarket.API.Models;
 using GoodiesMarket.Business.Processes;
 using GoodiesMarket.Components.Models;
 using GoodiesMarket.Data.Contracts;
+using System;
 using System.Web.Http;
 
 namespace GoodiesMarket.API.Controllers
@@ -66,6 +67,18 @@ namespace GoodiesMarket.API.Controllers
 
             Result result = process.Create(User.Identity.GetId(), product.Name,
                                            product.Description, product.Price, product.Stock);
+
+            return GetErrorResult(result) ?? Ok(result);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Buyer")]
+        [Route("api/product/seller/{sellerId}")]
+        public IHttpActionResult GetProducts(Guid sellerId)
+        {
+            var process = new ProductProcess(unitOfWork);
+
+            Result result = process.GetProducts(sellerId);
 
             return GetErrorResult(result) ?? Ok(result);
         }
