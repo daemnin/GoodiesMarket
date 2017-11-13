@@ -3,6 +3,7 @@ using GoodiesMarket.Components.Helpers;
 using GoodiesMarket.Components.Models;
 using GoodiesMarket.Data.Contracts;
 using GoodiesMarket.Model;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 
@@ -103,6 +104,43 @@ namespace GoodiesMarket.Business.Processes
             }
             return result;
 
+        }
+
+        public Result GetProducts(Guid sellerId)
+        {
+            var result = new Result();
+
+            try
+            {
+                result.Response = GetSellerProducts(sellerId);
+
+                result.Succeeded = true;
+            }
+            catch (Exception ex)
+            {
+                FillErrors(ex, result);
+            }
+
+            return result;
+        }
+
+        private JToken GetSellerProducts(Guid sellerId)
+        {
+            return UnitOfWork.SellerRepository.FindBy(s => s.Id.Equals(sellerId), s => s.Products)
+                      .Select(s => new
+                      {
+                          Products = s.Products.Select(p => new
+                          {
+                              p.Id,
+                              p.Name,
+                              p.Description,
+                              p.Price,
+                              p.Stock,
+                              p.ImageUrl
+                          })
+                      })
+                      .FirstOrDefault()
+                      .ToToken();
         }
 
         private Product CreateProduct(Guid sellerId, string name, string description, float price, int? stock)
