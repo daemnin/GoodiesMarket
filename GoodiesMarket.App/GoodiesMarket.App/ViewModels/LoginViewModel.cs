@@ -30,7 +30,7 @@ namespace GoodiesMarket.App.ViewModels
             SignInCommand = new DelegateCommand(SignIn);
             RegistrationCommand = new DelegateCommand(Register);
 
-            Model.Email = "daniel@abc.com";
+            Model.Email = "guillermo@abc.com";
             Model.Password = "password123";
         }
 
@@ -61,13 +61,13 @@ namespace GoodiesMarket.App.ViewModels
                     case RoleType.Buyer:
                         var buyerModel = profileResponse.Response.Value<JToken>("response").ToObject<BuyerProfileModel>();
                         navParams.Add("model", buyerModel);
-                        await navigationService.NavigateAsync("Navigation/BuyerMode/BuyerProfile", navParams);
+                        await navigationService.NavigateAsync("/Navigation/BuyerMode/BuyerProfile", navParams);
                         break;
                     case RoleType.Seller:
                         var sellerModel = profileResponse.Response.Value<JToken>("response").ToObject<SellerProfileModel>();
                         sellerModel.StarUrl = "ic_rating_star";
                         navParams.Add("model", sellerModel);
-                        await navigationService.NavigateAsync("Navigation/SellerMode/SellerProfile", navParams);
+                        await navigationService.NavigateAsync("/Navigation/SellerMode/SellerProfile", navParams);
                         break;
                 }
             }

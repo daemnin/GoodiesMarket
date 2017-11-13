@@ -42,7 +42,7 @@ namespace GoodiesMarket.App.ViewModels
                 new MenuItem{ Icon = "ic_profile.png", Title = "Perfil", NavigationUrl = "SellerProfile" },
                 new MenuItem{ Icon = "ic_orders.png", Title = "Ordenes", NavigationUrl = "BuyerProfile" },
                 new MenuItem{ Icon = "ic_feedback.png", Title = "Ver opiniones", NavigationUrl = "" },
-                new MenuItem{ Icon = "ic_shutdown.png", Title = "Salir", NavigationUrl = "/Login?SignOut=true" }
+                new MenuItem{ Icon = "ic_shutdown.png", Title = "Salir", NavigationUrl = "/Login?SignOut" }
             };
 
             SelectCommand = new DelegateCommand<MenuItem>(Navigate);
@@ -53,16 +53,19 @@ namespace GoodiesMarket.App.ViewModels
         {
             if (item.Title.Equals("Salir"))
             {
-                var confirm = await pageDialogService.DisplayAlertAsync("Confirmación", "Está apunto de cerrar sesión.", "Entendido", "Cancelar");
+                var confirm = await pageDialogService.DisplayAlertAsync("Confirmación", "Está apunto de cerrar sesión.", "Ok", "Cancelar");
                 if (!confirm) return;
             }
             Title = item.Title;
             await navigationService.NavigateAsync(item.NavigationUrl);
-
         }
 
         public override void OnNavigatingTo(NavigationParameters parameters)
         {
+            if (parameters.ContainsKey("something"))
+            {
+
+            }
             if (parameters.ContainsKey("model"))
             {
                 Model = (SellerProfileModel)parameters["model"];

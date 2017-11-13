@@ -1,6 +1,7 @@
 ﻿using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
 using GoodiesMarket.Components.Proxies;
+using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -70,14 +71,34 @@ namespace GoodiesMarket.App.ViewModels
 
         public override void OnNavigatingTo(NavigationParameters parameters)
         {
-            if (parameters.ContainsKey("model"))
+            if (parameters.ContainsKey("model") && model == null)
             {
                 Model = (SellerProfileModel)parameters["model"];
+            }
+            else
+            {
+                GetProfile();
             }
 
             if (parameters.ContainsKey("new_product"))
             {
                 Model.Products.Add((ProductModel)parameters["new_product"]);
+            }
+        }
+
+        private async void GetProfile()
+        {
+            var proxy = new AccountProxy();
+            var response = await proxy.GetProfile();
+
+            if (response.Succeeded)
+            {
+                Model = response.Response.Value<JToken>("response").ToObject<SellerProfileModel>();
+            }
+            else
+            {
+                await pageDialogService.DisplayAlertAsync("Hubo un error", "Se generó un problema, inicie sesión nuevamente.", "Ok");
+                await navigationService.NavigateAsync("/Login?SignOut");
             }
         }
     }
