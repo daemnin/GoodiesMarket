@@ -30,7 +30,7 @@ namespace GoodiesMarket.App.ViewModels
             SignInCommand = new DelegateCommand(SignIn);
             RegistrationCommand = new DelegateCommand(Register);
 
-            Model.Email = "guillermo@abc.com";
+            Model.Email = "daniel@abc.com";
             Model.Password = "password123";
         }
 

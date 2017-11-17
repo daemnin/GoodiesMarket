@@ -40,7 +40,7 @@ namespace GoodiesMarket.App.ViewModels
             Menu = new List<MenuItem>
             {
                 new MenuItem{ Icon = "ic_profile.png", Title = "Perfil", NavigationUrl = "SellerProfile" },
-                new MenuItem{ Icon = "ic_orders.png", Title = "Ordenes", NavigationUrl = "BuyerProfile" },
+                new MenuItem{ Icon = "ic_orders.png", Title = "Ordenes", NavigationUrl = "SellerOrders" },
                 new MenuItem{ Icon = "ic_feedback.png", Title = "Ver opiniones", NavigationUrl = "" },
                 new MenuItem{ Icon = "ic_shutdown.png", Title = "Salir", NavigationUrl = "/Login?SignOut" }
             };

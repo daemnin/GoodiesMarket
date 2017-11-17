@@ -60,6 +60,7 @@
     <Compile Include="ViewModels\RegistrationNameViewModel.cs" />
     <Compile Include="ViewModels\RegistrationWizardViewModel.cs" />
     <Compile Include="ViewModels\SellerMasterPageViewModel.cs" />
+    <Compile Include="ViewModels\SellerOrdersViewModel.cs" />
     <Compile Include="ViewModels\SellerProfileViewModel.cs" />
     <Compile Include="ViewModels\Abstracts\ViewModelBase.cs" />
     <Compile Include="Views\AddProduct.xaml.cs">
@@ -91,6 +92,9 @@
     </Compile>
     <Compile Include="Views\RegistrationWizard.xaml.cs">
       <DependentUpon>RegistrationWizard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SellerOrders.xaml.cs">
+      <DependentUpon>SellerOrders.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SellerProfile.xaml.cs">
       <DependentUpon>SellerProfile.xaml</DependentUpon>
@@ -214,6 +218,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\EditProfile.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SellerOrders.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
