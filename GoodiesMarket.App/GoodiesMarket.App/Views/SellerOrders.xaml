@@ -7,6 +7,46 @@
     Title="Orders"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
-        <StackLayout />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".2*" />
+                <RowDefinition Height=".8*" />
+            </Grid.RowDefinitions>
+            <Label
+                Margin="10"
+                FontSize="25"
+                HorizontalOptions="Start"
+                Text="Ordenes:"
+                VerticalOptions="End" />
+            <ScrollView Grid.Row="1">
+                <ListView ItemsSource="{Binding Path=Model.Orders}" Style="{StaticResource Key=Menu}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width=".5*" />
+                                            <ColumnDefinition Width=".2*" />
+                                            <ColumnDefinition Width=".3*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Buyer}" />
+                                        <Label
+                                            Grid.Column="1"
+                                            Style="{StaticResource Key=MenuItemText}"
+                                            Text="{Binding Path=Total}" />
+                                        <Label
+                                            Grid.Column="2"
+                                            Style="{StaticResource Key=MenuItemText}"
+                                            Text="{Binding Path=Status}" />
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
