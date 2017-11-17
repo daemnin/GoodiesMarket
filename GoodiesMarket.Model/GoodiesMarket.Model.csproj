@@ -63,6 +63,10 @@
     <Compile Include="Migrations\201711110639232_added name to product.Designer.cs">
       <DependentUpon>201711110639232_added name to product.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711172054073_added_timestamps_to_order.cs" />
+    <Compile Include="Migrations\201711172054073_added_timestamps_to_order.Designer.cs">
+      <DependentUpon>201711172054073_added_timestamps_to_order.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Initializer.cs" />
     <Compile Include="Order.cs" />
@@ -86,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711110639232_added name to product.resx">
       <DependentUpon>201711110639232_added name to product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711172054073_added_timestamps_to_order.resx">
+      <DependentUpon>201711172054073_added_timestamps_to_order.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,19 +15,18 @@ namespace GoodiesMarket.Components.Helpers
 
         private const double EarthRadiusInMethers = 6378137;
 
-        public double Calculate(double lat1, double lng1, double lat2, double lgn2)
+        public double Calculate(double lat1, double lng1, double lat2, double lng2)
         {
-            var distance = 0d;
+            var distLat = (lat2 - lat1).ToRadians();
+            var distLng = (lng2 - lng1).ToRadians();
 
-            var Lat = (lat2 - lat1).ToRadians();
-            var Lon = (lgn2 - lat1).ToRadians();
+            var arc = Math.Pow(Math.Sin(distLat / 2), 2) +
+                      Math.Cos(lat1.ToRadians()) * Math.Cos(lat2.ToRadians()) *
+                      Math.Pow(Math.Sin(distLng / 2), 2);
 
-            var arc = Math.Sin(Lat / 2) * Math.Sin(Lat / 2) + Math.Cos(lat1.ToRadians()) * Math.Cos(lat2.ToRadians()) * Math.Sin(Lon / 2) * Math.Sin(Lon / 2);
             var curvature = 2 * Math.Atan2(Math.Sqrt(arc), Math.Sqrt(1 - arc));
 
-            distance = EarthRadiusInMethers * curvature;
-
-            return distance;
+            return EarthRadiusInMethers * curvature;
         }
     }
 }

@@ -109,46 +109,43 @@ namespace GoodiesMarket.Business.Processes
         #region Support Methods
         private JToken GetBuyerProfile(Guid id)
         {
-            return UnitOfWork.UserRepository.FindBy(u => u.Id.Equals(id))
-                    .Select(u => new
-                    {
-                        u.Name,
-                        u.PictureUrl,
-                        u.Email,
-                        u.Score,
-                        u.Latitude,
-                        u.Longitude
-                    })
-                    .FirstOrDefault()
-                    .ToToken();
+            var profile = UnitOfWork.UserRepository.Read(id);
+
+            return (new
+            {
+                profile.Name,
+                profile.PictureUrl,
+                profile.Email,
+                profile.Score,
+                profile.Latitude,
+                profile.Longitude
+            }).ToToken();
         }
 
         private JToken GetSellerProfile(Guid id)
         {
-            return UnitOfWork.SellerRepository.FindBy(s => s.Id.Equals(id), s => s.User, s => s.Products)
-                    .Select(s => new
-                    {
-                        s.User.Name,
-                        s.User.PictureUrl,
-                        s.User.Email,
-                        s.User.Score,
-                        s.User.Latitude,
-                        s.User.Longitude,
-                        s.Range,
-                        s.Motto,
-                        s.Restriction,
-                        Products = s.Products.Select(p => new
-                        {
-                            p.Id,
-                            p.Name,
-                            p.Description,
-                            p.Price,
-                            p.Stock,
-                            p.ImageUrl
-                        })
-                    })
-                    .FirstOrDefault()
-                    .ToToken();
+            var profile = UnitOfWork.SellerRepository.Read(id, s => s.User, s => s.Products);
+            return (new
+            {
+                profile.User.Name,
+                profile.User.PictureUrl,
+                profile.User.Email,
+                profile.User.Score,
+                profile.User.Latitude,
+                profile.User.Longitude,
+                profile.Range,
+                profile.Motto,
+                profile.Restriction,
+                Products = profile.Products.Select(p => new
+                {
+                    p.Id,
+                    p.Name,
+                    p.Description,
+                    p.Price,
+                    p.Stock,
+                    p.ImageUrl
+                })
+            }).ToToken();
         }
 
         private bool CreateUser(string userId, string name, string email, RoleType roleType)

@@ -18,6 +18,7 @@ namespace GoodiesMarket.API.Controllers
             this.unitOfWork = unitOfWork;
         }
 
+        [Authorize(Roles = "Buyer")]
         public IHttpActionResult Create([FromBody]Order order)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -26,7 +27,41 @@ namespace GoodiesMarket.API.Controllers
 
             var products = order.Products.Select(p => new Tuple<long, int>(p.Id, p.Quantity));
 
-            Result result = process.Create(User.Identity.GetId(), order.SellerId, order.Note, products);
+            var result = process.Create(User.Identity.GetId(), order.SellerId, order.Note, products);
+
+            return GetErrorResult(result) ?? Ok(result);
+        }
+
+        [Authorize(Roles = "Buyer, Seller")]
+        public IHttpActionResult Get()
+        {
+            var process = new OrderProcess(unitOfWork);
+
+            var result = process.Get(User.Identity.GetId(), User.Identity.GetRole());
+
+            return GetErrorResult(result) ?? Ok(result);
+        }
+
+        public IHttpActionResult Get(long id)
+        {
+            var process = new OrderProcess(unitOfWork);
+
+            var result = process.Get(id);
+
+            return GetErrorResult(result) ?? Ok(result);
+        }
+
+        [Authorize(Roles = "Buyer, Seller")]
+        public IHttpActionResult Put(long id, [FromBody]UpdateStatus model)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            if (User.Identity.GetRole() == RoleType.Buyer && model.Status != StatusType.Cancelled)
+                return BadRequest("El estado de la orden es inválido.");
+
+            var process = new OrderProcess(unitOfWork);
+
+            var result = process.ChangeStatus(User.Identity.GetId(), id, model.Status);
 
             return GetErrorResult(result) ?? Ok(result);
         }

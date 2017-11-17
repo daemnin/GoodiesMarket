@@ -3,7 +3,6 @@ using GoodiesMarket.Components.Helpers;
 using GoodiesMarket.Components.Models;
 using GoodiesMarket.Data.Contracts;
 using GoodiesMarket.Model;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 
@@ -21,6 +20,8 @@ namespace GoodiesMarket.Business.Processes
             {
                 var user = UnitOfWork.UserRepository.Read(userId);
 
+                if (user.Latitude == null || user.Longitude == null) throw new Exception("El usuario no ha definido su ubicación.");
+
                 var sellers = UnitOfWork.SellerRepository
                                 .FindBy(s => s.Products.Any(p => p.Description.Contains(productName)) &&
                                              s.User.Latitude != null &&
@@ -30,7 +31,12 @@ namespace GoodiesMarket.Business.Processes
 
                 var nearBySellers = sellers.AsParallel().Where(seller => InRange(user, seller));
 
-                result.Response = nearBySellers.ToToken();
+                result.Response = nearBySellers.Select(s => new
+                {
+                    s.Id,
+                    s.User.Name,
+                    s.User.Score
+                }).ToToken();
 
                 result.Succeeded = true;
             }
@@ -112,7 +118,17 @@ namespace GoodiesMarket.Business.Processes
 
             try
             {
-                result.Response = GetSellerProducts(sellerId);
+                var seller = UnitOfWork.SellerRepository.Read(sellerId, s => s.Products);
+
+                result.Response = (seller.Products.Select(p => new
+                {
+                    p.Id,
+                    p.Name,
+                    p.Description,
+                    p.Price,
+                    p.Stock,
+                    p.ImageUrl
+                })).ToToken();
 
                 result.Succeeded = true;
             }
@@ -122,25 +138,6 @@ namespace GoodiesMarket.Business.Processes
             }
 
             return result;
-        }
-
-        private JToken GetSellerProducts(Guid sellerId)
-        {
-            return UnitOfWork.SellerRepository.FindBy(s => s.Id.Equals(sellerId), s => s.Products)
-                      .Select(s => new
-                      {
-                          Products = s.Products.Select(p => new
-                          {
-                              p.Id,
-                              p.Name,
-                              p.Description,
-                              p.Price,
-                              p.Stock,
-                              p.ImageUrl
-                          })
-                      })
-                      .FirstOrDefault()
-                      .ToToken();
         }
 
         private Product CreateProduct(Guid sellerId, string name, string description, float price, int? stock)

@@ -27,10 +27,16 @@ namespace GoodiesMarket.Data
             return response;
         }
 
-        public virtual TEntity Read<TKey>(TKey id)
+        public virtual TEntity Read<TKey>(TKey id, params Expression<Func<TEntity, object>>[] includes)
         {
-            var response = Entities.Find(id);
-            return response;
+            if (includes.Any())
+            {
+                Entities.IncludeMultiple(includes).Load();
+            }
+
+            var entity = Entities.Find(id);
+
+            return entity;
         }
 
         public virtual IList<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] includes)

@@ -2,11 +2,14 @@
 {
     public static class Constants
     {
+        public const string API_BASEADDRESS = "http://daemnin.dlinkddns.com/GoodiesMarket.API/api/";
+        public const string SECURITY_API_BASEADDRESS = "http://daemnin.dlinkddns.com/GoodiesMarket.Security.API/api/";
+
         //public const string API_BASEADDRESS = "http://localhost/GoodiesMarket.API/api/";
         //public const string SECURITY_API_BASEADDRESS = "http://localhost/GoodiesMarket.Security.API/api/";
 
-        public const string API_BASEADDRESS = "http://10.0.0.14/GoodiesMarket.API/api/";
-        public const string SECURITY_API_BASEADDRESS = "http://10.0.0.14/GoodiesMarket.Security.API/api/";
+        //public const string API_BASEADDRESS = "http://10.0.0.14/GoodiesMarket.API/api/";
+        //public const string SECURITY_API_BASEADDRESS = "http://10.0.0.14/GoodiesMarket.Security.API/api/";
 
         public const string REFRESH_TOKEN_CALL = SECURITY_API_BASEADDRESS + "Account/Login";
 
