@@ -49,6 +49,7 @@
     <Compile Include="Models\StatusType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxies\AccountProxy.cs" />
+    <Compile Include="Proxies\OrderProxy.cs" />
     <Compile Include="Proxies\ProductProxy.cs" />
     <Compile Include="Proxies\ProxyBase.cs" />
   </ItemGroup>

@@ -4,21 +4,12 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-    Title="Orders"
+    x:Name="Page"
+    Title="Ordenes"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height=".2*" />
-                <RowDefinition Height=".8*" />
-            </Grid.RowDefinitions>
-            <Label
-                Margin="10"
-                FontSize="25"
-                HorizontalOptions="Start"
-                Text="Ordenes:"
-                VerticalOptions="End" />
-            <ScrollView Grid.Row="1">
+            <ScrollView>
                 <ListView ItemsSource="{Binding Path=Model.Orders}" Style="{StaticResource Key=Menu}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -40,6 +31,9 @@
                                             Grid.Column="2"
                                             Style="{StaticResource Key=MenuItemText}"
                                             Text="{Binding Path=Status}" />
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.ViewDetailsCommand, Source={x:Reference Page}}" CommandParameter="{Binding}" />
+                                        </Grid.GestureRecognizers>
                                     </Grid>
                                 </ViewCell.View>
                             </ViewCell>

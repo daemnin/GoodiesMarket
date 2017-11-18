@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    Title="Detalles de orden"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
         <Grid Margin="10">
@@ -82,8 +83,8 @@
                 <StackLayout
                     Grid.Row="2"
                     Grid.Column="1"
-                    Orientation="Horizontal"
-                    HorizontalOptions="End">
+                    HorizontalOptions="End"
+                    Orientation="Horizontal">
                     <Label Text="Total: " />
                     <Label Text="{Binding Path=Model.Total, Converter={StaticResource Key=PriceConverter}}" />
                 </StackLayout>
@@ -100,7 +101,7 @@
                 </Grid.ColumnDefinitions>
                 <Button
                     Grid.ColumnSpan="2"
-                    Command="{Binding Path=OnProcessCommand}"
+                    Command="{Binding Path=InProcessCommand}"
                     Text="En Proceso, Mostrar Ubicación" />
                 <Button
                     Grid.Row="1"
@@ -109,7 +110,7 @@
                 <Button
                     Grid.Row="1"
                     Grid.Column="1"
-                    Command="{Binding Path=CancelCommand}"
+                    Command="{Binding Path=CancelledCommand}"
                     Text="Cancelar Orden" />
             </Grid>
         </Grid>

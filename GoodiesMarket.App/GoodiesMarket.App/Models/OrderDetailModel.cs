@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace GoodiesMarket.App.Models
 {
@@ -58,6 +59,6 @@ namespace GoodiesMarket.App.Models
             get { return seller; }
             set { SetProperty(ref seller, value); }
         }
-        public List<OrderDetail> Products { get; set; }
+        public ObservableCollection<OrderDetail> Products { get; set; }
     }
 }
