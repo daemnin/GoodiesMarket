@@ -40,25 +40,26 @@
                             Style="{StaticResource Key=ProfileMasterSubText}"
                             Text="{Binding Path=Model.Email}" />
                     </Grid>
-                    <ScrollView Grid.Row="1">
-                        <ListView ItemsSource="{Binding Path=Menu}" Style="{StaticResource Key=Menu}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <ViewCell.View>
-                                            <StackLayout Orientation="Horizontal">
-                                                <Image Source="{Binding Path=Icon}" Style="{StaticResource Key=MenuIcon}" />
-                                                <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Title}" />
-                                                <StackLayout.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectCommand, Source={x:Reference MasterPage}}" CommandParameter="{Binding}" />
-                                                </StackLayout.GestureRecognizers>
-                                            </StackLayout>
-                                        </ViewCell.View>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </ScrollView>
+                    <ListView
+                        Grid.Row="1"
+                        ItemsSource="{Binding Path=Menu}"
+                        Style="{StaticResource Key=Menu}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image Source="{Binding Path=Icon}" Style="{StaticResource Key=MenuIcon}" />
+                                            <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Title}" />
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectCommand, Source={x:Reference MasterPage}}" CommandParameter="{Binding}" />
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </ContentPage.Content>
         </ContentPage>

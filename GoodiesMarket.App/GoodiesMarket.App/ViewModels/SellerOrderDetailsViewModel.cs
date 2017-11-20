@@ -1,15 +1,11 @@
 ﻿using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using Prism.Navigation;
-using GoodiesMarket.Components.Proxies;
-using System.Diagnostics;
-using Prism.Services;
-using Prism.Commands;
 using GoodiesMarket.Components.Models;
+using GoodiesMarket.Components.Proxies;
 using Newtonsoft.Json.Linq;
+using Prism.Commands;
+using Prism.Navigation;
+using Prism.Services;
 
 namespace GoodiesMarket.App.ViewModels
 {
@@ -37,29 +33,6 @@ namespace GoodiesMarket.App.ViewModels
             InProcessCommand = new DelegateCommand(() => ChangeStatus(StatusType.InProgress));
             DelayedCommand = new DelegateCommand(() => ChangeStatus(StatusType.Delayed));
             CancelledCommand = new DelegateCommand(() => ChangeStatus(StatusType.Cancelled));
-
-            //Model = new OrderDetailModel
-            //{
-            //    Buyer = "Daniel Siordia",
-            //    Note = "Si tuvieras extra caca, estaria bien chingon, hechale un peso de caca extra",
-            //    CreatedOn = DateTime.Now,
-            //    Id = 420,
-            //    Total = 30f,
-            //    Products = new List<OrderDetail>
-            //    {
-            //        new OrderDetail
-            //        {
-            //            Name = "Galletas de caca",
-            //            Quantity = 10
-            //        },
-            //        new OrderDetail
-            //        {
-            //            Name = "Galletas de avena",
-            //            Quantity = 5
-            //        },
-            //    }
-
-            //};
         }
 
         private async void ChangeStatus(StatusType status)
@@ -70,7 +43,11 @@ namespace GoodiesMarket.App.ViewModels
 
             if (result.Succeeded)
             {
-                Debug.WriteLine(result);
+                var navParams = new NavigationParameters
+                {
+                    { "update_entry", new { Id = Model.Id, Status = status } }
+                };
+                await navigationService.GoBackAsync(navParams);
             }
             else
             {
@@ -83,7 +60,7 @@ namespace GoodiesMarket.App.ViewModels
             if (parameters.ContainsKey("id"))
             {
                 var orderId = long.Parse(parameters["id"].ToString());
-                
+
                 Load(orderId);
             }
         }

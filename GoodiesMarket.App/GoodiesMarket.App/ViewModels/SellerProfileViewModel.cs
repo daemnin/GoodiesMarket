@@ -34,7 +34,6 @@ namespace GoodiesMarket.App.ViewModels
             EditCommand = new DelegateCommand<ProductModel>(EditProduct);
             DeleteCommand = new DelegateCommand<ProductModel>(DeleteProduct);
             EditProfileCommand = new DelegateCommand(EditProfile);
-
         }
 
         private async void EditProfile()

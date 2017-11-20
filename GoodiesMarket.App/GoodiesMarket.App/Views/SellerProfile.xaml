@@ -58,33 +58,34 @@
                     HorizontalOptions="Center"
                     Text="{Binding Path=Model.Score}" />
             </Grid>
-            <ScrollView Grid.Row="1">
-                <ListView ItemsSource="{Binding Path=Model.Products}" Style="{StaticResource Key=Menu}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <StackLayout Orientation="Horizontal">
-                                        <Image Source="{Binding Path=PictureUrl}" Style="{StaticResource Key=MenuIcon}" />
-                                        <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Name}" />
-                                        <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Stock}" />
-                                    </StackLayout>
-                                </ViewCell.View>
-                                <ViewCell.ContextActions>
-                                    <MenuItem
-                                        Command="{Binding Path=BindingContext.EditCommand, Source={x:Reference Page}}"
-                                        CommandParameter="{Binding}"
-                                        Text="Editar" />
-                                    <MenuItem
-                                        Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference Page}}"
-                                        CommandParameter="{Binding}"
-                                        Text="Eliminar" />
-                                </ViewCell.ContextActions>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollView>
+            <ListView
+                Grid.Row="1"
+                ItemsSource="{Binding Path=Model.Products}"
+                Style="{StaticResource Key=Menu}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding Path=PictureUrl}" Style="{StaticResource Key=MenuIcon}" />
+                                    <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Name}" />
+                                    <Label Style="{StaticResource Key=MenuItemText}" Text="{Binding Path=Stock}" />
+                                </StackLayout>
+                            </ViewCell.View>
+                            <ViewCell.ContextActions>
+                                <MenuItem
+                                    Command="{Binding Path=BindingContext.EditCommand, Source={x:Reference Page}}"
+                                    CommandParameter="{Binding}"
+                                    Text="Editar" />
+                                <MenuItem
+                                    Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference Page}}"
+                                    CommandParameter="{Binding}"
+                                    Text="Eliminar" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

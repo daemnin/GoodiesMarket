@@ -21,7 +21,6 @@
             <Color x:Key="DefaultTextColor">#FFFFFF</Color>
             <Color x:Key="PrimaryTextColor">#212121</Color>
             <Color x:Key="SecondaryTextColor">#757575</Color>
-            <Color x:Key="DividerColor">#BDBDBD</Color>
 
             <Style x:Key="ProfileMasterText" TargetType="Label">
                 <Setter Property="TextColor" Value="{DynamicResource Key=DefaultTextColor}" />
@@ -67,7 +66,7 @@
                 <Setter Property="WidthRequest" Value="25" />
             </Style>
             <Style x:Key="Menu" TargetType="ListView">
-                <Setter Property="SeparatorColor" Value="{DynamicResource Key=DividerColor}" />
+                <Setter Property="SeparatorVisibility" Value="None" />
             </Style>
         </ResourceDictionary>
     </prism:PrismApplication.Resources>

@@ -1,12 +1,14 @@
 ﻿using GoodiesMarket.App.Models;
-using Prism.Commands;
-using System.Collections.Generic;
-using Prism.Navigation;
-using Prism.Services;
 using GoodiesMarket.App.ViewModels.Abstracts;
 using GoodiesMarket.Components.Proxies;
 using Newtonsoft.Json.Linq;
+using Prism.Commands;
+using Prism.Navigation;
+using Prism.Services;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms.Internals;
 
 namespace GoodiesMarket.App.ViewModels
@@ -31,6 +33,10 @@ namespace GoodiesMarket.App.ViewModels
             this.pageDialogService = pageDialogService;
 
             ViewDetailsCommand = new DelegateCommand<Order>(ViewDetails);
+            Model = new OrderModel
+            {
+                Orders = new ObservableCollection<Order>()
+            };
         }
 
         private async void ViewDetails(Order order)
@@ -38,12 +44,20 @@ namespace GoodiesMarket.App.ViewModels
             await navigationService.NavigateAsync($"SellerOrderDetails?id={order.Id}", useModalNavigation: true);
         }
 
-        public override void OnNavigatingTo(NavigationParameters parameters)
+        public async override void OnNavigatingTo(NavigationParameters parameters)
         {
-            Load();
+            if (parameters.ContainsKey("Load"))
+            {
+                await Load();
+            }
+            if (parameters.ContainsKey("update_entry"))
+            {
+                var entry = (dynamic)parameters["update_entry"];
+                Model.Orders.FirstOrDefault(o => o.Id.Equals(entry.Id)).Status = entry.Status;
+            }
         }
 
-        private async void Load()
+        private async Task Load()
         {
             var proxy = new OrderProxy();
 
@@ -51,15 +65,9 @@ namespace GoodiesMarket.App.ViewModels
 
             if (result.Succeeded)
             {
-                if (Model == null)
-                {
-                    Model = new OrderModel();
-                    Model.Orders = new ObservableCollection<Order>();
-                }
                 Model.Orders.Clear();
-                result.Response.Value<JToken>("response")
-                               .ToObject<IList<Order>>()
-                               .ForEach(o => Model.Orders.Add(o));
+                var orders = result.Response.Value<JToken>("response").ToObject<IEnumerable<Order>>();
+                orders.ForEach(o => Model.Orders.Add(o));
             }
             else
             {
