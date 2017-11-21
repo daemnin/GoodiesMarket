@@ -65,5 +65,18 @@ namespace GoodiesMarket.API.Controllers
 
             return GetErrorResult(result) ?? Ok(result);
         }
+
+        [Authorize(Roles = "Seller")]
+        [Route("api/order/{id}/location")]
+        public IHttpActionResult GetLocation(long id)
+        {
+            if (id < 1) return BadRequest("Orden inválida.");
+
+            var process = new OrderProcess(unitOfWork);
+
+            var result = process.GetBuyerLocation(User.Identity.GetId(), id);
+
+            return GetErrorResult(result) ?? Ok(result);
+        }
     }
 }

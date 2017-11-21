@@ -1,4 +1,5 @@
-﻿using GoodiesMarket.App.Models;
+﻿using GoodiesMarket.App.Components;
+using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
 using GoodiesMarket.Components.Models;
 using GoodiesMarket.Components.Proxies;
@@ -43,6 +44,24 @@ namespace GoodiesMarket.App.ViewModels
 
             if (result.Succeeded)
             {
+                var prev = Model.StatusId;
+
+                if ((prev != StatusType.Cancelled || prev != StatusType.Completed) && status == StatusType.InProgress)
+                {
+                    var locationResult = await proxy.GetDeliveryLocation(Model.Id);
+
+                    if (locationResult.Succeeded)
+                    {
+                        var jtoken = locationResult.Response.Value<JToken>("response");
+                        var latitude = jtoken.Value<double>("Latitude");
+                        var longitude = jtoken.Value<double>("Longitude");
+                        DeviceHelper.OpenDeviceMap(latitude, longitude);
+                    }
+                    else
+                    {
+                        await pageDialogService.DisplayAlertAsync("Hubo un error", result.Response.ToString(), "Ok");
+                    }
+                }
                 var navParams = new NavigationParameters
                 {
                     { "update_entry", new { Id = Model.Id, Status = status } }

@@ -1,10 +1,6 @@
 ﻿using GoodiesMarket.Components.Helpers;
 using GoodiesMarket.Components.Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GoodiesMarket.Components.Proxies
@@ -51,6 +47,18 @@ namespace GoodiesMarket.Components.Proxies
             using (var client = GetClient(Credentials.Instance))
             {
                 var result = await client.Put(requestUri, body);
+
+                return result;
+            }
+        }
+
+        public async Task<Result> GetDeliveryLocation(long id)
+        {
+            var requestUri = $"{Controller}/{id}/location";
+
+            using (var client = GetClient(Credentials.Instance))
+            {
+                var result = await client.Get(requestUri);
 
                 return result;
             }

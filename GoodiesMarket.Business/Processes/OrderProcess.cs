@@ -101,6 +101,37 @@ namespace GoodiesMarket.Business.Processes
             return result;
         }
 
+        public Result GetBuyerLocation(Guid sellerId, long id)
+        {
+            var result = new Result();
+
+            try
+            {
+                if (!UnitOfWork.OrderRepository.Any(o => o.SellerId.Equals(sellerId) && o.Id == id))
+                    throw new Exception("Orden inválida.");
+
+                var order = UnitOfWork.OrderRepository.Read(id, o => o.User, o => o.Status);
+
+                if (((StatusType)order.StatusId) != StatusType.InProgress)
+                    throw new Exception("Esta orden ya ha sido atendida.");
+
+                result.Response = new
+                {
+                    order.User.Latitude,
+                    order.User.Longitude
+                }.ToToken();
+
+                result.Succeeded = true;
+
+            }
+            catch (Exception ex)
+            {
+                FillErrors(ex, result);
+            }
+
+            return result;
+        }
+
         private void Rollback(long id)
         {
             var order = UnitOfWork.OrderRepository.Read(id, o => o.Products);
