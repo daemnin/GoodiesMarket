@@ -1,4 +1,5 @@
-﻿using GoodiesMarket.App.Components;
+﻿using System;
+using GoodiesMarket.App.Components;
 using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
 using GoodiesMarket.Components.Models;
@@ -26,6 +27,13 @@ namespace GoodiesMarket.App.ViewModels
             set { SetProperty(ref model, value); }
         }
 
+        private bool isEditable;
+        public bool IsEditable
+        {
+            get { return isEditable; }
+            set { SetProperty(ref isEditable, value); }
+        }
+
         public SellerOrderDetailsViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
             this.navigationService = navigationService;
@@ -38,6 +46,14 @@ namespace GoodiesMarket.App.ViewModels
 
         private async void ChangeStatus(StatusType status)
         {
+            if (status == StatusType.Cancelled)
+            {
+                var delete = await pageDialogService.DisplayAlertAsync("¿Está seguro?",
+                                                                       "¿Está seguro de que cancelar esta orden?",
+                                                                       "Sí", "No");
+                if (!delete) return;
+            }
+
             var proxy = new OrderProxy();
 
             var result = await proxy.ChangeStatus(Model.Id, status);
@@ -93,6 +109,7 @@ namespace GoodiesMarket.App.ViewModels
             if (result.Succeeded)
             {
                 Model = result.Response.Value<JToken>("response").ToObject<OrderDetailModel>();
+                IsEditable = Model.StatusId != StatusType.Cancelled;
             }
         }
     }

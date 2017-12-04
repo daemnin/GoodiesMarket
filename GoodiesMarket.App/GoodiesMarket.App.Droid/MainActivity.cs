@@ -3,6 +3,8 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Ninject;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Prism.Ninject;
 
 namespace GoodiesMarket.App.Droid

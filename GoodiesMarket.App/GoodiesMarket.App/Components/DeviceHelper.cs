@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Plugin.Geolocator;
+using Plugin.Geolocator.Abstractions;
+using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GoodiesMarket.App.Components
@@ -27,6 +30,27 @@ namespace GoodiesMarket.App.Components
             }
 
             Device.OpenUri(new Uri(requestUri));
+        }
+
+        public static async Task<Position> GetLocation()
+        {
+            Position position = null;
+            try
+            {
+                var locator = CrossGeolocator.Current;
+
+                if (!locator.IsGeolocationAvailable || !locator.IsGeolocationEnabled) return null;
+
+                locator.DesiredAccuracy = 100;
+
+                position = await locator.GetPositionAsync(timeout: TimeSpan.FromSeconds(20), includeHeading: true);
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return position;
         }
     }
 }

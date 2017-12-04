@@ -14,6 +14,10 @@
             Command="{Binding Path=EditProfileCommand}"
             Order="Secondary"
             Text="Editar Perfil" />
+        <ToolbarItem
+            Command="{Binding Path=UpdateLocationCommand}"
+            Order="Secondary"
+            Text="Actualizar Ubicación" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>

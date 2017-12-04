@@ -56,12 +56,14 @@ namespace GoodiesMarket.Components.Proxies
             }
         }
 
-        public async Task<Result> UpdateProfile(string motto, int? range)
+        public async Task<Result> UpdateProfile(string motto = null, int? range = null, double? latitude = null, double? longitude = null)
         {
             var requestUri = $"{Controller}";
 
             var request = new
             {
+                latitude,
+                longitude,
                 motto,
                 range
             };

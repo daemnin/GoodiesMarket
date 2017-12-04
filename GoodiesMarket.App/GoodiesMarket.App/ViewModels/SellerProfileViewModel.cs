@@ -1,4 +1,5 @@
-﻿using GoodiesMarket.App.Models;
+﻿using System;
+using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
 using GoodiesMarket.Components.Proxies;
 using Newtonsoft.Json;
@@ -6,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+using GoodiesMarket.App.Components;
 
 namespace GoodiesMarket.App.ViewModels
 {
@@ -18,6 +20,7 @@ namespace GoodiesMarket.App.ViewModels
         public DelegateCommand<ProductModel> DeleteCommand { get; private set; }
         public DelegateCommand AddCommand { get; private set; }
         public DelegateCommand EditProfileCommand { get; private set; }
+        public DelegateCommand UpdateLocationCommand { get; private set; }
 
         private SellerProfileModel model;
         public SellerProfileModel Model
@@ -34,6 +37,21 @@ namespace GoodiesMarket.App.ViewModels
             EditCommand = new DelegateCommand<ProductModel>(EditProduct);
             DeleteCommand = new DelegateCommand<ProductModel>(DeleteProduct);
             EditProfileCommand = new DelegateCommand(EditProfile);
+            UpdateLocationCommand = new DelegateCommand(UpdateLocation);
+        }
+
+        private async void UpdateLocation()
+        {
+            var proxy = new AccountProxy();
+
+            var location = await DeviceHelper.GetLocation();
+
+            var result = await proxy.UpdateProfile(latitude: location?.Latitude, longitude: location?.Longitude);
+
+            if (!result.Succeeded)
+            {
+                await pageDialogService.DisplayAlertAsync("Error", result.Response.ToString(), "Ok");
+            }
         }
 
         private async void EditProfile()

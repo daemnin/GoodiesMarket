@@ -1,4 +1,5 @@
-﻿using GoodiesMarket.App.Models;
+﻿using GoodiesMarket.App.Components;
+using GoodiesMarket.App.Models;
 using GoodiesMarket.App.ViewModels.Abstracts;
 using GoodiesMarket.Components.Proxies;
 using Newtonsoft.Json;
@@ -37,7 +38,9 @@ namespace GoodiesMarket.App.ViewModels
         {
             var proxy = new AccountProxy();
 
-            var response = await proxy.UpdateProfile(model.Motto, model.Range);
+            var location = await DeviceHelper.GetLocation();
+
+            var response = await proxy.UpdateProfile(model.Motto, model.Range, location?.Latitude, location?.Longitude);
 
             if (response.Succeeded)
             {

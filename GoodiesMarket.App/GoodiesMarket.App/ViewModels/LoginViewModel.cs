@@ -4,9 +4,14 @@ using GoodiesMarket.Components.Helpers;
 using GoodiesMarket.Components.Models;
 using GoodiesMarket.Components.Proxies;
 using Newtonsoft.Json.Linq;
+using Plugin.Geolocator;
 using Prism.Commands;
 using Prism.Navigation;
+using System.Diagnostics;
 using System.Windows.Input;
+using System;
+using Plugin.Geolocator.Abstractions;
+using System.Threading.Tasks;
 
 namespace GoodiesMarket.App.ViewModels
 {
@@ -30,8 +35,8 @@ namespace GoodiesMarket.App.ViewModels
             SignInCommand = new DelegateCommand(SignIn);
             RegistrationCommand = new DelegateCommand(Register);
 
-            Model.Email = "daniel@abc.com";
-            Model.Password = "password123";
+            //Model.Email = "daniel@abc.com";
+            //Model.Password = "password123";
         }
 
         private async void Register()
